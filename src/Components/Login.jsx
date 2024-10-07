@@ -4,8 +4,9 @@ import axios from "axios";
 import "../Components/Registration.scss";
 
 const Login = () => {
+ 
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -33,18 +34,18 @@ const Login = () => {
     <div className="loginform">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <div className="Email">
-          <label>Email :</label>
+        <div className="Username">
+          <label>Username:</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
         </div>
-        <div className="password">
-          <label>Password :</label>
+        <div className="Password">
+          <label>Password:</label>
           <input
             type="password"
             name="password"
