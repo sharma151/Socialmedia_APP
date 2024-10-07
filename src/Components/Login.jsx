@@ -41,6 +41,7 @@ const Login = () => {
             name="username"
             value={formData.username}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -50,6 +51,7 @@ const Login = () => {
             type="password"
             name="password"
             value={formData.password}
+            autoComplete="off"
             onChange={handleChange}
             required
           />

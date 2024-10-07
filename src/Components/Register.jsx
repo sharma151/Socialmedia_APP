@@ -3,12 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import "../Components/Registration.scss";
 
-const Register = () => {// Updated form data to include 'role'
+const Register = () => {
+  // Updated form data to include 'role'
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    role: "", 
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -36,12 +37,13 @@ const Register = () => {// Updated form data to include 'role'
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <div className="Username">
-          <label>UserName :</label>
+          <label>Username :</label>
           <input
             type="text"
-            name="username" 
+            name="username"
             value={formData.username}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -52,6 +54,7 @@ const Register = () => {// Updated form data to include 'role'
             name="email"
             value={formData.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -59,14 +62,15 @@ const Register = () => {// Updated form data to include 'role'
           <label>Role</label>
           <input
             type="text"
-            name="role" 
+            name="role"
             value={formData.role}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
         <div className="Password">
-          <label>Password</label>
+          <label>Password </label>
           <input
             type="password"
             name="password"

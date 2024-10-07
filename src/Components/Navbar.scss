@@ -4,9 +4,10 @@ nav {
   
     ul {
       display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding-top: 14px;
+      position: absolute;
+      right: 10px;
+      gap: 5px;
+      padding:14px 0px 0px 14px;
      
   
       li {
