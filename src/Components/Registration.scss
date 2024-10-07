@@ -29,8 +29,10 @@
                 height: 35px;
                 font-size: 18px;
                 font-family: sans-serif;
+                padding:0px 8px 0px 8px;
                 &:focus {
                     outline: none;
+                    
                   }
             }
             display: flex;
