@@ -1,7 +1,7 @@
 // src/components/Login.js
 import { useState } from "react";
 import axios from "axios";
-import "../Components/Registration.scss";
+import "../Pages/Registration.scss";
 
 const Login = () => {
  

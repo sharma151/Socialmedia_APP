@@ -1,10 +1,10 @@
 // src/components/Register.js
 import { useState } from "react";
 import axios from "axios";
-import "../Components/Registration.scss";
+import "../Pages/Registration.scss";
 
 const Register = () => {
-  // Updated form data to include 'role'
+ 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
