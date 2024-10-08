@@ -1,7 +1,7 @@
-// src/components/Login.js
 import { useState } from "react";
 import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
+import { Navigate } from "react-router-dom"; 
 
 import "../Pages/Registration.scss";
 
@@ -12,7 +12,8 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [errorMessage, setErrorMessage] = useState(""); 
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -32,10 +33,20 @@ const Login = () => {
         formData
       );
       console.log("Login Successful", response.data);
+
+      // Assuming response.data contains some token or user info
+      localStorage.setItem("userToken", response.data.token); 
+      setIsLoggedIn(true);
     } catch (error) {
       console.error("Error during login", error);
+      setErrorMessage("Login failed, please try again.");
     }
   };
+
+  
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="loginform">
@@ -72,10 +83,11 @@ const Login = () => {
               required
             />
             <span className="eye-icon" onClick={togglePasswordVisibility}>
-              {showPassword ? <FaRegEyeSlash /> : <FaEye />}{" "}
+              {showPassword ? <FaRegEyeSlash /> : <FaEye />}
             </span>
           </div>
         </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button type="submit">Login</button>
       </form>
     </div>
