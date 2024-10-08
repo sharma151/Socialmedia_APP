@@ -16,7 +16,7 @@
     form{
         margin:10px 30px;
         .Username,.Email,.Password,.Role{
-           
+            
             label{
                 font-size: 15px;
                 font-family: sans-serif;
@@ -24,9 +24,11 @@
             }
             input{
                 height: 35px;
-                font-size: 18px;
+                font-size: 14px;
                 font-family: sans-serif;
-                padding:0px 8px 0px 8px;
+                padding:0px 8px 0px 30px;
+                border-radius: 10px;
+                border-style: none;
                 &:focus {
                     outline: none;
                     
@@ -34,6 +36,65 @@
             }
             display: flex;
             flex-direction: column;
+            
+            .username-input-container{
+                position: relative;
+                input {
+                    width: 100%;
+                    padding-right: 30px; 
+                  }
+                .UserIcon{
+                    position:absolute;
+                    top: 8px;
+                    left: 7px;
+                }
+            }
+            .password-input-container {
+                position: relative;
+                input {
+                  width: 100%;
+                  padding-right: 30px; 
+                }
+                .lock{
+                    position: absolute;
+                    left: 7px;
+                    top: 8px;
+                    
+                }
+                .eye-icon{
+                  position: absolute;
+                  right: 10px;
+                  top: 19px;
+                  transform: translateY(-50%);
+                  cursor: pointer;
+                }
+              }
+            .Email-input-container{
+                position: relative;
+                input {
+                    width: 100%;
+                    padding-right: 30px; 
+                  }
+                  .Mailicon{
+                    position:absolute;
+                    top: 8px;
+                    left: 7px;
+                  }
+
+            }
+            .role-input-container{
+                position: relative;
+                input {
+                    width: 100%;
+                    padding-right: 30px; 
+                  }
+                  .RoleIcon{
+                    position:absolute;
+                    top: 8px;
+                    left: 7px;
+                  }
+
+            }
         }
         button{
             width: 100%;
@@ -52,7 +113,8 @@
             
         }
     }
-
+    
+      
     
     
     

@@ -1,20 +1,27 @@
 // src/components/Login.js
 import { useState } from "react";
 import axios from "axios";
+import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
+
 import "../Pages/Registration.scss";
 
 const Login = () => {
- 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -36,25 +43,38 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className="Username">
           <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            autoComplete="off"
-            required
-          />
+          <div className="username-input-container">
+            <span className="UserIcon">
+              <FaUser />
+            </span>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              autoComplete="off"
+              required
+            />
+          </div>
         </div>
         <div className="Password">
           <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            autoComplete="off"
-            onChange={handleChange}
-            required
-          />
+          <div className="password-input-container">
+            <span className="lock">
+              <FaLock />
+            </span>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              autoComplete="off"
+              onChange={handleChange}
+              required
+            />
+            <span className="eye-icon" onClick={togglePasswordVisibility}>
+              {showPassword ? <FaRegEyeSlash /> : <FaEye />}{" "}
+            </span>
+          </div>
         </div>
         <button type="submit">Login</button>
       </form>
