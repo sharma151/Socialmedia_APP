@@ -6,7 +6,7 @@ import Login from "./Pages/Login";
 import Createpost from "./Components/Createpost";
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem("userToken");
+  const isAuthenticated = !!localStorage.getItem("AccessToken");
 
   return (
     <Router>
