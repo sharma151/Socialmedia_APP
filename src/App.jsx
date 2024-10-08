@@ -4,7 +4,6 @@ import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Createpost from "./Components/Createpost";
-// import Profile from "./Components/profile";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("userToken");

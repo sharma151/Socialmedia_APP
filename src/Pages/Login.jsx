@@ -1,8 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
-import { Navigate } from "react-router-dom"; 
-
+import { Navigate } from "react-router-dom";
 import "../Pages/Registration.scss";
 
 const Login = () => {
@@ -12,8 +11,8 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -35,7 +34,7 @@ const Login = () => {
       console.log("Login Successful", response.data);
 
       // Assuming response.data contains some token or user info
-      localStorage.setItem("userToken", response.data.token); 
+      localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error during login", error);
@@ -43,7 +42,6 @@ const Login = () => {
     }
   };
 
-  
   if (isLoggedIn) {
     return <Navigate to="/" />;
   }
