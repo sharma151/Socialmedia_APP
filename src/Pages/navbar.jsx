@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import axios from "axios";
-import "../Pages/Navbar.scss";
+import "../Styles/Navbar.scss";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +32,7 @@ const Navbar = () => {
           placeholder="Enter username"
         />
         <button onClick={fetchUserProfile}>
-          <IoSearch  size={18} />
+          <IoSearch size={18} />
         </button>
         <li>
           <Link to="/login">Login</Link>

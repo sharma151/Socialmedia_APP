@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { GrUserWorker } from "react-icons/gr";
-import "../Pages/Registration.scss";
+import "../Styles/Registration.scss";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -90,7 +90,7 @@ const Register = () => {
               required
             />
           </div>
-        </div>  
+        </div>
         <div className="Password">
           <label>Password </label>
           <div className="password-input-container">

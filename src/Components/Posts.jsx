@@ -10,7 +10,7 @@ const Posts = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get("/social-media/posts");
-        setPosts(response.data.posts);
+        setPosts(response?.data?.data?.posts);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -33,13 +33,13 @@ const Posts = () => {
     <div className="Posts">
       <h2>All Posts</h2>
       <div className="posts-list">
+        {console.log(posts, "post hereS")}
         {posts.map((posts) => (
-          <div key={posts._id} className="post-item">
-            <h3>{posts.title}</h3>
+          <div key={posts.id} className="post-item">
             <p>{posts.content}</p>
-            {posts.images && (
+            {posts?.images?.[0]?.url && (
               <img
-                src={posts.images}
+                src={posts?.images?.[0]?.url}
                 alt={posts.title}
                 className="post-image"
               />

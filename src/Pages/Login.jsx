@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
-import "../Pages/Registration.scss";
+import "../Styles/Registration.scss";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +33,6 @@ const Login = () => {
       );
       console.log("Login Successful", response.data);
 
-      
       localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
     } catch (error) {

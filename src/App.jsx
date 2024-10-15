@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-import Createpost from "./Components/Createpost";
+import Home from "./Pages/Home";
 import ProfileUpdate from "./Components/ProfileUpdate";
 import Profile from "./Components/Profile";
 import Posts from "./Components/Posts";
@@ -20,7 +20,7 @@ function App() {
             path="/"
             element={
               isAuthenticated ? (
-                <Createpost />
+                <Home />
               ) : (
                 <p>Please login to access the home page.</p>
               )
@@ -29,7 +29,6 @@ function App() {
           <Route path="/Posts" element={<Posts />} />
           <Route path="/Profileupdate" element={<ProfileUpdate />} />
           <Route path="/Profile" element={<Profile />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
