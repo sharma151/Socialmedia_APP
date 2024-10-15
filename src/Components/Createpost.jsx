@@ -1,6 +1,6 @@
 import { useState } from "react";
 import apiClient from "../services/Api";
-import "./Createpost.scss";
+import "../Styles/Createpost.scss";
 
 const Createpost = () => {
   const [content, setcontent] = useState("");
