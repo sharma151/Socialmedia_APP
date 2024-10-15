@@ -21,8 +21,10 @@ const Createpost = () => {
     }
 
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", [image]);
     formData.append("content", content);
+
+    console.log(formData, image, content);
 
     try {
       const response = await apiClient.post("/social-media/posts", formData, {
