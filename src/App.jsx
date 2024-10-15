@@ -4,6 +4,9 @@ import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Createpost from "./Components/Createpost";
+import ProfileUpdate from "./Components/ProfileUpdate";
+import Profile from "./Components/Profile";
+import Posts from "./Components/Posts";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("AccessToken");
@@ -23,6 +26,10 @@ function App() {
               )
             }
           />
+          <Route path="/Posts" element={<Posts />} />
+          <Route path="/Profileupdate" element={<ProfileUpdate />} />
+          <Route path="/Profile" element={<Profile />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
