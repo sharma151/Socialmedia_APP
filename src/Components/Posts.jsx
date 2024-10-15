@@ -37,7 +37,7 @@ const Posts = () => {
           <div key={posts.id} className="post-item">
             {posts?.author?.coverImage?.url && (
               <img
-                src={posts?.author?.coverImage?.url}
+                src={posts?.author?.[0]?.coverImage?.url}
                 alt={posts.coverImage}
                 className="coverimage"
               />

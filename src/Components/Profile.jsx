@@ -3,6 +3,7 @@ import axios from "../services/Api";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
+    avatar:"",
     bio: "",
     countryCode: "",
     dob: "",
@@ -17,7 +18,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get("/social-media/profile");
-        setProfile(response.data);
+        setProfile(response?.data?.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
         setErrorMessage("Error fetching profile data.");
@@ -31,8 +32,16 @@ const Profile = () => {
       <h2>User Profile</h2>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <div className="profile-info">
+      {profile?.account?.avatar?.url && (
+              <img
+                src={profile?.account?.avatar?.url}
+                alt={profile?.posts.avatar}
+                className="coverimage"
+              />
+            )}
         <p>
-          <strong>First Name:</strong> {profile.firstName}
+          <strong>First Name:</strong> {profile?.firstName}
+          {console.log(profile)}
         </p>
         <p>
           <strong>Last Name:</strong> {profile.lastName}
