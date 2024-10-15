@@ -66,12 +66,12 @@ const Createpost = () => {
         <div>
           <input
             type="file"
-            id="image"
+            id="input"
             accept="image/*"
             onChange={handleImageChange}
           />
+          <button type="submit">Post</button>
         </div>
-        <button type="submit">Post</button>
       </form>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
