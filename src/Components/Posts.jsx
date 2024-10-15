@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
-
+import "../Styles/Post.scss";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,10 +30,9 @@ const Posts = () => {
   }
 
   return (
-    <div className="Posts">
+    <div className="posts">
       <h2>All Posts</h2>
       <div className="posts-list">
-        {console.log(posts, "post hereS")}
         {posts.map((posts) => (
           <div key={posts.id} className="post-item">
             <p>{posts.content}</p>

@@ -1,0 +1,22 @@
+.posts{
+    width:40%;
+    margin-left:300px;
+    margin-top:150px;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    h2{
+        font-family: sans-serif;
+        font-size: 18px;
+        padding: 10px 10px 0px 10px;
+    }
+    .posts-list{
+       border:1px solid red;
+       margin:10px 10px 0px 10px;
+       border-radius: 7px;
+    }
+    .post-item{
+        border:1px solid red;
+        margin:5px;
+        border-radius: 6px;
+    }
+}
