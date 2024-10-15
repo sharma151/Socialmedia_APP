@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import apiClient from "../services/Api";
 import "./Createpost.scss";
+
 const Createpost = () => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
@@ -24,17 +25,12 @@ const Createpost = () => {
     formData.append("content", content);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/social-media/posts",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await apiClient.post("/social-media/posts", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      e;
       if (response.status === 201) {
         setSuccessMessage("Post created successfully!");
         setErrorMessage("");
@@ -44,7 +40,6 @@ const Createpost = () => {
         setErrorMessage("Failed to create post. Try again.");
       }
     } catch (error) {
-      e;
       setErrorMessage(
         error.response?.data?.message || "Failed to create post. Try again."
       );
@@ -57,7 +52,6 @@ const Createpost = () => {
       <h2>Create a Post</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          {/* <label htmlFor="content">content:</label> */}
           <input
             type="text"
             id="content"
@@ -68,7 +62,6 @@ const Createpost = () => {
           />
         </div>
         <div>
-          {/* <label htmlFor="image">Choose an image:</label> */}
           <input
             type="file"
             id="image"

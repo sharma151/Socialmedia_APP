@@ -33,7 +33,7 @@ const Login = () => {
       );
       console.log("Login Successful", response.data);
 
-      // Assuming response.data contains some token or user info
+      
       localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
     } catch (error) {
