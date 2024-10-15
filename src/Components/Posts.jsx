@@ -31,7 +31,7 @@ const Posts = () => {
 
   return (
     <div className="posts">
-      <h2>All Posts</h2>
+      {/* <h2>All Posts</h2> */}
       <div className="posts-list">
         {posts.map((posts) => (
           <div key={posts.id} className="post-item">
@@ -43,16 +43,20 @@ const Posts = () => {
               />
             )}
             <p className="Username">{posts?.author?.account?.username}</p>
-            <p className="FirstName">{posts?.author?.firstName}</p>
-            <p className="LastName">{posts?.author?.lastName}</p>
-            <p>{posts.content}</p>
-            {posts?.images?.[0]?.url && (
-              <img
-                src={posts?.images?.[0]?.url}
-                alt={posts.title}
-                className="post-image"
-              />
-            )}
+            <div className="Name">
+              <p className="FirstName">{posts?.author?.firstName}</p>
+              <p className="LastName">{posts?.author?.lastName}</p>
+            </div>
+            <p className="content">{posts.content}</p>
+            <div className="images">
+              {posts?.images?.[0]?.url && (
+                <img
+                  src={posts?.images?.[0]?.url}
+                  alt={posts.title}
+                  className="post-image"
+                />
+              )}
+            </div>
           </div>
         ))}
       </div>
