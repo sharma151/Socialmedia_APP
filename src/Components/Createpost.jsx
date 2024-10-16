@@ -2,7 +2,7 @@ import { useState } from "react";
 import apiClient from "../services/Api";
 import "../Styles/Createpost.scss";
 
-const Createpost = () => {
+const Createpost = (props) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -50,7 +50,7 @@ const Createpost = () => {
   };
 
   return (
-    <div className="Create-posts">
+    <div className={`Create-posts ${props.className}`}>
       <h2>Create a Post</h2>
       <form onSubmit={handleSubmit}>
         <div>

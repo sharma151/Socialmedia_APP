@@ -1,0 +1,72 @@
+.ProfilePage{
+    .Images{
+        width: 95%;
+        border-bottom: 1px solid grey;
+        margin: auto;
+        display: grid;
+        .coverimage{
+            width: 80%;
+            height: 340px;
+            box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            margin: auto;
+            object-fit: fill;
+            border-radius: 0px 0px 10px 10px;
+            
+        }
+        .avatar{
+            height: 150px;
+            width: 150px;
+            position: relative;
+            top: -35px;
+            left: 200px;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+        .Name{
+            display: flex;
+            gap: 5px;
+            position: relative;
+            top: -135px;
+            left:365px;
+            width: fit-content;
+            p{  
+                font-family: sans-serif;
+                font-size: 32px;
+                font-weight: 700;
+            }
+           
+        }
+       
+    }
+    .profile-info{
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        border:1px solid white;
+        border-radius: 6px;
+        width: 28%;
+        margin-top: 10px;
+        margin-left: 190px;
+        
+        .data{
+           
+            width: 95%;
+            margin: auto;
+            margin-top: 5px;
+           p{
+            box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+            margin-top: 10px;
+            margin-bottom:10px ;
+            font-size: 15px;
+            font-family: sans-serif;
+            border-radius: 6px;
+            padding: 4px;
+           }
+            
+        }
+    }
+    .createpost{
+       position: absolute;
+       top:598px;
+       left:560px;
+
+    }
+}
