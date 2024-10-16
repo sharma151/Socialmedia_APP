@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
 import "../Styles/Profile.scss";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -29,7 +30,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="Profile">
+    <Link to={'/profile-page'}>
+
+<div className="Profile">
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {profile?.account?.avatar?.url && (
         <img
@@ -59,6 +62,8 @@ const Profile = () => {
         </div>
       </div>
     </div>
+
+    </Link>
   );
 };
 
