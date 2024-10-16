@@ -58,6 +58,7 @@ const ProfilePage = () => {
           />
         )}
 
+
         <div className="Name">
           <p> {profile?.firstName}</p>
           <p> {profile.lastName}</p>

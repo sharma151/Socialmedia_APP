@@ -41,11 +41,12 @@
         position: absolute;
         top: 420px;
         left: 800px;
-        padding: 0px 7px;
+        padding:2px 7px;
         display: flex;
+        border-radius: 6px;
         p{
             font-family: sans-serif;
-            padding: 5px;
+            padding: 7px;
         }
 
     }
