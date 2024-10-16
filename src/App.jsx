@@ -7,7 +7,7 @@ import Home from "./Pages/Home";
 import ProfileUpdate from "./Components/ProfileUpdate";
 import Posts from "./Components/Posts";
 import ProfilePage from "./Pages/ProfilePage";
-import UpdateCoverPage from "./Components/Updatecoverpicture";
+
 function App() {
   const isAuthenticated = !!localStorage.getItem("AccessToken");
 
@@ -31,7 +31,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile-page" element={<ProfilePage />} />
-          <Route path="/updatecoverImage" element={<UpdateCoverPage />} />
         </Routes>
       </div>
     </Router>

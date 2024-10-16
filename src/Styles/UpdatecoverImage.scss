@@ -1,0 +1,19 @@
+.updatecoverpage{
+    display: flex;
+    border: 1px solid grey;
+    border-radius: 6px;
+    width: fit-content;
+    padding: 0px 5px;
+    align-items: center;
+    position: absolute;
+    top: 350px;
+    left: 960px;
+    background-color: rgb(196, 186, 186);
+
+    .button{
+        position: relative; 
+        top: -9px;
+        background: none;    
+        border: none; 
+    }
+}

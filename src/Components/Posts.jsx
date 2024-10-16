@@ -35,12 +35,12 @@ const Posts = () => {
       <div className="posts-list">
         {posts.map((posts) => (
           <div key={posts.id} className="post-item">
-            {posts?.author?.coverImage?.url && (
+            {posts?.author?.account?.avatar?.url && (
               <img
                 key={posts?.id}
-                src={posts?.author?.coverImage?.url}
+                src={posts?.author?.account?.avatar?.url}
                 alt={posts.coverImage}
-                className="coverimage"
+                className="avatar"
               />
             )}
 

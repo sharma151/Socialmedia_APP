@@ -1,5 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../services/Api";
+import { IoIosCamera } from "react-icons/io";
+import "../Styles/UpdateCoverImage.scss";
 
 const UpdateCoverPage = () => {
   const [coverImage, setCoverImage] = useState(null);
@@ -25,7 +27,7 @@ const UpdateCoverPage = () => {
     setMessage("");
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("AccessToken");
 
       await axios.patch("/social-media/profile/cover-image", formData, {
         headers: {
@@ -45,14 +47,22 @@ const UpdateCoverPage = () => {
   };
 
   return (
-    <div className="update-cover-page">
-      <h2>Update Cover Image</h2>
+    <div className="updatecoverpage">
       <form onSubmit={handleSubmit}>
-        <div>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+        <div className="input">
+          <input
+            type="file"
+            accept="image/*"
+            id="fileInput"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Uploading..." : "Update Cover Image"}
+        <label htmlFor="fileInput" className="custom-file-upload">
+          <IoIosCamera size={30} />
+        </label>
+        <button className="button" type="submit" disabled={loading}>
+          {loading ? "Uploading..." : "Edit Cover Photo"}
         </button>
       </form>
       {message && <p>{message}</p>}
