@@ -5,6 +5,7 @@ import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Createpost from "../Components/Createpost";
+//  
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
     bio: "",
@@ -77,6 +78,7 @@ const ProfilePage = () => {
       </div>
 
       <Createpost className="createpost" />
+      {/* <UpdateCoverPage /> */}
     </div>
   );
 };
