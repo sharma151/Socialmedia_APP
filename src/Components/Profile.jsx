@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
+import "../Styles/Profile.scss";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -29,38 +30,33 @@ const Profile = () => {
 
   return (
     <div className="Profile">
-      <h2>User Profile</h2>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {profile?.account?.avatar?.url && (
+        <img
+          src={profile?.account?.avatar?.url}
+          alt={profile?.posts?.avatar}
+          className="avatar"
+        />
+      )}
       <div className="profile-info">
-        {profile?.account?.avatar?.url && (
-          <img
-            src={profile?.account?.avatar?.url}
-            alt={profile?.posts?.avatar}
-            className="avatar"
-          />
-        )}
-        {console.log(profile?.account?.avatar?.url)}
-        <p>
-          <strong>First Name:</strong> {profile?.firstName}
-          {console.log(profile)}
-        </p>
-        <p>
-          <strong>Last Name:</strong> {profile.lastName}
-        </p>
-        <p>
-          <strong>Bio:</strong> {profile.bio}
-        </p>
-        <p>
-          <strong>Date of Birth:</strong>{" "}
-          {new Date(profile.dob).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Location:</strong> {profile.location}
-        </p>
-        <p>
-          <strong>Phone Number:</strong> {profile.countryCode}{" "}
-          {profile.phoneNumber}
-        </p>
+        <div className="data">
+          <div className="name">
+            <p>{profile?.firstName}</p>
+            <p>{profile.lastName}</p>
+          </div>
+          <p className="Bio">{profile.bio}</p>
+          {/* <p>
+            <strong>Date of Birth:</strong>{" "}
+            {new Date(profile.dob).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Location:</strong> {profile.location}
+          </p>
+          <p>
+            <strong>Phone Number:</strong> {profile.countryCode}{" "}
+            {profile.phoneNumber}
+          </p> */}
+        </div>
       </div>
     </div>
   );
