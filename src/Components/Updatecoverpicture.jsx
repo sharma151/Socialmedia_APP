@@ -6,7 +6,7 @@ import "../Styles/UpdateCoverImage.scss";
 const UpdateCoverPage = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleFileChange = (e) => {
     setCoverImage(e.target.files[0]);
@@ -65,7 +65,7 @@ const UpdateCoverPage = () => {
           {loading ? "Uploading..." : "Edit Cover Photo"}
         </button>
       </form>
-      {/* {message && <p>{message}</p>} */}
+      {message && <p>{message}</p>}
     </div>
   );
 };

@@ -55,7 +55,7 @@ const ProfileUpdate = () => {
     <div className="ProfileUpdate">
       <h2>Update Profile</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="fName">
           <label>First Name</label>
           <input
             type="text"
@@ -65,7 +65,7 @@ const ProfileUpdate = () => {
             required
           />
         </div>
-        <div>
+        <div className="lName">
           <label>Last Name</label>
           <input
             type="text"
