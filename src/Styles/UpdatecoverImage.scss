@@ -7,13 +7,15 @@
     align-items: center;
     position: absolute;
     top: 350px;
-    left: 960px;
+    left: 940px;
     background-color: rgb(196, 186, 186);
 
     .button{
         position: relative; 
         top: -9px;
         background: none;    
-        border: none; 
+        border: none;
+        font-family: sans-serif; 
+        font-size: 15px;
     }
 }

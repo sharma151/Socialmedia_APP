@@ -6,6 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Createpost from "../Components/Createpost";
 import UpdateCoverPage from "../Components/Updatecoverpicture";
+import ProfileUpdate from "../Components/ProfileUpdate";
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
     bio: "",
@@ -17,6 +18,7 @@ const ProfilePage = () => {
     phoneNumber: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -79,6 +81,7 @@ const ProfilePage = () => {
 
       <Createpost className="createpost" />
       <UpdateCoverPage />
+      <ProfileUpdate />
     </div>
   );
 };

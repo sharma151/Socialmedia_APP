@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
+import "../Styles/ProfileUpdate.scss";
 
 const ProfileUpdate = () => {
   const [profileData, setProfileData] = useState({
