@@ -4,9 +4,11 @@ import "../Styles/ProfilePage.scss";
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
+import { MdModeEdit } from "react-icons/md";
 import Createpost from "../Components/Createpost";
 import UpdateCoverPage from "../Components/Updatecoverpicture";
 import ProfileUpdate from "../Components/ProfileUpdate";
+
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
     bio: "",
@@ -60,7 +62,10 @@ const ProfilePage = () => {
           <p> {profile?.firstName}</p>
           <p> {profile.lastName}</p>
         </div>
-        <button className="Updateprofile" onClick={() => setShowModal(true)}>open update form</button>
+        <button className="Updateprofile" onClick={() => setShowModal(true)}>
+          {" "}
+          <MdModeEdit size={25} /> <p>Edit profile</p>
+        </button>
       </div>
 
       <div className="profile-info">
@@ -83,7 +88,7 @@ const ProfilePage = () => {
 
       <Createpost className="createpost" />
       <UpdateCoverPage />
-      
+
       {showModal && <ProfileUpdate closeModal={closeModal} />}
     </div>
   );

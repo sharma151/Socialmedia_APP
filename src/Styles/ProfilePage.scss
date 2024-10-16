@@ -34,8 +34,21 @@
                 font-size: 32px;
                 font-weight: 700;
             }
-           
+                       
         }
+    .Updateprofile{
+        width: fit-content;
+        position: absolute;
+        top: 420px;
+        left: 800px;
+        padding: 0px 7px;
+        display: flex;
+        p{
+            font-family: sans-serif;
+            padding: 5px;
+        }
+
+    }
        
     }
     .profile-info{
