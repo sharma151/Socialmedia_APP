@@ -1,7 +1,7 @@
 import { useState } from "react";
 import apiClient from "../services/Api";
 import "../Styles/Createpost.scss";
-
+import { IoImages } from "react-icons/io5";
 const Createpost = (props) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
@@ -69,7 +69,11 @@ const Createpost = (props) => {
             id="input"
             accept="image/*"
             onChange={handleImageChange}
+            style={{ display: "none" }}
           />
+          <label htmlFor="input" className="custom-file-upload">
+            <IoImages size={25} />
+          </label>
           <button type="submit">Post</button>
         </div>
       </form>
