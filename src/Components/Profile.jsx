@@ -3,7 +3,7 @@ import axios from "../services/Api";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
-    avatar:"",
+    avatar: "",
     bio: "",
     countryCode: "",
     dob: "",
@@ -32,13 +32,14 @@ const Profile = () => {
       <h2>User Profile</h2>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <div className="profile-info">
-      {profile?.account?.avatar?.url && (
-              <img
-                src={profile?.account?.avatar?.url}
-                alt={profile?.posts.avatar}
-                className="coverimage"
-              />
-            )}
+        {profile?.account?.avatar?.url && (
+          <img
+            src={profile?.account?.avatar?.url}
+            alt={profile?.posts?.avatar}
+            className="avatar"
+          />
+        )}
+        {console.log(profile?.account?.avatar?.url)}
         <p>
           <strong>First Name:</strong> {profile?.firstName}
           {console.log(profile)}
