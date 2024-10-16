@@ -37,11 +37,13 @@ const Posts = () => {
           <div key={posts.id} className="post-item">
             {posts?.author?.coverImage?.url && (
               <img
+                key={posts?.id}
                 src={posts?.author?.[0]?.coverImage?.url}
                 alt={posts.coverImage}
                 className="coverimage"
               />
             )}
+            {console.log(posts?.author?.coverImage?.url)}
             <p className="Username">{posts?.author?.account?.username}</p>
             <div className="Name">
               <p className="FirstName">{posts?.author?.firstName}</p>
