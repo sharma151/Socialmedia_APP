@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
 import "../Styles/ProfileUpdate.scss";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const ProfileUpdate = () => {
+const ProfileUpdate = ({ closeModal }) => {
   const [profileData, setProfileData] = useState({
     bio: "",
     countryCode: "",
@@ -53,76 +54,98 @@ const ProfileUpdate = () => {
 
   return (
     <div className="ProfileUpdate">
-      <h2>Update Profile</h2>
+      <div className="head">
+        <h2>Update Profile</h2>
+        <button id="close" onClick={closeModal}></button>
+        <label htmlFor="close">
+          <IoIosCloseCircleOutline size={35} />
+        </label>
+      </div>
+
       <form onSubmit={handleSubmit}>
-        <div className="fName">
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={profileData.firstName}
-            onChange={handleInputChange}
-            required
-          />
+        <div className="Name">
+          <div className="fName">
+            <label>First Name : </label>
+            <input
+              type="text"
+              name="firstName"
+              value={profileData.firstName}
+              onChange={handleInputChange}
+              autoComplete="off"
+              required
+            />
+          </div>
+          <div className="lName">
+            <label>Last Name : </label>
+            <input
+              type="text"
+              name="lastName"
+              value={profileData.lastName}
+              onChange={handleInputChange}
+              autoComplete="off"
+              required
+            />
+          </div>
         </div>
-        <div className="lName">
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={profileData.lastName}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Bio</label>
+        <div className="Bio">
+          <label>Bio : </label>
           <textarea
             name="bio"
             value={profileData.bio}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Country Code</label>
+        <div className="countrycode">
+          <label>Country Code : </label>
           <input
             type="text"
             name="countryCode"
             value={profileData.countryCode}
-            onChange={handleInputChange}
+            autoComplete="off"
             required
+            onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Phone Number</label>
+        <div className="Pnumber">
+          <label>Phone Number : </label>
           <input
             type="text"
             name="phoneNumber"
             value={profileData.phoneNumber}
             onChange={handleInputChange}
+            autoComplete="off"
             required
           />
         </div>
-        {/* <div>
-          <label>Date of Birth</label>
+        <div className="DOB">
+          <label>Date of Birth </label>
           <input
             type="date"
             name="dob"
-            value={new Date(profileData.dob)}
+            autoComplete="off"
+            value={
+              profileData.dob
+                ? new Date(profileData.dob).toISOString().split("T")[0]
+                : ""
+            }
             onChange={handleInputChange}
             required
           />
-        </div> */}
-        <div>
-          <label>Location</label>
+        </div>
+
+        <div className="Location">
+          <label>Location </label>
           <input
             type="text"
             name="location"
             value={profileData.location}
             onChange={handleInputChange}
+            autoComplete="off"
           />
         </div>
-        <button type="submit">Update Profile</button>
+        <button className="update-btn" type="submit">
+          Update Profile
+        </button>
       </form>
 
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}

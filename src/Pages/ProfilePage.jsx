@@ -18,7 +18,8 @@ const ProfilePage = () => {
     phoneNumber: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => setShowModal(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -59,6 +60,7 @@ const ProfilePage = () => {
           <p> {profile?.firstName}</p>
           <p> {profile.lastName}</p>
         </div>
+        <button className="Updateprofile" onClick={() => setShowModal(true)}>open update form</button>
       </div>
 
       <div className="profile-info">
@@ -81,7 +83,8 @@ const ProfilePage = () => {
 
       <Createpost className="createpost" />
       <UpdateCoverPage />
-      <ProfileUpdate />
+      
+      {showModal && <ProfileUpdate closeModal={closeModal} />}
     </div>
   );
 };
