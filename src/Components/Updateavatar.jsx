@@ -1,6 +1,7 @@
 import axios from "../services/Api";
 import { IoIosCamera } from "react-icons/io";
 import "../Styles/Updateavatar.scss";
+import { toast } from "react-toastify";
 
 const Updateavatar = () => {
   const handleFileChange = (e) => {
@@ -17,9 +18,12 @@ const Updateavatar = () => {
       })
       .then((response) => {
         console.log("Avatar updated successfully", response.data);
+        toast("Avatar updated successfully", response.data);
+       
       })
       .catch((error) => {
         console.error("Error updating avatar", error);
+        toast("Error updating avatar", error);
       });
   };
 

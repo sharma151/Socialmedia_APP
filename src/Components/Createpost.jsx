@@ -2,11 +2,10 @@ import { useState } from "react";
 import apiClient from "../services/Api";
 import "../Styles/Createpost.scss";
 import { IoImages } from "react-icons/io5";
+import { toast } from "react-toastify";
 const Createpost = (props) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -16,7 +15,9 @@ const Createpost = (props) => {
     e.preventDefault();
 
     if (!image) {
-      setErrorMessage("Please choose an image.");
+      // setErrorMessage("Please choose an image.");
+      toast("Please choose an image.");
+
       return;
     }
 
@@ -34,18 +35,18 @@ const Createpost = (props) => {
       });
 
       if (response.status === 201) {
-        setSuccessMessage("Post created successfully!");
-        setErrorMessage("");
+        // setSuccessMessage("Post created successfully!");
+        toast("Post created successfully!");
+
         setcontent("");
         setImage(null);
       } else {
-        setErrorMessage("Failed to create post. Try again.");
+        toast("Failed to create post. Try again.");
       }
     } catch (error) {
-      setErrorMessage(
+      toast(
         error.response?.data?.message || "Failed to create post. Try again."
       );
-      setSuccessMessage("");
     }
   };
 
@@ -77,8 +78,6 @@ const Createpost = (props) => {
           <button type="submit">Post</button>
         </div>
       </form>
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
 import "../Styles/Post.scss";
+
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");

@@ -1,6 +1,7 @@
 // src/components/Register.js
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import { GrUserWorker } from "react-icons/gr";
@@ -34,8 +35,11 @@ const Register = () => {
         formData
       );
       console.log("Registration Successful", response.data);
+      toast("Registration Successful", response.data);
     } catch (error) {
       console.error("Error during registration", error);
+      toast("Error during registration", error);
+
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../services/Api";
 import "../Styles/ProfileUpdate.scss";
+import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const ProfileUpdate = ({ closeModal, currentProfile }) => {
@@ -13,8 +14,6 @@ const ProfileUpdate = ({ closeModal, currentProfile }) => {
     location: currentProfile?.location || "",
     phoneNumber: currentProfile?.phoneNumber || "",
   });
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   // Handle input change for form fields
   const handleInputChange = (e) => {
@@ -29,12 +28,11 @@ const ProfileUpdate = ({ closeModal, currentProfile }) => {
     try {
       const response = await axios.patch("/social-media/profile", profileData);
       if (response.status === 200) {
-        setSuccessMessage("Profile updated successfully!");
-        setErrorMessage("");
+        toast("Profile updated successfully!");
       }
     } catch (error) {
-      setErrorMessage("Failed to update profile. Try again.");
-      setSuccessMessage("");
+      toast("Failed to update profile. Try again.");
+
       console.error("Error details:", error);
     }
   };
@@ -136,9 +134,6 @@ const ProfileUpdate = ({ closeModal, currentProfile }) => {
             Update Profile
           </button>
         </form>
-
-        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
     </>
   );

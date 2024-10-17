@@ -1,5 +1,6 @@
 import axios from "../services/Api";
 import { IoIosCamera } from "react-icons/io";
+import { toast } from "react-toastify";
 import "../Styles/UpdateCoverImage.scss";
 
 const UpdateCoverPage = () => {
@@ -17,10 +18,12 @@ const UpdateCoverPage = () => {
         },
       })
       .then((response) => {
-        console.log("Avatar updated successfully", response.data);
+        console.log("Coverpage updated successfully", response.data);
+        toast("Coverpage updated successfully", response.data);
       })
       .catch((error) => {
-        console.error("Error updating avatar", error);
+        console.error("Error updating Coverpage", error);
+        toast("Coverpage updating avatar", error);
       });
   };
 

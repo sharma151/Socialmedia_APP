@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../Styles/Registration.scss";
 
 const Login = () => {
@@ -32,12 +33,14 @@ const Login = () => {
         formData
       );
       console.log("Login Successful", response.data);
+      toast("Login Successful", response.data);
 
       localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error during login", error);
       setErrorMessage("Login failed, please try again.");
+      toast("Login failed, please try again.");
     }
   };
 
