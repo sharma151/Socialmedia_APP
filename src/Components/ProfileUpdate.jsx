@@ -1,33 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "../services/Api";
 import "../Styles/ProfileUpdate.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const ProfileUpdate = ({ closeModal }) => {
+const ProfileUpdate = ({ closeModal, currentProfile }) => {
   const [profileData, setProfileData] = useState({
-    bio: "",
-    countryCode: "",
-    dob: "",
-    firstName: "",
-    lastName: "",
-    location: "",
-    phoneNumber: "",
+    bio: currentProfile?.bio || "",
+    countryCode: currentProfile?.countryCode || "",
+    dob: currentProfile?.dob || "",
+    firstName: currentProfile?.firstName || "",
+    lastName: currentProfile?.lastName || "",
+    location: currentProfile?.location || "",
+    phoneNumber: currentProfile?.phoneNumber || "",
   });
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get("/social-media/profile");
-        setProfileData(response.data);
-      } catch (error) {
-        setErrorMessage("Error fetching profile data.");
-        console.error("Error details:", error);
-      }
-    };
-    fetchProfile();
-  }, []);
 
   // Handle input change for form fields
   const handleInputChange = (e) => {

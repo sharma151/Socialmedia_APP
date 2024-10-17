@@ -92,8 +92,9 @@ const ProfilePage = () => {
       <MyPosts className="myposts" />
       <UpdateCoverPage />
       <Updateavatar />
-
-      {showModal && <ProfileUpdate closeModal={closeModal} />}
+      {showModal && (
+        <ProfileUpdate currentProfile={profile} closeModal={closeModal} />
+      )}
     </div>
   );
 };
