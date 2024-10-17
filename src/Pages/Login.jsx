@@ -33,14 +33,14 @@ const Login = () => {
         formData
       );
       console.log("Login Successful", response.data);
-      toast("Login Successful", response.data);
+      toast.success("Login Successful", response.data);
 
       localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error during login", error);
       setErrorMessage("Login failed, please try again.");
-      toast("Login failed, please try again.");
+      toast.error("Login failed, please try again.");
     }
   };
 

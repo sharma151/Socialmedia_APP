@@ -36,12 +36,12 @@ const Createpost = (props) => {
 
       if (response.status === 201) {
         // setSuccessMessage("Post created successfully!");
-        toast("Post created successfully!");
+        toast.success("Post created successfully!");
 
         setcontent("");
         setImage(null);
       } else {
-        toast("Failed to create post. Try again.");
+        toast.error("Failed to create post. Try again.");
       }
     } catch (error) {
       toast(
