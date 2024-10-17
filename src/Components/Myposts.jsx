@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../services/Api";
 
-
 const MyPosts = (props) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,14 +21,16 @@ const MyPosts = (props) => {
       setPosts(response?.data?.data?.posts);
     } catch (err) {
       setError("Failed to fetch posts.");
-      {console.log(err)}
+      {
+        console.log(err);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchMyPosts(); // Fetch posts when component mounts
+    fetchMyPosts();
   }, []);
 
   if (loading) return <p>Loading posts...</p>;

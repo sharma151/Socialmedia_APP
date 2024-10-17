@@ -7,6 +7,7 @@ import { IoCall } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
 import Createpost from "../Components/Createpost";
 import UpdateCoverPage from "../Components/Updatecoverpicture";
+import Updateavatar from "../Components/Updateavatar";
 import ProfileUpdate from "../Components/ProfileUpdate";
 import MyPosts from "../Components/myposts";
 
@@ -90,6 +91,7 @@ const ProfilePage = () => {
       <Createpost className="createpost" />
       <MyPosts className="myposts" />
       <UpdateCoverPage />
+      <Updateavatar />
 
       {showModal && <ProfileUpdate closeModal={closeModal} />}
     </div>
