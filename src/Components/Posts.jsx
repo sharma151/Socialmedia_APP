@@ -39,7 +39,7 @@ const Posts = () => {
               <img
                 key={posts?.id}
                 src={posts?.author?.account?.avatar?.url}
-                alt={posts.coverImage}
+                alt={posts?.avatar}
                 className="avatar"
               />
             )}

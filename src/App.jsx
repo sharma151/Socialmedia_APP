@@ -4,7 +4,7 @@ import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
-import ProfileUpdate from "./Components/ProfileUpdate";
+import Myposts from "./Components/Myposts";
 import Posts from "./Components/Posts";
 import ProfilePage from "./Pages/ProfilePage";
 
@@ -27,7 +27,7 @@ function App() {
             }
           />
           <Route path="/Posts" element={<Posts />} />
-          <Route path="/Profileupdate" element={<ProfileUpdate />} />
+          <Route path="/myposts" element={<Myposts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile-page" element={<ProfilePage />} />
