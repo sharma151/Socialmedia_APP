@@ -3,7 +3,7 @@ import { IoIosCamera } from "react-icons/io";
 import "../Styles/Updateavatar.scss";
 import { toast } from "react-toastify";
 
-const Updateavatar = () => {
+const Updateavatar = ({ onUpdate }) => {
   const handleFileChange = (e) => {
     const formData = new FormData();
     formData.append("avatar", e.target.files[0]);
@@ -19,7 +19,9 @@ const Updateavatar = () => {
       .then((response) => {
         console.log("Avatar updated successfully", response.data);
         toast("Avatar updated successfully", response.data);
-       
+        if (onUpdate) {
+          onUpdate();
+        }
       })
       .catch((error) => {
         console.error("Error updating avatar", error);

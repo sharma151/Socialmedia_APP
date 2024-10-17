@@ -6,7 +6,7 @@ const MyPosts = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchMyPosts = async (page = 1, limit = 10) => {
+  const fetchMyPosts = async (page = 1, limit = 20) => {
     try {
       setLoading(true);
       const token = localStorage.getItem("accessToken");

@@ -37,7 +37,6 @@ const Createpost = (props) => {
       if (response.status === 201) {
         // setSuccessMessage("Post created successfully!");
         toast.success("Post created successfully!");
-
         setcontent("");
         setImage(null);
       } else {

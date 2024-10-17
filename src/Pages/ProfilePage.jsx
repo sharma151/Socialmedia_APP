@@ -25,16 +25,17 @@ const ProfilePage = () => {
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => setShowModal(false);
 
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get("/social-media/profile");
+      setProfile(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      setErrorMessage("Error fetching profile data.");
+    }
+  };
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get("/social-media/profile");
-        setProfile(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setErrorMessage("Error fetching profile data.");
-      }
-    };
     fetchProfile();
   }, []);
 
@@ -88,12 +89,12 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <Createpost className="createpost" />
-      <MyPosts className="myposts" />
-      <UpdateCoverPage />
-      <Updateavatar />
+      <Createpost className="createpost"  onUpdate={() => fetchProfile()}/>
+      <MyPosts className="myposts" onUpdate={() => fetchProfile()} />
+      <UpdateCoverPage onUpdate={() => fetchProfile()} />
+      <Updateavatar onUpdate={() => fetchProfile()} />
       {showModal && (
-        <ProfileUpdate currentProfile={profile} closeModal={closeModal} />
+        <ProfileUpdate currentProfile={profile} closeModal={closeModal} onUpdate={() => fetchProfile()} />
       )}
     </div>
   );

@@ -3,7 +3,7 @@ import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
 import "../Styles/UpdateCoverImage.scss";
 
-const UpdateCoverPage = () => {
+const UpdateCoverPage = ({ onUpdate }) => {
   const handleFileChange = (e) => {
     const formData = new FormData();
     formData.append("coverImage", e.target.files[0]);
@@ -20,6 +20,9 @@ const UpdateCoverPage = () => {
       .then((response) => {
         console.log("Coverpage updated successfully", response.data);
         toast("Coverpage updated successfully", response.data);
+        if (onUpdate) {
+          onUpdate();
+        }
       })
       .catch((error) => {
         console.error("Error updating Coverpage", error);
