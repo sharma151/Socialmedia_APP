@@ -8,6 +8,7 @@ import { MdModeEdit } from "react-icons/md";
 import Createpost from "../Components/Createpost";
 import UpdateCoverPage from "../Components/Updatecoverpicture";
 import ProfileUpdate from "../Components/ProfileUpdate";
+import MyPosts from "../Components/myposts";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
@@ -58,7 +59,6 @@ const ProfilePage = () => {
           />
         )}
 
-
         <div className="Name">
           <p> {profile?.firstName}</p>
           <p> {profile.lastName}</p>
@@ -88,6 +88,7 @@ const ProfilePage = () => {
       </div>
 
       <Createpost className="createpost" />
+      <MyPosts className="myposts" />
       <UpdateCoverPage />
 
       {showModal && <ProfileUpdate closeModal={closeModal} />}
