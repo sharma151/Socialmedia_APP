@@ -38,7 +38,7 @@ const Register = () => {
       toast("Registration Successful", response.data);
     } catch (error) {
       console.error("Error during registration", error);
-      toast("Error during registration", error);
+      toast.error("Error during registration", error);
 
     }
   };
