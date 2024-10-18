@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import axios from "../services/Api";
 
 const MyPosts = (props) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchMyPosts = async (page = 1, limit = 20) => {
+  const fetchMyPosts = async (page = 1, limit = 5) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("AccessToken");
       const response = await axios.get(
         `/social-media/posts/get/my?page=${page}&limit=${limit}`,
         {
@@ -19,19 +22,29 @@ const MyPosts = (props) => {
         }
       );
       setPosts(response?.data?.data?.posts);
+      setTotalPages(response?.data?.data?.totalPages);
+      setLoading(false);
     } catch (err) {
-      setError("Failed to fetch posts.");
-      {
-        console.log(err);
-      }
-    } finally {
+      setError("Failed to fetch posts.", err);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchMyPosts();
-  }, []);
+    fetchMyPosts(page);
+  }, [page]);
+
+  const handlePrevious = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (page < totalPages) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   if (loading) return <p>Loading posts...</p>;
   if (error) return <p>{error}</p>;
@@ -75,6 +88,19 @@ const MyPosts = (props) => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="pagination-controls">
+        <button onClick={handlePrevious} disabled={page === 1}>
+          <GrFormPrevious size={25} />
+        </button>
+        <span>
+          {" "}
+          Page {page} of {totalPages}
+        </span>
+        <button onClick={handleNext} disabled={page === totalPages}>
+          <GrFormNext size={25} />
+        </button>
       </div>
     </div>
   );

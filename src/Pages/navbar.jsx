@@ -21,8 +21,8 @@ const Navbar = () => {
         );
 
         if (response.data) {
-          setSuggestions(response.data); // Assuming response contains a list of similar usernames
-          setError(""); // Clear error if users are found
+          setSuggestions(response.data);
+          setError("");
         } else {
           setSuggestions([]);
         }
@@ -39,7 +39,7 @@ const Navbar = () => {
       debouncedFetchUsernames(username);
     } else {
       setSuggestions([]);
-      setError(""); // Clear error when input is empty
+      setError("");
     }
   }, [username, debouncedFetchUsernames]);
 
