@@ -12,21 +12,27 @@ nav {
       /* Navbar.scss */
 .dropdown {
   position: absolute;
-  background-color: white;
-  border: 1px solid #ddd;
-  width: 200px; /* Match input width */
-  max-height: 200px;
+  left:20px;
+  margin-top: 6px;
+  padding: 4px 10px;
+  background-color:#629584;
+  border-radius:6px ;
+  width:200px;
   overflow-y: auto;
   z-index: 100;
+
 }
 
 .dropdown li {
-  padding: 8px;
+ font-family: sans-serif;
   cursor: pointer;
+
 }
 
 .dropdown li:hover {
   background-color: #f0f0f0;
+  border: 2px solid grey;
+ 
 }
 // ------------------------------------
 

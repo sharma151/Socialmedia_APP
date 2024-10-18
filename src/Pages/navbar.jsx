@@ -5,11 +5,10 @@ import axios from "../services/Api";
 import { useNavigate } from "react-router-dom";
 import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
-import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState();
   const [error, setError] = useState(""); // New state for error message
   const navigate = useNavigate();
 
@@ -21,21 +20,15 @@ const Navbar = () => {
           `social-media/profile/u/${searchQuery}`
         );
 
-        if (response.data.length > 0) {
+        if (response.data) {
           setSuggestions(response.data); // Assuming response contains a list of similar usernames
           setError(""); // Clear error if users are found
         } else {
           setSuggestions([]);
-          toast("User found");
         }
       } catch (error) {
         console.error("Error fetching user suggestions:", error);
         setSuggestions([]);
-        if (error.response && error.response.status === 404) {
-          toast.error("User not found");
-        } else {
-          setError("An error occurred while fetching data");
-        }
       }
     }, 500),
     []
@@ -64,8 +57,8 @@ const Navbar = () => {
   const handleSuggestionClick = (suggestion) => {
     setUsername(suggestion.username);
     setSuggestions([]);
-    setError(""); // Clear error on suggestion click
-    navigate(`/profile/${suggestion.username}`);
+    setError("");
+    navigate(`/profile/${suggestions?.data?.account?.username}`);
   };
 
   return (
@@ -79,22 +72,15 @@ const Navbar = () => {
             placeholder="Enter username"
             autoComplete="off"
           />
-          {/* <button type="submit" onSubmit={handleSuggestionClick}>
-            <IoSearch size={18} />
-          </button> */}
-
           {/* Show dropdown suggestions if available */}
-          {suggestions.length > 0 && (
+          {suggestions?.data && (
             <ul className="dropdown">
-              {suggestions.map((user, index) => (
-                <li key={index} onClick={() => handleSuggestionClick(user)}>
-                  {user.username}
-                </li>
-              ))}
+              <li onClick={() => handleSuggestionClick(suggestions?.data)}>
+                {suggestions?.data?.account?.username}
+              </li>
             </ul>
           )}
 
-          {/* Show error message if user is not found */}
           {error && <div className="error-message">{error}</div>}
         </form>
 
