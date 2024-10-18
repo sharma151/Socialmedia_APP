@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Posts from "./Components/Posts";
 import ProfilePage from "./Pages/ProfilePage";
+import ProfileByUsername from "./Components/ProfilebyUsername";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("AccessToken");
@@ -25,6 +26,8 @@ function App() {
               )
             }
           />
+
+          <Route path="/profile/:username" element={<ProfileByUsername />} />
           <Route path="/Posts" element={<Posts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

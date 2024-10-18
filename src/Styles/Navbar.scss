@@ -9,11 +9,32 @@ nav {
       gap: 5px;
       padding:14px 0px 0px 14px;
       
+      /* Navbar.scss */
+.dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  width: 200px; /* Match input width */
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+// ------------------------------------
+
       input{
         border-radius: 10px;
         border-style: none;
         width: 300px;
-        padding: 0px 10px;
+        padding: 8px 10px;
         font-family: sans-serif;
 
         &:focus {
@@ -61,4 +82,5 @@ nav {
       }
     }
   }
+  
   
