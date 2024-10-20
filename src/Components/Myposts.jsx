@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import axios from "../services/Api";
+import { toast } from "react-toastify";
 
-const MyPosts = (props) => {
+
+const MyPosts = ({ className, onUpdate }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchMyPosts = async (page = 1, limit = 5) => {
+  const fetchMyPosts = async (page = 1, limit = 10) => {
     try {
       setLoading(true);
       const token = localStorage.getItem("AccessToken");
@@ -24,8 +26,11 @@ const MyPosts = (props) => {
       setPosts(response?.data?.data?.posts);
       setTotalPages(response?.data?.data?.totalPages);
       setLoading(false);
+      if (onUpdate) {
+        onUpdate();
+      }
     } catch (err) {
-      setError("Failed to fetch posts.", err);
+      toast("Failed to fetch posts.", err);
       setLoading(false);
     }
   };
@@ -50,7 +55,7 @@ const MyPosts = (props) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className={`posts ${props.className}`}>
+    <div className={`posts ${className}`}>
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
         {posts.map((posts) => (
@@ -72,7 +77,7 @@ const MyPosts = (props) => {
               <p className="FirstName">{posts?.author?.firstName}</p>
               <p className="LastName">{posts?.author?.lastName}</p>
             </div>
-
+          
             {/* Display post content */}
             <p className="content">{posts.content}</p>
 

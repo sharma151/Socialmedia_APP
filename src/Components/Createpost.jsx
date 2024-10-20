@@ -3,10 +3,10 @@ import apiClient from "../services/Api";
 import "../Styles/Createpost.scss";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
-const Createpost = (props) => {
+
+const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
-
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -39,6 +39,10 @@ const Createpost = (props) => {
         toast.success("Post created successfully!");
         setcontent("");
         setImage(null);
+        if (onUpdate) {
+          onUpdate();
+          toast("succefully reloaded");
+        }
       } else {
         toast.error("Failed to create post. Try again.");
       }
@@ -50,7 +54,7 @@ const Createpost = (props) => {
   };
 
   return (
-    <div className={`Create-posts ${props.className}`}>
+    <div className={`Create-posts ${className}`}>
       <h2>Create a Post</h2>
       <form onSubmit={handleSubmit}>
         <div>

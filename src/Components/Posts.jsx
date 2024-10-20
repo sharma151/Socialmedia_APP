@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import { MdDelete } from "react-icons/md";
 import "../Styles/Post.scss";
 
 const Posts = () => {
@@ -31,6 +32,24 @@ const Posts = () => {
       setLoading(false);
     }
   };
+
+  const handleDeletePost = async (_id, username) => {
+    const token = localStorage.getItem("AccessToken");
+    try {
+      // Make DELETE request to delete the post by id
+      await axios.delete(`/social-media/posts/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      setErrorMessage("Failed to delete the post. Please try again later.");
+    }
+  };
+
   useEffect(() => {
     fetchPosts(page);
   }, [page]);
@@ -75,6 +94,17 @@ const Posts = () => {
               <p className="FirstName">{posts?.author?.firstName}</p>
               <p className="LastName">{posts?.author?.lastName}</p>
             </div>
+            <button
+              className="delete-btn"
+              onClick={() =>
+                handleDeletePost(
+                  posts._id,
+                  posts?.author?.account?.avatar?.username
+                )
+              }
+            >
+              <MdDelete size={25} />
+            </button>
             <p className="content">{posts.content}</p>
             <div className="images">
               {posts?.images?.[0]?.url && (
@@ -93,7 +123,7 @@ const Posts = () => {
           <GrFormPrevious size={25} />
         </button>
         <span>
-          Page {page} of  {totalPages}
+          Page {page} of {totalPages}
         </span>
         <button onClick={handleNext} disabled={page === totalPages}>
           <GrFormNext size={25} />
