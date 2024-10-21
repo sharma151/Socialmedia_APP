@@ -33,7 +33,7 @@ const Posts = () => {
     }
   };
 
-  const handleDeletePost = async (_id, username) => {
+  const handleDeletePost = async (_id) => {
     const token = localStorage.getItem("AccessToken");
     try {
       // Make DELETE request to delete the post by id
