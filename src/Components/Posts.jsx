@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "../services/Api";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
+
 import "../Styles/Post.scss";
 
 const Posts = () => {
@@ -46,7 +48,7 @@ const Posts = () => {
       setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
     } catch (error) {
       console.error("Error deleting post:", error);
-      setErrorMessage("Failed to delete the post. Please try again later.");
+      toast.error("Failed to delete the post.");
     }
   };
 

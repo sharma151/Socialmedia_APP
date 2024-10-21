@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import axios from "../services/Api";
 import { toast } from "react-toastify";
-
+import { MdDelete } from "react-icons/md";
 
 const MyPosts = ({ className, onUpdate }) => {
   const [posts, setPosts] = useState([]);
@@ -32,6 +32,23 @@ const MyPosts = ({ className, onUpdate }) => {
     } catch (err) {
       toast("Failed to fetch posts.", err);
       setLoading(false);
+    }
+  };
+
+  const handleDeletePost = async (_id) => {
+    const token = localStorage.getItem("AccessToken");
+    try {
+      // Make DELETE request to delete the post by id
+      await axios.delete(`/social-media/posts/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      toast.error("Failed to delete the post. Please try again later.");
     }
   };
 
@@ -77,7 +94,19 @@ const MyPosts = ({ className, onUpdate }) => {
               <p className="FirstName">{posts?.author?.firstName}</p>
               <p className="LastName">{posts?.author?.lastName}</p>
             </div>
-          
+
+            <button
+              className="delete-btn"
+              onClick={() =>
+                handleDeletePost(
+                  posts._id,
+                  posts?.author?.account?.avatar?.username
+                )
+              }
+            >
+              <MdDelete size={25} />
+            </button>
+
             {/* Display post content */}
             <p className="content">{posts.content}</p>
 
