@@ -70,7 +70,7 @@ const Posts = () => {
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
         {posts.map((posts) => (
-          <div key={posts.id} className="post-item">
+          <div key={posts._id} className="post-item">
             {posts?.author?.account?.avatar?.url && (
               <img
                 key={posts?.id}
