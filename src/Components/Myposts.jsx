@@ -11,7 +11,7 @@ const MyPosts = ({ className, onUpdate }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchMyPosts = async (page = 1, limit = 10) => {
+  const fetchMyPosts = async (page = 1, limit = 10, onUpdate) => {
     try {
       setLoading(true);
       const response = await axios.get(

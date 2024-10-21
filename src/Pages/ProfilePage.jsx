@@ -90,7 +90,7 @@ const ProfilePage = () => {
       </div>
 
       <Createpost className="createpost" onUpdate={() => fetchProfile()} />
-      <MyPosts className="myposts" />
+      <MyPosts className="myposts" onUpdate={() => fetchProfile()} />
       <UpdateCoverPage onUpdate={() => fetchProfile()} />
       <Updateavatar onUpdate={() => fetchProfile()} />
       {showModal && (

@@ -35,13 +35,14 @@ const Createpost = ({ className, onUpdate }) => {
       });
 
       if (response.status === 201) {
-        // setSuccessMessage("Post created successfully!");
         toast.success("Post created successfully!");
+
         setcontent("");
         setImage(null);
+
         if (onUpdate) {
           onUpdate();
-          toast("succefully reloaded");
+          toast.success("Successfully reloaded");
         }
       } else {
         toast.error("Failed to create post. Try again.");
