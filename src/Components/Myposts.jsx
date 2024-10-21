@@ -14,14 +14,8 @@ const MyPosts = ({ className, onUpdate }) => {
   const fetchMyPosts = async (page = 1, limit = 10) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("AccessToken");
       const response = await axios.get(
         `/social-media/posts/get/my?page=${page}&limit=${limit}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
       setPosts(response?.data?.data?.posts);
       setTotalPages(response?.data?.data?.totalPages);

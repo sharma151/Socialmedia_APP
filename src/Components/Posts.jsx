@@ -16,14 +16,9 @@ const Posts = () => {
   const fetchPosts = async (page = 1, limit = 20) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("AccessToken");
+
       const response = await axios.get(
-        `/social-media/posts?page=${page}&limit=${limit}'`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `/social-media/posts?page=${page}&limit=${limit}'`
       );
       setPosts(response?.data?.data?.posts);
       setTotalPages(response?.data?.data?.totalPages);
@@ -36,15 +31,9 @@ const Posts = () => {
   };
 
   const handleDeletePost = async (_id) => {
-    const token = localStorage.getItem("AccessToken");
     try {
       // Make DELETE request to delete the post by id
-      await axios.delete(`/social-media/posts/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      await axios.delete(`/social-media/posts/${_id}`);
       setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
     } catch (error) {
       console.error("Error deleting post:", error);
