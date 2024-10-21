@@ -1,12 +1,12 @@
 import Createpost from "../Components/Createpost";
-import Posts from "../Components/Posts";
+import Userpost from "../Components/Userpost";
 import Profile from "../Components/Profile";
 
 const Home = () => {
   return (
     <>
       <Createpost />
-      <Posts />
+      <Userpost endpoints={`/social-media/posts?page=1&limit=10'`} />
       <Profile />
     </>
   );

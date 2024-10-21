@@ -9,7 +9,8 @@ import Createpost from "../Components/Createpost";
 import UpdateCoverPage from "../Components/Updatecoverpicture";
 import Updateavatar from "../Components/Updateavatar";
 import ProfileUpdate from "../Components/ProfileUpdate";
-import MyPosts from "../Components/myposts";
+import Userpost from "../Components/Userpost";
+// import MyPosts from "../Components/myposts";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({
@@ -90,7 +91,11 @@ const ProfilePage = () => {
       </div>
 
       <Createpost className="createpost" onUpdate={() => fetchProfile()} />
-      <MyPosts className="myposts" onUpdate={() => fetchProfile()} />
+      {/* <MyPosts className="myposts" onUpdate={() => fetchProfile()} /> */}
+      <Userpost
+        className="myposts"
+        endpoints={`/social-media/posts/get/my?page=1&limit=10`}
+      />
       <UpdateCoverPage onUpdate={() => fetchProfile()} />
       <Updateavatar onUpdate={() => fetchProfile()} />
       {showModal && (
