@@ -30,18 +30,12 @@ const MyPosts = ({ className, onUpdate }) => {
   };
 
   const handleDeletePost = async (_id) => {
-    const token = localStorage.getItem("AccessToken");
     try {
       // Make DELETE request to delete the post by id
-      await axios.delete(`/social-media/posts/${_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      await axios.delete(`/social-media/posts/${_id}`);
       setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
     } catch (error) {
-      console.error("Error deleting post:", error);
+      toast.error("Error deleting post:", error);
       toast.error("Failed to delete the post. Please try again later.");
     }
   };
@@ -70,7 +64,7 @@ const MyPosts = ({ className, onUpdate }) => {
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
         {posts.map((posts) => (
-          <div key={posts.id} className="post-item">
+          <div key={posts._id} className="post-item">
             {/* Display avatar */}
             {posts?.author?.account?.avatar?.url && (
               <img
