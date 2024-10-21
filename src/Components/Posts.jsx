@@ -37,7 +37,7 @@ const Posts = () => {
       setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
 
       if (response.status === 200) {
-        toast.success("post deleted successfully");
+        toast.success("Post deleted successfully");
       }
     } catch (error) {
       console.error("Error deleting post:", error);

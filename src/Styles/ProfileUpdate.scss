@@ -44,6 +44,9 @@
                 }
                 input{
                     height: 30px;
+                    font-family: sans-serif;
+                    font-style: italic;
+                    text-transform: capitalize;
                 }
             }
         }
@@ -55,8 +58,11 @@
                 position: relative;
                 top: -10px;
             }
-            input{
+            textarea{
                 height: 30px;
+                font-family: sans-serif;
+                font-style: italic;
+                text-transform: capitalize;
             }
         }
         .countrycode,.Pnumber,.DOB,.Location{
@@ -68,11 +74,14 @@
             }
             input{
                 height: 30px;
+                font-family: sans-serif;
+                font-style: italic;
+                text-transform: capitalize;
             }
 
         }
         .update-btn {
-            background-color: #4CAF50; /* Green background */
+            background-color: #4CAF50; 
             border: none;
             color: white;
             padding: 12px 20px;
