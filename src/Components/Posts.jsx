@@ -33,8 +33,12 @@ const Posts = () => {
   const handleDeletePost = async (_id) => {
     try {
       // Make DELETE request to delete the post by id
-      await axios.delete(`/social-media/posts/${_id}`);
+      const response = await axios.delete(`/social-media/posts/${_id}`);
       setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
+
+      if (response.status === 200) {
+        toast.success("post deleted successfully");
+      }
     } catch (error) {
       console.error("Error deleting post:", error);
       toast.error("Failed to delete the post.");
