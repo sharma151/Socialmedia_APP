@@ -30,25 +30,24 @@ const Profile = () => {
   }, []);
 
   return (
-    <Link to={'/profile-page'}>
-
-<div className="Profile">
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      {profile?.account?.avatar?.url && (
-        <img
-          src={profile?.account?.avatar?.url}
-          alt={profile?.posts?.avatar}
-          className="avatar"
-        />
-      )}
-      <div className="profile-info">
-        <div className="data">
-          <div className="name">
-            <p>{profile?.firstName}</p>
-            <p>{profile.lastName}</p>
-          </div>
-          <p className="Bio">{profile.bio}</p>
-          {/* <p>
+    <Link to={"/profile-page"}>
+      <div className="Profile">
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        {profile?.account?.avatar?.url && (
+          <img
+            src={profile?.account?.avatar?.url}
+            alt={profile?.posts?.avatar}
+            className="avatar"
+          />
+        )}
+        <div className="profile-info">
+          <div className="data">
+            <div className="name">
+              <p>{profile?.firstName}</p>
+              <p>{profile.lastName}</p>
+            </div>
+            <p className="Bio">{profile.bio}</p>
+            {/* <p>
             <strong>Date of Birth:</strong>{" "}
             {new Date(profile.dob).toLocaleDateString()}
           </p>
@@ -59,10 +58,9 @@ const Profile = () => {
             <strong>Phone Number:</strong> {profile.countryCode}{" "}
             {profile.phoneNumber}
           </p> */}
+          </div>
         </div>
       </div>
-    </div>
-
     </Link>
   );
 };

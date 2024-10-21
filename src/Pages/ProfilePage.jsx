@@ -10,6 +10,7 @@ import UpdateCoverPage from "../Components/Updatecoverpicture";
 import Updateavatar from "../Components/Updateavatar";
 import ProfileUpdate from "../Components/ProfileUpdate";
 import Userpost from "../Components/Userpost";
+import { toast } from "react-toastify";
 // import MyPosts from "../Components/myposts";
 
 const ProfilePage = () => {
@@ -25,6 +26,9 @@ const ProfilePage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => setShowModal(false);
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  // const [totalPages, setTotalPages] = useState(1);
 
   const fetchProfile = async () => {
     try {
@@ -36,8 +40,22 @@ const ProfilePage = () => {
     }
   };
 
+  const fetchMyPosts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`/social-media/posts/get/my`);
+      setPosts(response?.data?.data?.posts);
+      // setTotalPages(response?.data?.data?.totalPages);
+      setLoading(false);
+    } catch (err) {
+      toast("Failed to fetch posts.", err);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchProfile();
+    fetchMyPosts();
   }, []);
 
   return (
@@ -92,10 +110,7 @@ const ProfilePage = () => {
 
       <Createpost className="createpost" onUpdate={() => fetchProfile()} />
       {/* <MyPosts className="myposts" onUpdate={() => fetchProfile()} /> */}
-      <Userpost
-        className="myposts"
-        endpoints={`/social-media/posts/get/my?page=1&limit=10`}
-      />
+      <Userpost className="myposts" posts={posts} />
       <UpdateCoverPage onUpdate={() => fetchProfile()} />
       <Updateavatar onUpdate={() => fetchProfile()} />
       {showModal && (

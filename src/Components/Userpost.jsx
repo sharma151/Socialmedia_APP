@@ -6,34 +6,17 @@ import { toast } from "react-toastify";
 
 import "../Styles/Post.scss";
 
-const Posts = ({ className, endpoints }) => {
-  const [posts, setPosts] = useState([]);
+const Posts = ({ className, posts }) => {
+  //   const [posts, setPosts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  const fetchPosts = async (page = 1, limit = 20) => {
-    try {
-      setLoading(true);
-
-      const response = await axios.get(endpoints);
-      setPosts(response?.data?.data?.posts);
-      setTotalPages(response?.data?.data?.totalPages);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-      setErrorMessage("Failed to fetch posts. Please try again later.");
-      setLoading(false);
-    }
-  };
 
   const handleDeletePost = async (_id) => {
     try {
       // Make DELETE request to delete the post by id
       const response = await axios.delete(`/social-media/posts/${_id}`);
-      setPosts((prevPosts) => prevPosts.filter((posts) => posts._id !== _id));
-
       if (response.status === 200) {
         toast.success("Post deleted successfully");
       }
@@ -43,9 +26,9 @@ const Posts = ({ className, endpoints }) => {
     }
   };
 
-  useEffect(() => {
-    fetchPosts(page);
-  }, [page]);
+  //   useEffect(() => {
+  //     Posts(page);
+  //   }, [page]);
 
   const handlePrevious = () => {
     if (page > 1) {
@@ -71,39 +54,39 @@ const Posts = ({ className, endpoints }) => {
     <div className={`posts ${className}`}>
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
-        {posts.map((posts) => (
-          <div key={posts._id} className="post-item">
-            {posts?.author?.account?.avatar?.url && (
+        {posts.map((post) => (
+          <div key={post._id} className="post-item">
+            {post?.author?.account?.avatar?.url && (
               <img
-                key={posts?.id}
-                src={posts?.author?.account?.avatar?.url}
-                alt={posts?.avatar}
+                key={post?.id}
+                src={post?.author?.account?.avatar?.url}
+                alt={post?.avatar}
                 className="avatar"
               />
             )}
 
-            <p className="Username">{posts?.author?.account?.username}</p>
+            <p className="Username">{post?.author?.account?.username}</p>
             <div className="Name">
-              <p className="FirstName">{posts?.author?.firstName}</p>
-              <p className="LastName">{posts?.author?.lastName}</p>
+              <p className="FirstName">{post?.author?.firstName}</p>
+              <p className="LastName">{post?.author?.lastName}</p>
             </div>
             <button
               className="delete-btn"
               onClick={() =>
                 handleDeletePost(
-                  posts._id,
-                  posts?.author?.account?.avatar?.username
+                  post._id,
+                  post?.author?.account?.avatar?.username
                 )
               }
             >
               <MdDelete size={25} />
             </button>
-            <p className="content">{posts.content}</p>
+            <p className="content">{post.content}</p>
             <div className="images">
-              {posts?.images?.[0]?.url && (
+              {post?.images?.[0]?.url && (
                 <img
-                  src={posts?.images?.[0]?.url}
-                  alt={posts.title}
+                  src={post?.images?.[0]?.url}
+                  alt={post.title}
                   className="post-image"
                 />
               )}
