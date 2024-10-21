@@ -15,7 +15,7 @@ const MyPosts = ({ className, onUpdate }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `/social-media/posts/get/my?page=${page}&limit=${limit}`,
+        `/social-media/posts/get/my?page=${page}&limit=${limit}`
       );
       setPosts(response?.data?.data?.posts);
       setTotalPages(response?.data?.data?.totalPages);
