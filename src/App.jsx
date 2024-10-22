@@ -4,7 +4,7 @@ import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
-import Posts from "./Components/Posts";
+import Userpost from "./Components/Userpost";
 import ProfilePage from "./Pages/ProfilePage";
 import ProfileByUsername from "./Components/ProfilebyUsername";
 
@@ -28,7 +28,7 @@ function App() {
           />
 
           <Route path="/profile/:username" element={<ProfileByUsername />} />
-          <Route path="/Posts" element={<Posts />} />
+          <Route path="/Posts" element={<Userpost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile-page" element={<ProfilePage />} />
