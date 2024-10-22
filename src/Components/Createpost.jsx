@@ -15,7 +15,7 @@ const Createpost = ({ className, onUpdate }) => {
     e.preventDefault();
 
     if (!image) {
-      // setErrorMessage("Please choose an image.");
+      
       toast("Please choose an image.");
 
       return;

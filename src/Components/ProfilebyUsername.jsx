@@ -30,7 +30,7 @@ const GetProfileByUsername = () => {
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
+      {/* <form onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Search by username"
@@ -40,7 +40,7 @@ const GetProfileByUsername = () => {
         <button type="submit">Search</button>
       </form>
 
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} */}
 
       {profile && (
         <div>
