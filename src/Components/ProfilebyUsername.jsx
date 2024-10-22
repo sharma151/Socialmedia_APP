@@ -2,36 +2,44 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../services/Api";
 import "../Styles/ProfilePage.scss";
+import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoCall } from "react-icons/io5";
+import Userpost from "../Components/Userpost";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
   const [userData, setUserData] = useState(null);
+  const [userNamepost, setUserNamePost] = useState([]);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(`/social-media/profile/u/${username}`);
+      setUserData(response?.data);
+      // console.log(response?.data?.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchpostByUsername = async () => {
+    try {
+      const response = await axios.get(
+        `/social-media/posts/get/u/${username}?page=1&limit=100`
+      );
+      setUserNamePost(response?.data?.data?.posts);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`/social-media/profile/u/${username}`);
-        setUserData(response?.data);
-        console.log(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
     fetchUserData();
+    fetchpostByUsername();
   }, [username]);
 
   return (
     <div className="ProfilePage">
-      {/* {userData ? (
-        <div>
-          <h1>{userData?.data?.account?.username}</h1>
-          <p>{userData?.data?.account?.email}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )} */}
-
       <div className="Images">
         {userData?.data?.coverImage?.url && (
           <img
@@ -56,6 +64,28 @@ const GetProfileByUsername = () => {
           <p> {userData?.data?.lastName}</p>
         </div>
       </div>
+
+      <div className="profile-info">
+        <div className="data">
+          <p className="Bio">
+            <FaUserAlt /> {userData?.data?.bio}
+          </p>
+          <p className="DOB">
+            {/* <strong>Date of Birth:</strong> */}
+            <FaBirthdayCake />{" "}
+            {new Date(userData?.data?.dob).toLocaleDateString()}
+          </p>
+          <p className="Location">
+            <FaLocationDot /> {userData?.data?.location}
+          </p>
+          <p className="Phonenumber">
+            <IoCall /> {userData?.data?.countryCode}{" "}
+            {userData?.data?.phoneNumber}
+          </p>
+        </div>
+      </div>
+      {console.log(userNamepost, "here")}
+      <Userpost posts={userNamepost} className="GetuserprofilebyUsername"  />
     </div>
   );
 };
