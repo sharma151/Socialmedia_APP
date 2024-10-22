@@ -13,7 +13,7 @@ const Home = () => {
   const fetchallPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/social-media/posts`);
+      const response = await axios.get(`/social-media/posts?page=1&limit=100`);
       setPosts(response?.data?.data?.posts);
       setTotalPages(response?.data?.data?.totalPages);
       setLoading(false);
@@ -29,7 +29,11 @@ const Home = () => {
 
   return (
     <>
-      <Createpost />
+      <Createpost
+        onUpdate={() => {
+          fetchallPosts();
+        }}
+      />
       <Userpost posts={posts} />
       <Profile />
     </>
