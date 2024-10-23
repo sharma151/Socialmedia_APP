@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import "../Styles/Post.scss";
 
 const Posts = ({ className, posts }) => {
-  //   const [posts, setPosts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState();
   const [page, setPage] = useState(1);
@@ -17,6 +16,7 @@ const Posts = ({ className, posts }) => {
     try {
       // Make DELETE request to delete the post by id
       const response = await axios.delete(`/social-media/posts/${_id}`);
+
       if (response.status === 200) {
         toast.success("Post deleted successfully");
       }
@@ -29,18 +29,6 @@ const Posts = ({ className, posts }) => {
   //   useEffect(() => {
   //     Posts(page);
   //   }, [page]);
-
-  const handlePrevious = () => {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1); // Decrease page number
-    }
-  };
-
-  const handleNext = () => {
-    if (page < totalPages) {
-      setPage((prevPage) => prevPage + 1); // Increase page number
-    }
-  };
 
   if (loading) {
     return <p>Loading posts...</p>;
@@ -94,7 +82,7 @@ const Posts = ({ className, posts }) => {
           </div>
         ))}
       </div>
-      <div className="pagination-controls">
+      {/* <div className="pagination-controls">
         <button onClick={handlePrevious} disabled={page === 1}>
           <GrFormPrevious size={25} />
         </button>
@@ -104,7 +92,7 @@ const Posts = ({ className, posts }) => {
         <button onClick={handleNext} disabled={page === totalPages}>
           <GrFormNext size={25} />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
