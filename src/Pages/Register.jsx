@@ -27,19 +27,61 @@ const Register = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const [errors, setErrors] = useState({});
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+  const validateForm = () => {
+    let validationErrors = {};
+
+    if (!formData.username.trim()) {
+      validationErrors.username = "Username is required";
+    }
+
+    if (!formData.email) {
+      validationErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email)) {
+      validationErrors.email = "Invalid email format";
+    }
+
+    if (!formData.password) {
+      validationErrors.password = "Password is required";
+    } else if (!passwordRegex.test(formData.password)) {
+      validationErrors.password =
+        "Password must be at least 8 characters long, contain an uppercase letter, and a number";
+    }
+
+    if (!formData.role) {
+      validationErrors.role = "Role is required";
+    }
+
+    setErrors(validationErrors);
+
+    return Object.keys(validationErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/users/register",
-        formData
-      );
-      console.log("Registration Successful", response.data);
-      toast("Registration Successful", response.data);
-    } catch (error) {
-      console.error("Error during registration", error);
-      toast.error("Error during registration", error);
+    if (validateForm()) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/v1/users/register",
+          formData
+        );
+        console.log("Registration Successful", response?.data);
+        toast("Registration Successful", response?.data);
+      } catch (error) {
+        if (error.response) {
+          const errorMessage =
+            error.response.data?.message || "Error during registration";
+          console.error("Error during registration:", errorMessage);
+          toast.error(errorMessage);
+        } else {
+          console.error("Network error or no response from the server");
+          toast.error("Network error or server is down");
+        }
+      }
     }
   };
 
@@ -61,6 +103,9 @@ const Register = () => {
               autoComplete="off"
               required
             />
+            {errors.username && (
+              <span style={{ color: "white" }}>{errors.username}</span>
+            )}
           </div>
         </div>
         <div className="Email">
@@ -77,6 +122,9 @@ const Register = () => {
               autoComplete="off"
               required
             />
+            {errors.email && (
+              <span style={{ color: "white" }}>{errors.email}</span>
+            )}
           </div>
         </div>
         <div className="Role">
@@ -85,14 +133,23 @@ const Register = () => {
             <span className="RoleIcon">
               <GrUserWorker />
             </span>
-            <input
-              type="text"
+            <select
               name="role"
+              className="Role"
               value={formData.role}
               onChange={handleChange}
               autoComplete="off"
               required
-            />
+            >
+              <option className=" value" value="">
+                Select a role
+              </option>
+              <option value="ADMIN">ADMIN</option>
+              <option value="USER">USER</option>
+            </select>
+            {errors.role && (
+              <span style={{ color: "white" }}>{errors.role}</span>
+            )}
           </div>
         </div>
         <div className="Password">
@@ -109,10 +166,14 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {showPassword ? <FaRegEyeSlash /> : <FaEye />}{" "}
               {/* Use any icon library or emoji */}
             </span>
+            {errors.password && (
+              <span style={{ color: "white" }}>{errors.password}</span>
+            )}
           </div>
         </div>
 
