@@ -27,23 +27,55 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const [errors, setErrors] = useState({});
+
+  const usernameRegex = /^[a-zA-Z0-9]{4,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+  const validateForm = () => {
+    let validationErrors = {};
+
+    // Username validation
+    if (!formData.username) {
+      validationErrors.username = "Username is required";
+    } else if (!usernameRegex.test(formData.username)) {
+      validationErrors.username =
+        "Username must be at least 4 characters long and contain only letters and numbers";
+    }
+
+    // Password validation
+    if (!formData.password) {
+      validationErrors.password = "Password is required";
+    } else if (!passwordRegex.test(formData.password)) {
+      validationErrors.password =
+        "Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character";
+    }
+
+    setErrors(validationErrors);
+
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/users/login",
-        formData
-      );
-      console.log("Login Successful", response.data);
-      toast.success("Login Successful", response.data);
+    if (validateForm()) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/v1/users/login",
+          formData
+        );
+        console.log("Login Successful", response.data);
+        toast.success("Login Successful", response.data);
 
-      localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
-      setIsLoggedIn(true);
-      navigate("/home");
-    } catch (error) {
-      console.error("Error during login", error);
+        localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
+        setIsLoggedIn(true);
+        navigate("/home");
+      } catch (error) {
+        console.error("Error during login", error);
 
-      toast.error("Login failed, please try again.");
+        toast.error("Login failed, please try again.");
+      }
     }
   };
 
@@ -69,6 +101,9 @@ const Login = () => {
               autoComplete="off"
               required
             />
+            {errors.username && (
+              <span style={{ color: "white" }}>{errors.username}</span>
+            )}
           </div>
         </div>
         <div className="Password">
@@ -88,6 +123,9 @@ const Login = () => {
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {showPassword ? <FaRegEyeSlash /> : <FaEye />}
             </span>
+            {errors.password && (
+              <span style={{ color: "white" }}>{errors.password}</span>
+            )}
           </div>
         </div>
 
