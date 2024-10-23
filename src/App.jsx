@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./Pages/navbar";
+// import Navbar from "./Pages/navbar";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
@@ -14,9 +14,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               isAuthenticated ? (
@@ -25,12 +25,13 @@ function App() {
                 <p>Please login to access the home page.</p>
               )
             }
-          />
+          /> */}
 
+          <Route path="/home" element={<Home />} />
           <Route path="/profile/:username" element={<ProfileByUsername />} />
           <Route path="/Posts" element={<Userpost />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
           <Route path="/profile-page" element={<ProfilePage />} />
         </Routes>
       </div>
