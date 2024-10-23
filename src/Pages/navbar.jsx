@@ -5,6 +5,7 @@ import axios from "../services/Api";
 import { useNavigate } from "react-router-dom";
 import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -61,8 +62,22 @@ const Navbar = () => {
     navigate(`/profile/${suggestions?.data?.account?.username}`);
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(`/users/logout`);
+      localStorage.removeItem("AccessToken");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error logging out", error);
+      toast.error("Failed to logout User. Please try again later.");
+    }
+  };
+
   return (
     <nav>
+      <Link to="/home" className="home">
+        HOME
+      </Link>
       <ul>
         <form onSubmit={handleSearchSubmit}>
           <input
@@ -87,9 +102,7 @@ const Navbar = () => {
         <li>
           <Link to="/login">Login</Link>
         </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
+        <button onClick={handleLogout} className="logout">Logout</button>
       </ul>
     </nav>
   );

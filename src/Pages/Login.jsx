@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../Styles/Registration.scss";
 
@@ -13,7 +14,8 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -37,16 +39,17 @@ const Login = () => {
 
       localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
       setIsLoggedIn(true);
+      navigate("/home");
     } catch (error) {
       console.error("Error during login", error);
-      setErrorMessage("Login failed, please try again.");
+
       toast.error("Login failed, please try again.");
     }
   };
 
-  if (isLoggedIn) {
-    return <Navigate to="/" />;
-  }
+  // if (isLoggedIn) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <div className="loginform">
@@ -87,8 +90,14 @@ const Login = () => {
             </span>
           </div>
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
         <button type="submit">Login</button>
+        <p>
+          Don`t have an account?
+          <Link to="/Register">
+            <span>Register</span>
+          </Link>
+        </p>
       </form>
     </div>
   );
