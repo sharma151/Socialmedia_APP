@@ -1,5 +1,6 @@
 // src/components/Register.js
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
@@ -39,7 +40,6 @@ const Register = () => {
     } catch (error) {
       console.error("Error during registration", error);
       toast.error("Error during registration", error);
-
     }
   };
 
@@ -117,6 +117,12 @@ const Register = () => {
         </div>
 
         <button type="submit">Register</button>
+        <p>
+          Already have an account?
+          <Link to="/login">
+            <span>LogIn</span>
+          </Link>
+        </p>
       </form>
     </div>
   );
