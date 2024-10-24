@@ -18,14 +18,14 @@ const Updateavatar = ({ onUpdate }) => {
       })
       .then((response) => {
         console.log("Avatar updated successfully", response.data);
-        toast("Avatar updated successfully", response.data);
+        toast.success("Avatar updated successfully", response.data);
         if (onUpdate) {
           onUpdate();
         }
       })
       .catch((error) => {
         console.error("Error updating avatar", error);
-        toast("Error updating avatar", error);
+        toast.error("Error updating avatar", error);
       });
   };
 
