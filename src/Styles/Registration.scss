@@ -84,15 +84,20 @@
             }
             .role-input-container{
                 position: relative;
-                input {
-                    width: 100%;
-                    padding-right: 30px; 
-                  }
                   .RoleIcon{
                     position:absolute;
                     top: 8px;
                     left: 7px;
                   }
+                  .Role{
+                    width: 100%;
+                    padding: 8px 24px;
+                    border-radius: 7px;
+                  }
+                  option{
+                    font-family: sans-serif;
+                  }
+
 
             }
         }
