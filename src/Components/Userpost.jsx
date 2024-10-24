@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../services/Api";
-import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+// import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -9,8 +9,8 @@ import "../Styles/Post.scss";
 const Posts = ({ className, posts }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState();
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  // const [page, setPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
 
   const handleDeletePost = async (_id) => {
     try {
