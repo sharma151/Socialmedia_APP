@@ -47,17 +47,6 @@ const Profile = () => {
               <p>{profile.lastName}</p>
             </div>
             <p className="Bio">{profile.bio}</p>
-            {/* <p>
-            <strong>Date of Birth:</strong>{" "}
-            {new Date(profile.dob).toLocaleDateString()}
-          </p>
-          <p>
-            <strong>Location:</strong> {profile.location}
-          </p>
-          <p>
-            <strong>Phone Number:</strong> {profile.countryCode}{" "}
-            {profile.phoneNumber}
-          </p> */}
           </div>
         </div>
       </div>
