@@ -7,7 +7,6 @@ const UpdateCoverPage = ({ onUpdate }) => {
   const handleFileChange = (e) => {
     const formData = new FormData();
     formData.append("coverImage", e.target.files[0]);
-
     const token = localStorage.getItem("AccessToken");
 
     axios
@@ -18,15 +17,15 @@ const UpdateCoverPage = ({ onUpdate }) => {
         },
       })
       .then((response) => {
-        console.log("Coverpage updated successfully", response.data);
-        toast("Coverpage updated successfully", response.data);
+        console.log("Coverpage updated successfully", response?.data);
+        toast.success("Coverpage updated successfully", response?.data);
         if (onUpdate) {
           onUpdate();
         }
       })
       .catch((error) => {
         console.error("Error updating Coverpage", error);
-        toast("Coverpage updating avatar", error);
+        toast.error("Coverpage updating avatar", error);
       });
   };
 
