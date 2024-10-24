@@ -6,6 +6,7 @@ import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Userpost from "../Components/Userpost";
+import Navbar from "../Pages/navbar";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
@@ -16,7 +17,6 @@ const GetProfileByUsername = () => {
     try {
       const response = await axios.get(`/social-media/profile/u/${username}`);
       setUserData(response?.data);
-      // console.log(response?.data?.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -40,6 +40,7 @@ const GetProfileByUsername = () => {
 
   return (
     <div className="ProfilePage">
+      <Navbar />
       <div className="Images">
         {userData?.data?.coverImage?.url && (
           <img
@@ -85,7 +86,7 @@ const GetProfileByUsername = () => {
         </div>
       </div>
       {console.log(userNamepost, "here")}
-      <Userpost posts={userNamepost} className="GetuserprofilebyUsername"  />
+      <Userpost posts={userNamepost} className="GetuserprofilebyUsername" />
     </div>
   );
 };
