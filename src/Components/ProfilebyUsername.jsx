@@ -6,7 +6,6 @@ import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Userpost from "../Components/Userpost";
-import Navbar from "../Pages/navbar";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
@@ -40,7 +39,6 @@ const GetProfileByUsername = () => {
 
   return (
     <div className="ProfilePage">
-      <Navbar />
       <div className="Images">
         {userData?.data?.coverImage?.url && (
           <img
