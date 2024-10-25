@@ -1,5 +1,5 @@
 import Createpost from "../Components/Createpost";
-import Navbar from "../Pages/navbar";
+
 import Userpost from "../Components/Userpost";
 import Profile from "../Components/Profile";
 import { useState, useEffect } from "react";
@@ -14,7 +14,11 @@ const Home = () => {
     try {
       setLoading(true);
       const response = await axios.get(`/social-media/posts?page=1&limit=100`);
-      setPosts(response?.data?.data?.posts);
+      // console.log(response.data.data.posts);
+      const sortedPosts = response?.data?.data?.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setPosts(sortedPosts);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -28,7 +32,6 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
       <Createpost
         onUpdate={() => {
           fetchallPosts();
