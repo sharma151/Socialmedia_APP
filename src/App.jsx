@@ -8,10 +8,9 @@ import Userpost from "./Components/Userpost";
 import ProfilePage from "./Pages/ProfilePage";
 import ProfileByUsername from "./Components/ProfilebyUsername";
 import { AuthProvider } from "./Context/Authcontext";
+import Layout from "./Layouts/Layout";
 
 const routes = [
-  { path: "/", element: <Login /> },
-  { path: "/register", element: <Register /> },
   { path: "/home", element: <Home /> },
   { path: "/profile/:username", element: <ProfileByUsername /> },
   { path: "/posts", element: <Userpost /> },
@@ -24,9 +23,13 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.element} />
-            ))}
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route element={<Layout />}>
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Route>
           </Routes>
         </div>
       </Router>
