@@ -57,6 +57,7 @@ const Posts = ({ className, posts }) => {
             <div className="Name">
               <p className="FirstName">{post?.author?.firstName}</p>
               <p className="LastName">{post?.author?.lastName}</p>
+              <p className="createdAt">{post?.createdAt}</p>
             </div>
             <button
               className="delete-btn"
