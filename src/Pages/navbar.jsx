@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
-// import { IoSearch } from "react-icons/io5";
-import axios from "../services/Api";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../Context/Authcontext";
+import axios from "../services/Api";
 import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
-import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
   const [suggestions, setSuggestions] = useState();
-  const [error, setError] = useState(""); // New state for error message
+  const [error, setError] = useState("");
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Debounced function to fetch usernames
   const debouncedFetchUsernames = useCallback(
     debounce(async (searchQuery) => {
       try {
@@ -22,6 +22,8 @@ const Navbar = () => {
         );
 
         if (response.data) {
+          console.log(response.data);
+          // work to be continued
           setSuggestions(response.data);
           setError("");
         } else {
@@ -56,17 +58,18 @@ const Navbar = () => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setUsername(suggestion.username);
+    setUsername(suggestion.account?.username);
     setSuggestions([]);
     setError("");
-    navigate(`/profile/${suggestions?.data?.account?.username}`);
+    navigate(`/profile/${suggestion.account?.username}`);
   };
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(`/users/logout`);
+      await axios.post(`/users/logout`);
       localStorage.removeItem("AccessToken");
-      navigate("/login");
+      setIsAuthenticated(false);
+      navigate("/");
     } catch (error) {
       console.error("Error logging out", error);
       toast.error("Failed to logout User. Please try again later.");
@@ -79,30 +82,42 @@ const Navbar = () => {
         HOME
       </Link>
       <ul>
-        <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            value={username}
-            onChange={handleInputChange}
-            placeholder="Enter username"
-            autoComplete="off"
-          />
-          {/* Show dropdown suggestions if available */}
-          {suggestions?.data && (
-            <ul className="dropdown">
-              <li onClick={() => handleSuggestionClick(suggestions?.data)}>
-                {suggestions?.data?.account?.username}
-              </li>
-            </ul>
-          )}
+        {isAuthenticated ? (
+          <>
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                type="text"
+                value={username}
+                onChange={handleInputChange}
+                placeholder="Enter username"
+                autoComplete="off"
+              />
 
-          {error && <div className="error-message">{error}</div>}
-        </form>
+              {/* {suggestions.length > 0 && (
+                <ul className="dropdown">
+                  {suggestions?.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion.account?.username}
+                    </li>
+                  ))}
+                </ul>
+              )} */}
 
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <button onClick={handleLogout} className="logout">Logout</button>
+              {error && <div className="error-message">{error}</div>}
+            </form>
+
+            <button onClick={handleLogout} className="logout">
+              Logout
+            </button>
+          </>
+        ) : (
+          <li>
+            <Link to="/Register">Register</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
