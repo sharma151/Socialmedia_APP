@@ -8,13 +8,7 @@ import ProfilePage from "./Pages/ProfilePage";
 import ProfileByUsername from "./Components/ProfilebyUsername";
 import { AuthProvider } from "./Context/Authcontext";
 import Layout from "./Layouts/Layout";
-
-const routes = [
-  { path: "/home", element: <Home /> },
-  { path: "/profile/:username", element: <ProfileByUsername /> },
-  { path: "/posts", element: <Userpost /> },
-  { path: "/profile-page", element: <ProfilePage /> },
-];
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -24,10 +18,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route element={<Layout />}>
-              {routes.map((route, index) => (
-                <Route key={index} path={route.path} element={route.element} />
-              ))}
+
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/home" element={<Home />} />
+                <Route
+                  path="/profile/:username"
+                  element={<ProfileByUsername />}
+                />
+                <Route path="/posts" element={<Userpost />} />
+                <Route path="/profile-page" element={<ProfilePage />} />
+              </Route>
             </Route>
           </Routes>
         </div>
