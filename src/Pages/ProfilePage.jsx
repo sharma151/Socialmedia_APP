@@ -10,6 +10,8 @@ import UpdateCoverPage from "../Components/Updatecoverpicture";
 import Updateavatar from "../Components/Updateavatar";
 import ProfileUpdate from "../Components/ProfileUpdate";
 import Userpost from "../Components/Userpost";
+import { IoIosMail } from "react-icons/io";
+
 import { toast } from "react-toastify";
 // import MyPosts from "../Components/myposts";
 
@@ -28,7 +30,6 @@ const ProfilePage = () => {
   const closeModal = () => setShowModal(false);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  // const [totalPages, setTotalPages] = useState(1);
 
   const fetchProfile = async () => {
     try {
@@ -46,8 +47,10 @@ const ProfilePage = () => {
       const response = await axios.get(
         `/social-media/posts/get/my?page=1&limit=100`
       );
-      setPosts(response?.data?.data?.posts);
-      // setTotalPages(response?.data?.data?.totalPages);
+      const sortedPosts = response?.data?.data?.posts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setPosts(sortedPosts);
       setLoading(false);
     } catch (err) {
       toast("Failed to fetch posts.", err);
@@ -107,14 +110,17 @@ const ProfilePage = () => {
           <p className="Phonenumber">
             <IoCall /> {profile.countryCode} {profile.phoneNumber}
           </p>
+          <p className="Mail">
+            <IoIosMail size={20} /> {profile?.account?.email}
+          </p>
         </div>
       </div>
 
-      <Createpost className="createpost" onUpdate={() => fetchProfile()} />
-      {/* <MyPosts className="myposts" onUpdate={() => fetchProfile()} /> */}
+      <Createpost className="createpost" onUpdate={() => fetchMyPosts()} />
+
       <Userpost
         className="myposts"
-        onUpdate={() => fetchProfile()}
+        onUpdate={() => fetchMyPosts()}
         posts={posts}
       />
       <UpdateCoverPage onUpdate={() => fetchProfile()} />
