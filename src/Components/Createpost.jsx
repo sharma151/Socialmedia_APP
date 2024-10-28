@@ -7,15 +7,21 @@ import { toast } from "react-toastify";
 const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+    } else {
+      setSelectedImage(null);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!image) {
-      
       toast("Please choose an image.");
 
       return;
@@ -79,6 +85,17 @@ const Createpost = ({ className, onUpdate }) => {
           <label htmlFor="input" className="custom-file-upload">
             <IoImages size={25} />
           </label>
+          <div className="previewImage">
+            {selectedImage ? (
+              <img
+                src={selectedImage}
+                alt="Preview"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
           <button type="submit">Post</button>
         </div>
       </form>
