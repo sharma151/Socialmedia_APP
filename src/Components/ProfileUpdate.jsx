@@ -3,16 +3,29 @@ import axios from "../services/Api";
 import "../Styles/ProfileUpdate.scss";
 import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { useContext } from "react";
 
 const ProfileUpdate = ({ closeModal, currentProfile }) => {
+  const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
+  // const [profileData, setProfileData] = useState({
+  //   bio: currentProfile?.bio || "",
+  //   countryCode: currentProfile?.countryCode || "",
+  //   dob: currentProfile?.dob || "",
+  //   firstName: currentProfile?.firstName || "",
+  //   lastName: currentProfile?.lastName || "",
+  //   location: currentProfile?.location || "",
+  //   phoneNumber: currentProfile?.phoneNumber || "",
+  // });
+
   const [profileData, setProfileData] = useState({
-    bio: currentProfile?.bio || "",
-    countryCode: currentProfile?.countryCode || "",
-    dob: currentProfile?.dob || "",
-    firstName: currentProfile?.firstName || "",
-    lastName: currentProfile?.lastName || "",
-    location: currentProfile?.location || "",
-    phoneNumber: currentProfile?.phoneNumber || "",
+    bio: UserprofileData?.bio || "",
+    countryCode: UserprofileData.countryCode || "",
+    dob: UserprofileData.dob || "",
+    firstName: UserprofileData.firstName || "",
+    lastName: UserprofileData.lastName || "",
+    location: UserprofileData.location || "",
+    phoneNumber: UserprofileData.phoneNumber || "",
   });
 
   // Handle input change for form fields
@@ -29,10 +42,10 @@ const ProfileUpdate = ({ closeModal, currentProfile }) => {
       const response = await axios.patch("/social-media/profile", profileData);
       if (response.status === 200) {
         toast("Profile updated successfully!");
+        setUserProfileData({ profileData });
       }
     } catch (error) {
       toast("Failed to update profile. Try again.");
-
       console.error("Error details:", error);
     }
   };
