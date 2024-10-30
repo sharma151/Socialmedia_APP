@@ -83,7 +83,7 @@ const GetProfileByUsername = () => {
           </p>
         </div>
       </div>
-      {console.log(userNamepost, "here")}
+
       <Userpost posts={userNamepost} className="GetuserprofilebyUsername" />
     </div>
   );
