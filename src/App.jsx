@@ -9,6 +9,7 @@ import ProfileByUsername from "./Components/ProfilebyUsername";
 import { AuthProvider } from "./Context/Authcontext";
 import Layout from "./Layouts/Layout";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import Bookmarks from "./Pages/Bookmarks";
 import { UpdateProfileContextProvider } from "./Context/UpdateProfileContext";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<Layout />}>
                   <Route path="/home" element={<Home />} />
+                  <Route path="/Bookmarks" element={<Bookmarks />} />
                   <Route
                     path="/profile/:username"
                     element={<ProfileByUsername />}
