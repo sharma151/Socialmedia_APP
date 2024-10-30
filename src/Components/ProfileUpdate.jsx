@@ -6,17 +6,8 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
 
-const ProfileUpdate = ({ closeModal, currentProfile }) => {
+const ProfileUpdate = ({ closeModal }) => {
   const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
-  // const [profileData, setProfileData] = useState({
-  //   bio: currentProfile?.bio || "",
-  //   countryCode: currentProfile?.countryCode || "",
-  //   dob: currentProfile?.dob || "",
-  //   firstName: currentProfile?.firstName || "",
-  //   lastName: currentProfile?.lastName || "",
-  //   location: currentProfile?.location || "",
-  //   phoneNumber: currentProfile?.phoneNumber || "",
-  // });
 
   const [profileData, setProfileData] = useState({
     bio: UserprofileData?.bio || "",
@@ -42,7 +33,7 @@ const ProfileUpdate = ({ closeModal, currentProfile }) => {
       const response = await axios.patch("/social-media/profile", profileData);
       if (response.status === 200) {
         toast("Profile updated successfully!");
-        setUserProfileData({ profileData });
+        setUserProfileData(profileData);
       }
     } catch (error) {
       toast("Failed to update profile. Try again.");
