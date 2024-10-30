@@ -1,24 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "../services/Api";
-// import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
-
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
 import "../Styles/Post.scss";
 
-const Posts = ({ className, posts }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState();
-  // const [page, setPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState(1);
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const date = new Date(dateString);
+  return date.toLocaleDateString(undefined, options);
+};
 
+const Posts = ({ className, posts, onUpdate }) => {
+  const [loading, setLoading] = useState();
+  const { UserprofileData } = useContext(UpdatedataContext);
   const handleDeletePost = async (_id) => {
     try {
-      // Make DELETE request to delete the post by id
       const response = await axios.delete(`/social-media/posts/${_id}`);
-
       if (response.status === 200) {
         toast.success("Post deleted successfully");
+        if (onUpdate) {
+          onUpdate();
+        }
       }
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -26,16 +30,8 @@ const Posts = ({ className, posts }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     Posts(page);
-  //   }, [page]);
-
   if (loading) {
     return <p>Loading posts...</p>;
-  }
-
-  if (errorMessage) {
-    return <p>{errorMessage}</p>;
   }
 
   return (
@@ -57,19 +53,21 @@ const Posts = ({ className, posts }) => {
             <div className="Name">
               <p className="FirstName">{post?.author?.firstName}</p>
               <p className="LastName">{post?.author?.lastName}</p>
-              <p className="createdAt">{post?.createdAt}</p>
+              <p className="createdAt">{formatDate(post?.createdAt)}</p>
             </div>
-            <button
-              className="delete-btn"
-              onClick={() =>
-                handleDeletePost(
-                  post._id,
-                  post?.author?.account?.avatar?.username
-                )
-              }
-            >
-              <MdDelete size={25} />
-            </button>
+            {/* {console.log(post?.author?.account?._id, "author")}
+            {console.log(UserprofileData._id, "user")} */}
+            {UserprofileData._id === post?.author?._id && (
+              <>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeletePost(post?._id)}
+                >
+                  <MdDelete size={25} />
+                </button>
+              </>
+            )}
+
             <p className="content">{post.content}</p>
             <div className="images">
               {post?.images?.[0]?.url && (
@@ -80,20 +78,17 @@ const Posts = ({ className, posts }) => {
                 />
               )}
             </div>
+            <button className="bookmark">
+              {/* {isBookmarked ? (
+                <PiBookmarkSimpleFill size={27} />
+              ) : (
+                <PiBookmarkSimpleBold size={27} />
+              )} */}
+              <PiBookmarkSimpleBold size={27} />
+            </button>
           </div>
         ))}
       </div>
-      {/* <div className="pagination-controls">
-        <button onClick={handlePrevious} disabled={page === 1}>
-          <GrFormPrevious size={25} />
-        </button>
-        <span>
-          Page {page} of {totalPages}
-        </span>
-        <button onClick={handleNext} disabled={page === totalPages}>
-          <GrFormNext size={25} />
-        </button>
-      </div> */}
     </div>
   );
 };
