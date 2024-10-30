@@ -7,14 +7,14 @@ import { toast } from "react-toastify";
 const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setPreviewImage(URL.createObjectURL(file));
     } else {
-      setSelectedImage(null);
+      setPreviewImage(null);
     }
   };
 
@@ -23,7 +23,6 @@ const Createpost = ({ className, onUpdate }) => {
 
     if (!image) {
       toast("Please choose an image.");
-
       return;
     }
 
@@ -39,16 +38,13 @@ const Createpost = ({ className, onUpdate }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-
       if (response.status === 201) {
         toast.success("Post created successfully!");
-
         setcontent("");
         setImage(null);
-
+        setPreviewImage(null);
         if (onUpdate) {
           onUpdate();
-          toast.success("Successfully reloaded");
         }
       } else {
         toast.error("Failed to create post. Try again.");
@@ -86,9 +82,9 @@ const Createpost = ({ className, onUpdate }) => {
             <IoImages size={25} />
           </label>
           <div className="previewImage">
-            {selectedImage ? (
+            {previewImage ? (
               <img
-                src={selectedImage}
+                src={previewImage}
                 alt="Preview"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
