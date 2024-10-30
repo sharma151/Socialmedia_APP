@@ -1,52 +1,31 @@
-import { useState, useEffect } from "react";
-import axios from "../services/Api";
+import { useState } from "react";
 import "../Styles/Profile.scss";
 import { Link } from "react-router-dom";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { useContext } from "react";
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-    avatar: "",
-    bio: "",
-    countryCode: "",
-    dob: "",
-    firstName: "",
-    lastName: "",
-    location: "",
-    phoneNumber: "",
-  });
+  const { UserprofileData } = useContext(UpdatedataContext);
   const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get("/social-media/profile");
-        setProfile(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setErrorMessage("Error fetching profile data.");
-      }
-    };
-    fetchProfile();
-  }, []);
 
   return (
     <Link to={"/profile-page"}>
       <div className="Profile">
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        {profile?.account?.avatar?.url && (
+        {UserprofileData?.account?.avatar?.url && (
           <img
-            src={profile?.account?.avatar?.url}
-            alt={profile?.posts?.avatar}
+            src={UserprofileData?.account?.avatar?.url}
+            alt={UserprofileData?.posts?.avatar}
             className="avatar"
           />
         )}
         <div className="profile-info">
           <div className="data">
             <div className="name">
-              <p>{profile?.firstName}</p>
-              <p>{profile.lastName}</p>
+              <p>{UserprofileData?.firstName}</p>
+              <p>{UserprofileData?.lastName}</p>
             </div>
-            <p className="Bio">{profile.bio}</p>
+            <p className="Bio">{UserprofileData?.bio}</p>
           </div>
         </div>
       </div>
