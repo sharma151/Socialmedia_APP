@@ -27,18 +27,19 @@
             gap: 5px;
             position: relative;
             top: -135px;
-            left:365px;
+            left:385px;
             width: fit-content;
             h1{
                 position:absolute;
                 top: 30px;
-                font-size: 25px;
+                left: 4px;
+                font-size: 20px;
                 font-family: 'Times New Roman', Times, serif;
                 font-style:oblique;
             }
             p{  
                 font-family: sans-serif;
-                font-size: 32px;
+                font-size: 28px;
                 font-weight: 700;
             }
                        
@@ -73,6 +74,7 @@
             width: 95%;
             margin: auto;
             margin-top: 5px;
+            flex-direction: column;
            p{
             box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
             margin-top: 10px;
@@ -81,6 +83,10 @@
             font-family: sans-serif;
             border-radius: 6px;
             padding: 4px;
+            .emailicons{
+                position: relative;
+                top: 3px;
+            }
            }
             
         }
