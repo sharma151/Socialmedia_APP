@@ -3,12 +3,16 @@ nav {
     height: 60px;
   .home{
     position: absolute;
-    top: 15px;
-    left: 155px;
+    top: 13px;
+    left: -700px;
     color: white;
     text-decoration: none;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 20px;
+    border: 1px solid white;
+    padding: 2px 4px;
+    border-radius: 7px;
+    font-weight: 800;
     &:hover{
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     
@@ -18,12 +22,12 @@ nav {
   .bookmarks{
     position: absolute;
     top: 17px;
-    left: 255px;
+    left: -600px;
     color: white;
     text-decoration: none;
     font-family: serif;
     font-size: 15px;
-    border: 1px solid white;
+    // border: 1px solid white;
     padding: 2px 4px;
     border-radius: 7px;
     display: inline-flex;
