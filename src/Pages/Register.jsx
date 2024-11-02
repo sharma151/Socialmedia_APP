@@ -74,7 +74,7 @@ const Register = () => {
       } catch (error) {
         if (error.response) {
           const errorMessage =
-            error.response.data?.message || "Error during registration";
+            error.response?.data?.message || "Error during registration";
           console.error("Error during registration:", errorMessage);
           toast.error(errorMessage);
         } else {
@@ -180,7 +180,7 @@ const Register = () => {
         <button type="submit">Register</button>
         <p>
           Already have an account?
-          <Link to="/login">
+          <Link to="/">
             <span>LogIn</span>
           </Link>
         </p>
