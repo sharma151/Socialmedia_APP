@@ -6,6 +6,7 @@ import { AuthContext } from "../Context/Authcontext";
 import axios from "../services/Api";
 import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
+import { PiBookmarkSimpleBold } from "react-icons/pi";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -78,12 +79,16 @@ const Navbar = () => {
 
   return (
     <nav>
-      <Link to="/home" className="home">
-        HOME
-      </Link>
       <ul>
         {isAuthenticated ? (
           <>
+            <Link to="/home" className="home">
+              HOME
+            </Link>
+            <Link to="/Bookmarks" className="bookmarks">
+              Bookmarks
+              <PiBookmarkSimpleBold />
+            </Link>
             <form onSubmit={handleSearchSubmit}>
               <input
                 type="text"
