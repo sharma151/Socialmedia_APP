@@ -4,7 +4,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [bookmarks, setBookmarks] = useState([]);
+  console.log(bookmarks);
   useEffect(() => {
     const token = localStorage.getItem("AccessToken");
     if (token) {
@@ -15,7 +16,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, bookmarks, setBookmarks }}
+    >
       {children}
     </AuthContext.Provider>
   );
