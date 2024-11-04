@@ -11,20 +11,18 @@ import Updateavatar from "../Components/Updateavatar";
 import ProfileUpdate from "../Components/ProfileUpdate";
 import Userpost from "../Components/Userpost";
 import { IoIosMail } from "react-icons/io";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { useContext } from "react";
 
 import { toast } from "react-toastify";
-// import MyPosts from "../Components/myposts";
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({
-    bio: "",
-    countryCode: "",
-    dob: "",
-    firstName: "",
-    lastName: "",
-    location: "",
-    phoneNumber: "",
+  const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
+  const [profileImages, setprofileImages] = useState({
+    avatar: "",
+    coverImage: "",
   });
+
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => setShowModal(false);
@@ -34,7 +32,7 @@ const ProfilePage = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get("/social-media/profile");
-      setProfile(response?.data?.data);
+      setprofileImages(response?.data?.data);
     } catch (error) {
       console.error("Error fetching profile:", error);
       setErrorMessage("Error fetching profile data.");
@@ -68,26 +66,27 @@ const ProfilePage = () => {
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
       <div className="Images">
-        {profile?.coverImage?.url && (
+        {profileImages?.coverImage?.url && (
           <img
-            key={profile?.id}
-            src={profile?.coverImage?.url}
-            alt={profile.coverImage}
+            key={profileImages?.id}
+            src={profileImages?.coverImage?.url}
+            alt={profileImages?.coverImage}
             className="coverimage"
           />
         )}
 
-        {profile?.account?.avatar?.url && (
+        {profileImages?.account?.avatar?.url && (
           <img
-            src={profile?.account?.avatar?.url}
-            alt={profile?.posts?.avatar}
+            src={profileImages?.account?.avatar?.url}
+            alt={profileImages?.posts?.avatar}
             className="avatar"
           />
         )}
 
         <div className="Name">
-          <p> {profile?.firstName}</p>
-          <p> {profile.lastName}</p>
+          <p> {UserprofileData?.firstName}</p>
+          <p> {UserprofileData?.lastName}</p>
+          <h1>{UserprofileData?.account?.username}</h1>
         </div>
         <button className="Updateprofile" onClick={() => setShowModal(true)}>
           {" "}
@@ -98,20 +97,22 @@ const ProfilePage = () => {
       <div className="profile-info">
         <div className="data">
           <p className="Bio">
-            <FaUserAlt /> {profile.bio}
+            <FaUserAlt  /> {UserprofileData?.bio}
           </p>
           <p className="DOB">
             {/* <strong>Date of Birth:</strong> */}
-            <FaBirthdayCake /> {new Date(profile.dob).toLocaleDateString()}
+            <FaBirthdayCake  />{" "}
+            {new Date(UserprofileData?.dob).toLocaleDateString()}
           </p>
           <p className="Location">
-            <FaLocationDot /> {profile.location}
+            <FaLocationDot /> {UserprofileData?.location}
           </p>
           <p className="Phonenumber">
-            <IoCall /> {profile.countryCode} {profile.phoneNumber}
+            <IoCall  /> {UserprofileData?.countryCode}{" "}
+            {UserprofileData?.phoneNumber}
           </p>
           <p className="Mail">
-            <IoIosMail size={20} /> {profile?.account?.email}
+            <IoIosMail  size={15}className="emailicons" /> {UserprofileData?.account?.email}
           </p>
         </div>
       </div>
@@ -127,7 +128,7 @@ const ProfilePage = () => {
       <Updateavatar onUpdate={() => fetchProfile()} />
       {showModal && (
         <ProfileUpdate
-          currentProfile={profile}
+          // currentProfile={profile}
           closeModal={closeModal}
           onUpdate={() => fetchProfile()}
         />
