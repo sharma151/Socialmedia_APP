@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
+import { AuthContext } from "../Context/Authcontext";
 import "../Styles/Post.scss";
 
 const formatDate = (dateString) => {
@@ -14,7 +15,9 @@ const formatDate = (dateString) => {
 
 const Posts = ({ className, posts, onUpdate }) => {
   const [loading, setLoading] = useState();
+  const { bookmarks, setBookmarks } = useContext(AuthContext);
   const { UserprofileData } = useContext(UpdatedataContext);
+
   const handleDeletePost = async (_id) => {
     try {
       const response = await axios.delete(`/social-media/posts/${_id}`);
@@ -30,10 +33,21 @@ const Posts = ({ className, posts, onUpdate }) => {
     }
   };
 
+  const handleBookmarkClick = (post) => {
+    const isBookmarked = bookmarks.some((item) => item._id === post._id);
+
+    if (isBookmarked) {
+      setBookmarks(bookmarks.filter((item) => item._id !== post._id));
+      toast.info("Removed from bookmarks");
+    } else {
+      setBookmarks([post, ...bookmarks]);
+      toast.success("Added to bookmarks");
+    }
+  };
+
   if (loading) {
     return <p>Loading posts...</p>;
   }
-
   return (
     <div className={`posts ${className}`}>
       {/* <h2>All Posts</h2> */}
@@ -55,8 +69,6 @@ const Posts = ({ className, posts, onUpdate }) => {
               <p className="LastName">{post?.author?.lastName}</p>
               <p className="createdAt">{formatDate(post?.createdAt)}</p>
             </div>
-            {/* {console.log(post?.author?.account?._id, "author")}
-            {console.log(UserprofileData._id, "user")} */}
             {UserprofileData._id === post?.author?._id && (
               <>
                 <button
@@ -67,8 +79,7 @@ const Posts = ({ className, posts, onUpdate }) => {
                 </button>
               </>
             )}
-
-            <p className="content">{post.content}</p>
+            <p className="content">{post?.content}</p>
             <div className="images">
               {post?.images?.[0]?.url && (
                 <img
@@ -78,13 +89,15 @@ const Posts = ({ className, posts, onUpdate }) => {
                 />
               )}
             </div>
-            <button className="bookmark">
-              {/* {isBookmarked ? (
+            <button
+              className="bookmark"
+              onClick={() => handleBookmarkClick(post)}
+            >
+              {bookmarks.some((bookmark) => bookmark._id === post._id) ? (
                 <PiBookmarkSimpleFill size={27} />
               ) : (
                 <PiBookmarkSimpleBold size={27} />
-              )} */}
-              <PiBookmarkSimpleBold size={27} />
+              )}
             </button>
           </div>
         ))}
