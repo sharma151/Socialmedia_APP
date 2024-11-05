@@ -8,6 +8,10 @@ import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
 import { PiBookmarkSimpleBold } from "react-icons/pi";
 
+window.addEventListener("beforeunload", () => {
+  handleLogout();
+});
+
 const Navbar = () => {
   const [username, setUsername] = useState("");
   const [suggestions, setSuggestions] = useState();
@@ -58,12 +62,12 @@ const Navbar = () => {
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setUsername(suggestion.account?.username);
-    setSuggestions([]);
-    setError("");
-    navigate(`/profile/${suggestion.account?.username}`);
-  };
+  // const handleSuggestionClick = (suggestion) => {
+  //   setUsername(suggestion.account?.username);
+  //   setSuggestions([]);
+  //   setError("");
+  //   navigate(`/profile/${suggestion.account?.username}`);
+  // };
 
   const handleLogout = async () => {
     try {
