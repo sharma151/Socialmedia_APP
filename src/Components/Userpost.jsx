@@ -1,11 +1,14 @@
-import { useState, useEffect, useContext } from "react";
-import axios from "../services/Api";
+import { useState, useEffect, useContext, useReducer } from "react";
+// import axios from "../services/Api";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
 import { AuthContext } from "../Context/Authcontext";
 import "../Styles/Post.scss";
+
+const DELETE_POST = "DELETE_POST";
+const SET_POSTS = "SET_POSTS";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -16,22 +19,48 @@ const formatDate = (dateString) => {
 const Posts = ({ className, posts, onUpdate }) => {
   const [loading, setLoading] = useState();
   const { bookmarks, setBookmarks } = useContext(AuthContext);
-  const { UserprofileData } = useContext(UpdatedataContext);
 
-  const handleDeletePost = async (_id) => {
-    try {
-      const response = await axios.delete(`/social-media/posts/${_id}`);
-      if (response.status === 200) {
-        toast.success("Post deleted successfully");
-        if (onUpdate) {
-          onUpdate();
-        }
-      }
-    } catch (error) {
-      console.error("Error deleting post:", error);
-      toast.error("Failed to delete the post.");
-    }
+  const { UserprofileData } = useContext(UpdatedataContext);
+  const [state, dispatch] = useReducer(reducer, { posts: [] });
+
+  // const handleDeletePost = async (_id) => {
+  //   // reducer
+  //   try {
+  //     const response = await axios.delete(`/social-media/posts/${_id}`);
+  //     if (response.status === 200) {
+  //       toast.success("Post deleted successfully");
+  //       if (onUpdate) {
+  //         onUpdate();
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting post:", error);
+  //     toast.error("Failed to delete the post.");
+  //   }
+  // };
+
+  const deletePost = (postId) => {
+    dispatch({ type: DELETE_POST, payload: postId });
   };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case DELETE_POST:
+        toast.success("post deleted");
+        return {
+          ...state,
+          posts: state.posts.filter((post) => post._id !== action.payload),
+        };
+
+      case SET_POSTS:
+        return {
+          ...state,
+          posts: action.payload,
+        };
+      default:
+        return state;
+    }
+  }
 
   const handleBookmarkClick = (post) => {
     const isBookmarked = bookmarks.some((item) => item._id === post._id);
@@ -45,6 +74,10 @@ const Posts = ({ className, posts, onUpdate }) => {
     }
   };
 
+  useEffect(() => {
+    dispatch({ type: SET_POSTS, payload: posts });
+  }, [posts]);
+
   if (loading) {
     return <p>Loading posts...</p>;
   }
@@ -52,7 +85,7 @@ const Posts = ({ className, posts, onUpdate }) => {
     <div className={`posts ${className}`}>
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
-        {posts.map((post) => (
+        {state.posts.map((post) => (
           <div key={post._id} className="post-item">
             {post?.author?.account?.avatar?.url && (
               <img
@@ -73,7 +106,8 @@ const Posts = ({ className, posts, onUpdate }) => {
               <>
                 <button
                   className="delete-btn"
-                  onClick={() => handleDeletePost(post?._id)}
+                  onClick={() => deletePost(post?._id)}
+                  // onClick={() => handleDeletePost(post?._id)}
                 >
                   <MdDelete size={25} />
                 </button>
