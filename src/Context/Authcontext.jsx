@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
-  console.log(bookmarks);
+  console.log("Bookmarks", bookmarks);
   useEffect(() => {
     const token = localStorage.getItem("AccessToken");
     if (token) {
