@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import apiClient from "../services/Api";
 import "../Styles/Createpost.scss";
 import { IoImages } from "react-icons/io5";
@@ -8,6 +8,23 @@ const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.style.borderColor = "#243642";
+    }
+  };
+
+  if (inputRef.current) {
+    // Set initial style
+    inputRef.current.style.padding = "10px";
+    inputRef.current.style.borderRadius = "5px";
+    inputRef.current.style.border = "2px solid #629584";
+    inputRef.current.style.outline = "none";
+    inputRef.current.style.transition = "border-color 0.3s ease";
+  }
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -68,6 +85,8 @@ const Createpost = ({ className, onUpdate }) => {
             onChange={(e) => setcontent(e.target.value)}
             placeholder="Write something..."
             autoComplete="off"
+            ref={inputRef}
+            onFocus={handleFocus}
           />
         </div>
         <div>
