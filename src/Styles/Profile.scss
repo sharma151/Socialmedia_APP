@@ -22,10 +22,11 @@
         height:100px;
         color: black;
         .data{
-            position: relative;
-            top: 25px;
-            left: 93px;
             width: fit-content;
+            margin: auto;
+            margin-top: 30px;
+            
+            
         .name{
             display: flex;
             gap: 5px;
@@ -34,11 +35,13 @@
             p{
                 font-family: sans-serif;
                 font-size: 17px;
+                
+                
             }
         }
         .Bio{
-            position: relative;
-            left: -85px;
+            margin-left: 10px;
+            
         }
         
     }
