@@ -1,4 +1,11 @@
-import { useState, useEffect, useContext, useReducer } from "react";
+import {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+  useMemo,
+  memo,
+} from "react";
 // import axios from "../services/Api";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -82,7 +89,7 @@ const Posts = ({ className, posts, onUpdate }) => {
     return <p>Loading posts...</p>;
   }
   return (
-    <div className={`posts ${className}`}>
+    <div className={`posts ${className} increment decrement count  `}>
       {/* <h2>All Posts</h2> */}
       <div className="posts-list">
         {state.posts.map((post) => (

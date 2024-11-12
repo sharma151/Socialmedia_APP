@@ -6,6 +6,7 @@ import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Userpost from "../Components/Userpost";
+import { toast } from "react-toastify";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
@@ -17,7 +18,7 @@ const GetProfileByUsername = () => {
       const response = await axios.get(`/social-media/profile/u/${username}`);
       setUserData(response?.data);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      toast.error("Error fetching user data:", error);
     }
   };
 
@@ -28,7 +29,7 @@ const GetProfileByUsername = () => {
       );
       setUserNamePost(response?.data?.data?.posts);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      toast.error("Error fetching user data:", error);
     }
   };
 
