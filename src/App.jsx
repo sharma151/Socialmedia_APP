@@ -25,6 +25,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<Layout />}>
                   <Route path="/home" element={<Home />} />
+
                   <Route path="/Bookmarks" element={<Bookmarks />} />
                   <Route
                     path="/profile/:username"
