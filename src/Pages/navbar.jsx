@@ -7,12 +7,14 @@ import axios from "../services/Api";
 import debounce from "lodash/debounce";
 import "../Styles/Navbar.scss";
 import { PiBookmarkSimpleBold } from "react-icons/pi";
+import { UsernameContext } from "../Context/Setusername";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
   const [suggestions, setSuggestions] = useState();
   const [error, setError] = useState("");
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { SetUserName } = useContext(UsernameContext);
   const navigate = useNavigate();
 
   const debouncedFetchUsernames = useCallback(
@@ -22,10 +24,10 @@ const Navbar = () => {
           `social-media/profile/u/${searchQuery}`
         );
 
-        if (response.data) {
-          console.log(response.data);
+        if (response?.data?.data) {
+          // console.log(response?.data?.data?.account?.username);
           // work to be continued
-          setSuggestions(response.data);
+          setSuggestions(response?.data?.data?.account);
           setError("");
         } else {
           setSuggestions([]);
@@ -34,7 +36,7 @@ const Navbar = () => {
         console.error("Error fetching user suggestions:", error);
         setSuggestions([]);
       }
-    }, 500),
+    }, 700),
     []
   );
 
@@ -49,6 +51,7 @@ const Navbar = () => {
 
   const handleInputChange = (e) => {
     setUsername(e.target.value);
+    SetUserName(e.target.value);
   };
 
   const handleSearchSubmit = (e) => {
@@ -59,15 +62,15 @@ const Navbar = () => {
   };
 
   // const handleSuggestionClick = (suggestion) => {
-  //   setUsername(suggestion.account?.username);
+  //   setUsername(suggestion);
   //   setSuggestions([]);
   //   setError("");
-  //   navigate(`/profile/${suggestion.account?.username}`);
+  //   navigate(`/profile/${suggestion?.account?.username}`);
   // };
 
-  // window.addEventListener("beforeunload", () => {
-  //   handleLogout();
-  // });
+  window.addEventListener("beforeunload", () => {
+    handleLogout();
+  });
   const handleLogout = async () => {
     try {
       await axios.post(`/users/logout`);
@@ -101,14 +104,14 @@ const Navbar = () => {
                 autoComplete="off"
               />
 
-              {/* {suggestions.length > 0 && (
+              {/* {Array.isArray(suggestions) && suggestions.length > 0 && (
                 <ul className="dropdown">
                   {suggestions?.map((suggestion, index) => (
                     <li
                       key={index}
                       onClick={() => handleSuggestionClick(suggestion)}
                     >
-                      {suggestion.account?.username}
+                      {suggestion}
                     </li>
                   ))}
                 </ul>
