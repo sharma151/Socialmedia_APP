@@ -76,7 +76,7 @@ export const handleFetchMyprofile = async () => {
 
 export const handleUpdateCoverImage = async (formData) => {
   try {
-    const response = apiClient.patch(
+    const response = await apiClient.patch(
       "/social-media/profile/cover-image",
       formData,
       {
@@ -89,6 +89,29 @@ export const handleUpdateCoverImage = async (formData) => {
   } catch (error) {
     console.log(error);
   }
-  {
+};
+
+export const handleUpdateAvatar = async (formData) => {
+  try {
+    const response = await apiClient.patch("/users/avatar", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleUpdateProfile = async (profileData) => {
+  try {
+    const response = await apiClient.patch(
+      "/social-media/profile",
+      profileData
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 };
