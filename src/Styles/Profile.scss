@@ -3,6 +3,7 @@
    position:absolute;
    top: 70px;
    left: 880px;
+   
 
    .avatar{
     height: 90px;
@@ -15,6 +16,7 @@
 }
     .profile-info{
         border: 2px solid black;
+        overflow: hidden;
         border-radius: 10px;
         position: relative;
         top: -40px;
