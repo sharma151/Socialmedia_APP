@@ -28,7 +28,7 @@ export const handleFetchmyPost = async () => {
     const response = await apiClient.get(
       `/social-media/posts/get/my?page=1&limit=100`
     );
-    return response;
+    return response?.data?.data?.posts;
   } catch (error) {
     console.log(error);
   }
@@ -39,8 +39,8 @@ export const handleFetchallPost = async () => {
     const response = await apiClient.get(
       `/social-media/posts?page=1&limit=100`
     );
-    return response;
-  } catch (erro) {
+    return response?.data?.data?.posts;
+  } catch (error) {
     console.log(error);
   }
 };
@@ -50,7 +50,7 @@ export const handleFetchpostByusername = async (userName) => {
     const response = await apiClient.get(
       `/social-media/posts/get/u/${userName}?page=1&limit=100`
     );
-    return response;
+    return response?.data?.data?.posts;
   } catch (error) {
     console.log(error);
   }
@@ -59,7 +59,7 @@ export const handleFetchpostByusername = async (userName) => {
 export const handleFetchuserData = async (username) => {
   try {
     const response = await apiClient.get(`/social-media/profile/u/${username}`);
-    return response;
+    return response?.data;
   } catch (error) {
     console.log(error);
   }
@@ -68,7 +68,7 @@ export const handleFetchuserData = async (username) => {
 export const handleFetchMyprofile = async () => {
   try {
     const response = await apiClient.get("/social-media/profile");
-    return response;
+    return response?.data?.data;
   } catch (error) {
     console.log(error);
   }
@@ -111,6 +111,16 @@ export const handleUpdateProfile = async (profileData) => {
       profileData
     );
     return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleLikePost = async (_id) => {
+  try {
+    const response = await apiClient.post(`/social-media/like/post/${_id}`);
+    
+    return response?.data?.data;
   } catch (error) {
     console.log(error);
   }
