@@ -71,15 +71,34 @@
                 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
             }
         }
-        .bookmark{
+        .Post-buttons{
+           
             position: relative;
-            left: 464px;
-            top: -10px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
+            bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            margin: 0px 20px;
+            padding: 4px 0px;
             
+           
+           .Like-dislike{
+              background-color: transparent;
+              border: none;
+              padding-right: 10px;
+              border-right:1px solid black ;
+             
+           }
+            .bookmark{
+                // position: relative;
+                // left: 464px;
+                // top: -10px;
+                 background-color: transparent;
+                 border: none;
+                cursor: pointer;
+                
+            }
         }
+        
     }
     
     
