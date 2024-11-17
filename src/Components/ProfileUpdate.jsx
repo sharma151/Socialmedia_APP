@@ -1,14 +1,13 @@
 import { useState } from "react";
-import axios from "../services/Api";
 import "../Styles/ProfileUpdate.scss";
 import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
+import { handleUpdateProfile } from "../services/Handleapi";
 
 const ProfileUpdate = ({ closeModal }) => {
   const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
-
   const [profileData, setProfileData] = useState({
     bio: UserprofileData?.bio || "",
     countryCode: UserprofileData.countryCode || "",
@@ -30,7 +29,7 @@ const ProfileUpdate = ({ closeModal }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.patch("/social-media/profile", profileData);
+      const response = await handleUpdateProfile(profileData);
       if (response.status === 200) {
         toast("Profile updated successfully!");
         setUserProfileData(profileData);
