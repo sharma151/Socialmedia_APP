@@ -41,8 +41,7 @@
                 font-family: sans-serif;
                 font-size: 28px;
                 font-weight: 700;
-            }
-                       
+            }          
         }
     .Updateprofile{
         width: fit-content;
@@ -57,9 +56,7 @@
             font-family: sans-serif;
             padding: 7px;
         }
-
     }
-       
     }
     .profile-info{
         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -70,7 +67,6 @@
         margin-left: 190px;
         
         .data{
-           
             width: 95%;
             margin: auto;
             margin-top: 5px;
@@ -100,5 +96,10 @@
         position: relative;
         left: 260px;
         top: -100px;
+    }
+    .Profilepage-loader{ 
+       position: absolute;
+       top: 50%;
+       left: 45%;
     }
 }
