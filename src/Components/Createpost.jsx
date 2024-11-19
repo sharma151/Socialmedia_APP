@@ -1,31 +1,17 @@
-import { useState, useRef } from "react";
-import apiClient from "../services/Api";
-import "../Styles/Createpost.scss";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { Handlecreatepost } from "../services/Handleapi";
+import { useContext, useState } from "react";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
+import "../Styles/Createpost.scss";
 
 const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const inputRef = useRef(null);
+  const { UserprofileData } = useContext(UpdatedataContext);
 
-  if (inputRef.current) {
-    inputRef.current.style.borderRadius = "5px";
-    inputRef.current.style.border = "2px solid white";
-    inputRef.current.style.outline = "none";
-    inputRef.current.style.transition = "border-color 0.3s ease";
-  }
-
-  const handleBlur = () => {
-    if (inputRef.current) {
-      inputRef.current.style.borderColor = "white";
-    }
-  };
-
-  const handleFocus = () => {
-    inputRef.current.style.borderColor = "#243642";
-  };
+  console.log(UserprofileData);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -37,26 +23,23 @@ const Createpost = ({ className, onUpdate }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const Createposthandlesubmit = async (e) => {
     e.preventDefault();
 
     if (!image) {
       toast("Please choose an image.");
       return;
     }
-
+    if (!content) {
+      toast("Caption required");
+      return;
+    }
     const formData = new FormData();
     formData.append("images", image);
     formData.append("content", content);
 
-    console.log(formData, image, content);
-
     try {
-      const response = await apiClient.post("/social-media/posts", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await Handlecreatepost(formData);
       if (response.status === 201) {
         toast.success("Post created successfully!");
         setcontent("");
@@ -78,18 +61,19 @@ const Createpost = ({ className, onUpdate }) => {
   return (
     <div className={`Create-posts ${className}`}>
       <h2>Create a Post</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={(e) => {
+          Createposthandlesubmit(e);
+        }}
+      >
         <div>
           <input
             type="text"
             id="content"
             value={content}
             onChange={(e) => setcontent(e.target.value)}
-            placeholder="Write something..."
+            placeholder={`What's on your mind, ${UserprofileData?.firstName}?`}
             autoComplete="off"
-            ref={inputRef}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
           />
         </div>
         <div>
