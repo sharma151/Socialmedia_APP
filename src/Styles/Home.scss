@@ -1,5 +1,75 @@
 .homeloader{
     position: absolute;
-    top: 300px;
-    left: 500px;
+    top: 350px;
+    left: 555px;
 }
+.aside{
+    height: 375px;
+    width: 280px;
+    // box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    position: relative;
+    left: 30px;
+    top: 35px;
+    border-radius: 7px;
+    .profile{
+        display: flex;
+        gap: 10px;
+        position: relative;
+        top: 8px;
+        margin: 5px 5px 13px 5px;
+        padding: 4px 0px 0px 5px;
+        border-radius: 7px;
+
+        
+        .profileimg img{
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            
+        }
+        .Name, p{
+            display: flex;
+            gap: 7px;
+            font-family:sans-serif;
+            align-items: center;
+            font-weight: 400;
+        }
+    }
+    .profile:hover,
+    .bookmarks:hover,
+    .groups:hover,
+    .website:hover,
+    .projects:hover,
+    .music:hover {
+        background: #f7efef;
+    }
+    
+    .bookmarks,.groups,.website,.projects,.music{
+      
+        border-radius: 7px;
+        padding: 10px;
+        margin: 5px;
+        display: flex;
+        gap: 10px;
+        text-decoration: none;
+        color:black;
+        p{
+            font-family: sans-serif;
+            padding-top: 3px;  
+            color: black;
+          
+        }
+        a{  text-decoration: none;}
+    }
+}
+.Homepage-createpost{
+    position: absolute;
+    top: 100px;
+    left: 340px;
+}
+.Getallpost{
+    position: absolute;
+    top: 200px;
+    left:40px;
+}
+
