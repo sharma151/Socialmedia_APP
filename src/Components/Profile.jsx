@@ -1,8 +1,8 @@
-import { useState } from "react";
-import "../Styles/Profile.scss";
-import { Link } from "react-router-dom";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "../Styles/Profile.scss";
 
 const Profile = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
