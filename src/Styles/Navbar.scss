@@ -4,7 +4,7 @@ nav {
   .home{
     position: absolute;
     top: 13px;
-    left: -700px;
+    left: 150px;
     color: white;
     text-decoration: none;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -19,108 +19,40 @@ nav {
     }
 
   }
-  .bookmarks{
-    position: absolute;
-    top: 17px;
-    left: -600px;
-    color: white;
-    text-decoration: none;
-    font-family: serif;
-    font-size: 15px;
-    // border: 1px solid white;
-    padding: 2px 4px;
-    border-radius: 7px;
-    display: inline-flex;
-    align-items: center;
-    &:hover{
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      color:black;
-      background-color: white;
-      transition: 0.25s ease-in-out;
-    
-    }
-  }
-    ul {
-      display: flex;
-      position: absolute;
-      right: 10px;
-      gap: 5px;
-      padding:14px 0px 0px 14px;
-      
-      
-      /* Navbar.scss */
-.dropdown {
-  position: absolute;
-  left:20px;
-  margin-top: 6px;
-  padding: 4px 10px;
-  background-color:#629584;
-  border-radius:6px ;
-  width:200px;
-  overflow-y: auto;
-  z-index: 100;
-
+     
+   
+ul{
+  display: flex;
+   
 }
 
-.dropdown li {
- font-family: sans-serif;
-  cursor: pointer;
-
-}
-
-.dropdown li:hover {
-  background-color: #f0f0f0;
-  border: 2px solid grey;
- 
-}
-// ------------------------------------
-
-      input{
-        border-radius: 10px;
+    input{
+        border-radius: 50px;
         border-style: none;
-        width: 300px;
-        padding: 8px 10px;
+        width: 500px;
+        padding: 8px 15px;
         font-family: sans-serif;
-
+        position: relative;
+        left: 340px;
+        top: 13px;
         &:focus {
           outline: none;
           
         }
       }
       
-      li{
-              
-        list-style: none;
-        border-radius:5px;
-        padding: 5px;
-  
-        a {
-          text-decoration: none; 
-          color: white;
-          background-color: #629584;
-          padding: 8px;
-          border-radius: 5px;
-          font-family: sans-serif;
-          font-size: 15px;
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  
-          &:hover {
-            background-color: #629584;
-            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
-
-
-          }
-        }
-      }
       .logout{
-        font-family: sans-serif;
-        padding:7px;
+        
+        padding: 0px 10px;
         font-size: 15px;
         background-color: #629584;
         border-style: none;
         border-radius: 7px;
-          color: white;
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        color: white;
+        position: relative;
+        top: 13px;
+        left: 650px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   
           &:hover {
             background-color: #629584;
@@ -128,8 +60,14 @@ nav {
 
 
           }
+       .logout-log{
+        position: relative;
+        bottom: 3px;
+        padding-left: 4px;
+        font-family: sans-serif;
+       }
       }
     }
-  }
+  
   
   
