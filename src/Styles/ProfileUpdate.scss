@@ -1,105 +1,87 @@
-.wrapper{
+
+  
+  .wrapper {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
     top: 0;
-    background-color: rgba(189, 189, 189, 0.9);
-}
-.ProfileUpdate{
-    width:45%;
-    border:2px solid black;
-    margin: auto;
-    padding: 10px;
-    border-radius: 6px;
-    position:absolute;
-    top: 150px;
-    left: 350px;
-    background-color: white;
-    .head{
-        display: flex;
-        justify-content: space-between;
-        h2{
-            font-family: sans-serif;
-        }
-        button{
-            display: none;
-        }
-
-  }  form{
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-        border-radius: 6px;
-        padding: 10px;
-        margin-top: 10px;
-        
-       
-        .Name{
-            display: flex;
-            gap: 10px;
-            
-            margin-bottom: 10px;  
-            .fName,.lName {
-                label{
-                font-family: sans-serif;
-                }
-                input{
-                    height: 30px;
-                    font-family: sans-serif;
-                    font-style: italic;
-                    
-                }
-            }
-        }
-        .Bio{
-            
-            margin-bottom: 10px;
-            label{
-                font-family: sans-serif;
-                position: relative;
-                top: -10px;
-            }
-            textarea{
-                height: 30px;
-                font-family: sans-serif;
-                font-style: italic;
-                text-transform: capitalize;
-            }
-        }
-        .countrycode,.Pnumber,.DOB,.Location{
-            
-            margin-bottom: 10px;
-            label{
-                font-family: sans-serif;
-                
-            }
-            input{
-                height: 30px;
-                font-family: sans-serif;
-                font-style: italic;
-                text-transform: capitalize;
-            }
-
-        }
-        .update-btn {
-            background-color: #4CAF50; 
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            font-family: sans-serif;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            text-align: center;
-          }
-          
-          .update-btn:hover {
-            background-color: #45a049; 
-            transform: scale(1.005);
-          
-          
-    }
-    
-}}
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Semi-transparent overlay
+    z-index: 1000;
+  }
+  
+  .ProfileUpdate {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    z-index: 1100;
+    max-width: 90%;
+    width: 500px; // Fixed width
+    max-height: 90vh; // Allow the modal to be scrollable if content exceeds screen height
+    overflow-y: auto; // Enable vertical scrolling
+    padding: 1.5rem;
+  }
+  
+  .ProfileUpdate .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .ProfileUpdate .head h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .ProfileUpdate .head button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .ProfileUpdate form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; // Add spacing between form fields
+  }
+  
+  .ProfileUpdate label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .ProfileUpdate input,
+  .ProfileUpdate textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .ProfileUpdate textarea {
+    resize: none;
+    height: 100px; // Adjust height as needed
+  }
+  
+  .ProfileUpdate .update-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .ProfileUpdate .update-btn:hover {
+    background-color: #0056b3;
+  }
+  
