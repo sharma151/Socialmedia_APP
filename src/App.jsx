@@ -15,31 +15,35 @@ import { UpdateProfileContextProvider } from "./Context/UpdateProfileContext";
 function App() {
   return (
     <AuthProvider>
-      <UpdateProfileContextProvider>
-        <Router>
-          <div className="App">
-            <Routes>
-              <Route path="/login" element={<Login />} />
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-              <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} />
 
-              <Route element={<ProtectedRoute />}>
-                <Route element={<Layout />}>
-                  <Route path="/" element={<Home />} />
+            <Route element={<ProtectedRoute />}>
+              <Route
+                element={
+                  <UpdateProfileContextProvider>
+                    <Layout />
+                  </UpdateProfileContextProvider>
+                }
+              >
+                <Route path="/" element={<Home />} />
 
-                  <Route path="/Bookmarks" element={<Bookmarks />} />
-                  <Route
-                    path="/profile/:username"
-                    element={<ProfileByUsername />}
-                  />
-                  <Route path="/posts" element={<Userpost />} />
-                  <Route path="/profile-page" element={<ProfilePage />} />
-                </Route>
+                <Route path="/Bookmarks" element={<Bookmarks />} />
+                <Route
+                  path="/profile/:username"
+                  element={<ProfileByUsername />}
+                />
+                <Route path="/posts" element={<Userpost />} />
+                <Route path="/profile-page" element={<ProfilePage />} />
               </Route>
-            </Routes>
-          </div>
-        </Router>
-      </UpdateProfileContextProvider>
+            </Route>
+          </Routes>
+        </div>
+      </Router>
     </AuthProvider>
   );
 }
