@@ -9,7 +9,7 @@
     // box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     position: relative;
     left: 30px;
-    top: 35px;
+    top: 80px;
     border-radius: 7px;
     .profile{
         display: flex;
@@ -41,7 +41,7 @@
     .website:hover,
     .projects:hover,
     .music:hover {
-        background: #f7efef;
+        background: #d4d0d0;
     }
     
     .bookmarks,.groups,.website,.projects,.music{
@@ -71,5 +71,81 @@
     position: absolute;
     top: 200px;
     left:40px;
+}
+.birthday{
+    width:310px;
+    height: 70px;
+    position: absolute;
+    left: 880px;
+    top: 240px;
+    border-bottom: solid grey;
+    padding:0px 0px 20px 0px;
+    p{
+        font-family: sans-serif;
+        font-weight: 700;
+        margin:5px 0px 0px 0px;
+    
+    }
+    .birthdate{
+        position: relative;       
+        width: 280px;        
+        top: 0px;
+        left:15px;
+        padding: 7px;
+        border-radius: 8px;
+        &:hover{
+            background: #d4d0d0;
+        }
+      
+        span{
+            padding-left: 10px;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+            position: relative;
+            bottom: 4px;
+            
+        }
+    }
+}
+
+.suggestions{
+    width: 310px;
+    
+    position: absolute;
+    left: 880px;
+    top: 320px;
+    p{
+        font-family: sans-serif;
+        font-weight: 700;
+    }
+    
+    .user-tile{
+        display: flex;
+        
+        border-radius: 8px;
+        margin: 4px;
+        padding: 3px 10px;
+        &:hover{
+            background: #d4d0d0;
+        }
+        .icons>img{
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            }
+        .suggestionname{
+            font-family: sans-serif;
+            margin-left: 15px;
+            text-align: center;
+            margin-top: 11px;
+            height: fit-content;
+            span{
+                height: 5px;
+                width: 5px;
+                margin-left: 10px;
+            }
+        }
+    
+    }
 }
 
