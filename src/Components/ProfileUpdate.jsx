@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../Styles/ProfileUpdate.scss";
 import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -18,13 +18,27 @@ const ProfileUpdate = ({ closeModal }) => {
     phoneNumber: UserprofileData.phoneNumber || "",
   });
 
-  // Handle input change for form fields
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  // Effect to toggle scrollbar
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = ""; // Reset to default
+    }
+
+    // Cleanup when component unmounts or modal closes
+    return () => {
+      document.body.style.overflow = ""; // Ensure scrolling is restored
+    };
+  }, [isModalOpen]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,6 +47,8 @@ const ProfileUpdate = ({ closeModal }) => {
       if (response.status === 200) {
         toast("Profile updated successfully!");
         setUserProfileData(profileData);
+        closeModal(); // Close modal on success
+        setIsModalOpen(false); // Reset modal state
       }
     } catch (error) {
       toast("Failed to update profile. Try again.");
@@ -40,13 +56,20 @@ const ProfileUpdate = ({ closeModal }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    closeModal();
+  };
+
   return (
     <>
-      <div className="wrapper" onClick={closeModal}></div>
+      {isModalOpen && (
+        <div className="wrapper" onClick={handleCloseModal}></div>
+      )}
       <div className="ProfileUpdate">
         <div className="head">
           <h2>Update Profile</h2>
-          <button id="close" onClick={closeModal}></button>
+          <button id="close" onClick={handleCloseModal}></button>
           <label htmlFor="close">
             <IoIosCloseCircleOutline size={35} />
           </label>
