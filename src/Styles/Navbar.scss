@@ -12,7 +12,7 @@ nav {
   .home{
     position: absolute;
     top: 13px;
-    left: 150px;
+    left: 100px;
     color: white;
     text-decoration: none;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -43,7 +43,7 @@ nav {
         padding: 8px 15px;
         font-family: sans-serif;
         position: relative;
-        left: 340px;
+        left: 300px;
         top: 13px;
         &:focus {
           outline: none;
@@ -51,26 +51,24 @@ nav {
         }
       }
       
-    .logout{
-        padding: 0px 7px;
-        font-size: 15px;
-        background-color: #629584;
-        border-style: none;
-        border-radius: 7px;
-        color: white;
+    .logout-btn{
+      position: relative;
+      left: 610px;
+      top: 16px;
+      height: fit-content;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background-color: #629584;
+      color: white;
+      border: none;
+      cursor: pointer;
+      .logout-log{
         position: relative;
-        top: 7px;
-        left: 610px;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-          &:hover {
-            background-color: #629584;
-            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px; 
-          }
-       .logout-log{
-        position: relative;
-        bottom: 3px;
+        bottom: 5px;
         font-family: sans-serif;
-       }
+        margin-left: 4px;
+      }
+        
       }
     }
   }
