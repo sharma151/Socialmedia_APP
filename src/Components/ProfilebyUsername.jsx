@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "../services/Api";
-import "../Styles/ProfilePage.scss";
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
-import Userpost from "../Components/Userpost";
 import { toast } from "react-toastify";
+import Userpost from "../Components/Userpost";
+import "../Styles/ProfilePage.scss";
+import {
+  handleFetchpostByusername,
+  handleFetchuserData,
+} from "../services/Handleapi";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
@@ -15,8 +18,9 @@ const GetProfileByUsername = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`/social-media/profile/u/${username}`);
-      setUserData(response?.data);
+      const response = await handleFetchuserData(username);
+     
+      setUserData(response);
     } catch (error) {
       toast.error("Error fetching user data:", error);
     }
@@ -24,10 +28,8 @@ const GetProfileByUsername = () => {
 
   const fetchpostByUsername = async () => {
     try {
-      const response = await axios.get(
-        `/social-media/posts/get/u/${username}?page=1&limit=100`
-      );
-      setUserNamePost(response?.data?.data?.posts);
+      const response = await handleFetchpostByusername(username);
+      setUserNamePost(response);
     } catch (error) {
       toast.error("Error fetching user data:", error);
     }
