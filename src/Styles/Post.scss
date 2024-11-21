@@ -117,3 +117,91 @@
     top: -210px;
     left:270px;
 }
+
+.main-modal{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 504px;
+    width: 800px;
+    display: flex;
+    
+    .modal-post-image>img{
+        width: 450px;
+        height: 504px;
+    }
+
+    
+    .postdetails{
+        background-color: white;
+        width: 400px;
+        .head{
+            border-bottom: 1.5px solid grey;
+            
+        .post-admin-avatar>img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin:10px 0px 5px 10px
+            
+            
+            
+        }
+        .Name{
+            display: flex;
+            gap: 5px;
+            width: fit-content;
+            position: absolute;
+            top: 17px;
+            left: 520px;
+            font-weight: 550;
+            font-size: 20px;
+            
+        }
+        p{
+            font-family: sans-serif;  
+            width: fit-content; 
+            
+        }
+        .createdAt{
+            font-size: 12px;
+            position: absolute;
+            top: 39px;
+            left: 523px;
+        }
+    }
+    .content{
+        font-family: sans-serif;
+        font-size:20px;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+    .post-buttons{
+        
+        position: relative;
+        top: 250px;
+        display: flex;
+        margin: 10px;
+        padding-top: 10px;
+        border-top: 1px solid black;
+        justify-content: space-between;
+        .Like-dislike{
+            border: none;
+            background: transparent;
+            
+            
+            border-right: 1px solid black;
+            .like-count{
+                font-size: 17px;
+                position: relative;
+                bottom:7px;
+                left: 15px;
+            }
+        }
+        .bookmark{
+            border: none;
+            background: transparent;
+        }
+    }
+        
+    }
+
+    }
