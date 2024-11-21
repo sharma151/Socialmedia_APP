@@ -1,4 +1,5 @@
 .ProfilePage{
+    margin-top: 60px;
     .Images{
         width: 95%;
         border-bottom: 1px solid grey;
@@ -43,48 +44,67 @@
                 font-weight: 700;
             }          
         }
-    .Updateprofile{
-        width: fit-content;
-        position: absolute;
-        top: 420px;
-        left: 800px;
-        padding:2px 7px;
-        display: flex;
-        border-radius: 6px;
-        cursor: pointer;
-        p{
-            font-family: sans-serif;
-            padding: 7px;
-        }
-    }
+    // .Updateprofile{
+    //     width: fit-content;
+    //     position: absolute;
+    //     top: 420px;
+    //     left: 800px;
+    //     padding:2px 7px;
+    //     display: flex;
+    //     border-radius: 6px;
+    //     cursor: pointer;
+    //     p{
+    //         font-family: sans-serif;
+    //         padding: 7px;
+    //     }
+    // }
     }
     .profile-info{
-        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-        border:1px solid white;
-        border-radius: 6px;
-        width: 28%;
-        margin-top: 10px;
-        margin-left: 190px;
         
-        .data{
-            width: 95%;
-            margin: auto;
-            margin-top: 5px;
-            flex-direction: column;
-           p{
-            box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-            margin-top: 10px;
-            margin-bottom:10px ;
-            font-size: 15px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border-radius: 7px;
+        width: 380px;
+        height: 350px;
+        margin-top: 15px;
+        position: relative;
+        left:-20px;
+        margin-left: 190px;
+        h4{
             font-family: sans-serif;
-            border-radius: 6px;
-            padding: 4px;
-            .emailicons{
-                position: relative;
-                top: 3px;
-            }
-           }
+            position: relative;
+            top: 13px;
+            left: 13px;
+        }
+        .data{
+            margin-top: 30px;
+            border-radius: 8px;
+            width: 355px;
+            padding: 5px;
+            position: relative;
+            left: 13px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+        
+        .Bio,.DOB,.Location,.Phonenumber,.Mail{
             
+            margin: 5px;
+            padding: 10px;
+            border-radius: 7px;
+            font-family: sans-serif;
+            &:hover{
+                background: #d4d0d0;
+            }
+        }
+        .Updateprofile{
+            width: 335px;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 7px;
+            border: none;
+            p{font-family: sans-serif;}
+            &:hover{
+                background-color:rgb(225, 220, 220);
+            }
         }
     }
     .profilepage-createpost{
@@ -93,9 +113,9 @@
        left:560px;
     }
     .Getmyposts{
-        position: relative;
+        position: absolute;
         left: 260px;
-        top: -100px;
+        top: 700px;
     }
     .Profilepage-loader{ 
        position: absolute;
