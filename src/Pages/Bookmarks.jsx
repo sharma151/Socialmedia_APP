@@ -15,9 +15,8 @@ const Bookmarks = () => {
     const fetchBookmarks = async () => {
       try {
         const response = await handleFetchBookmarks();
-        setBookmarkedPosts(response);
-
         console.log(response);
+        setBookmarkedPosts(response);
       } catch (error) {
         console.error("Error fetching bookmarks:", error);
         toast.error("Failed to fetch bookmarks.");
@@ -28,6 +27,14 @@ const Bookmarks = () => {
   }, []);
 
   return (
+    // <div>
+    //   <h6>Bookmarks</h6>
+    //   {bookmarks ? (
+    //     <Userpost posts={bookmarks} />
+    //   ) : (
+    //     <p>Error Fetching Bookmarks</p>
+    //   )}
+    // </div>
     <>
       <Userpost posts={bookmarkedPosts} />
     </>
