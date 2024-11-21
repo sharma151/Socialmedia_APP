@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "../services/Api";
+import { handleFetchMyprofile } from "../services/Handleapi";
 
 export const UpdatedataContext = createContext();
 
@@ -12,21 +12,23 @@ export const UpdateProfileContextProvider = ({ children }) => {
     lastName: "",
     location: "",
     phoneNumber: "",
-    email: "",
+    coverImage: "",
+    avatar: "",
   });
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("/social-media/profile");
-        setUserProfileData(response?.data?.data);
+        const response = await handleFetchMyprofile();
+
+        setUserProfileData(response);
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
     };
     fetchProfile();
   }, []);
-  // console.log(UserprofileData?.data?.data);
+
   return (
     <UpdatedataContext.Provider value={{ UserprofileData, setUserProfileData }}>
       {children}
