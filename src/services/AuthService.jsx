@@ -1,11 +1,10 @@
-import apiClient from "./Api";
 import { toast } from "react-toastify";
+import apiClient from "./Api";
 
 export const Handlelogin = async (formData) => {
   try {
-    console.log("Sending login", formData);
     const response = await apiClient.post("/users/login", formData);
-    console.log("Login response:", response?.data?.data?.accessToken);
+
     return response?.data?.data?.accessToken;
   } catch (error) {
     toast.error(
@@ -21,7 +20,7 @@ export const Handleregister = async (formData) => {
       "http://localhost:8080/api/v1/users/register",
       formData
     );
-    return response?.data?.message;
+    return response;
   } catch (error) {
     toast.error("Network error or server is down", error);
   }
