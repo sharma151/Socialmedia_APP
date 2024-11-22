@@ -16,7 +16,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 8px; 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     z-index: 1100;
     max-width: 90%;
@@ -24,6 +24,7 @@
     max-height: 90vh; // Allow the modal to be scrollable if content exceeds screen height
     overflow-y: auto; // Enable vertical scrolling
     padding: 1.5rem;
+    scrollbar-width:none;
   }
   
   .ProfileUpdate .head {
@@ -95,4 +96,7 @@
   .ProfileUpdate .update-btn:hover {
     background-color: #243642;
   }
+  
+
+
   
