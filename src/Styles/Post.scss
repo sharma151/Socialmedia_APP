@@ -123,15 +123,20 @@
     height: 504px;
     width: 800px;
     display: flex;
+    border: 10px;
     
     .modal-post-image>img{
         width: 450px;
         height: 504px;
+        border-top-left-radius: 10px;
+        
     }
 
     
     .postdetails{
         background-color: white;
+       border-top-right-radius: 10px;
+      
         width: 400px;
         .head{
             border-bottom: 1.5px solid grey;
@@ -141,6 +146,7 @@
             width: 50px;
             border-radius: 50%;
             margin:10px 0px 5px 10px
+
             
             
             
