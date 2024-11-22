@@ -125,15 +125,18 @@
           font-size: 13px;
           text-decoration: none;
           padding: 18px 55px;
-
           span{
+            text-decoration: none;
             color: white;
             font-family: sans-serif;
             margin-left: 5px;
-            text-decoration: none;
             width: fit-content
-          }
+          
         }
+        }
+    }
+    a{
+      text-decoration: none;
     }
     
       
