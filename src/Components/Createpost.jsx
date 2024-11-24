@@ -11,8 +11,6 @@ const Createpost = ({ className, onUpdate }) => {
   const [previewImage, setPreviewImage] = useState(null);
   const { UserprofileData } = useContext(UpdatedataContext);
 
-  console.log(UserprofileData);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -106,3 +104,4 @@ const Createpost = ({ className, onUpdate }) => {
 };
 
 export default Createpost;
+  
