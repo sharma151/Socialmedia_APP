@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import "../Styles/ProfileUpdate.scss";
-import { toast } from "react-toastify";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useState, useEffect } from "react";
+import { handleUpdateProfile } from "../services/Handleapi";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
-import { handleUpdateProfile } from "../services/Handleapi";
+import { toast } from "react-toastify";
+import "../Styles/ProfileUpdate.scss";
 
 const ProfileUpdate = ({ closeModal }) => {
   const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
@@ -20,19 +20,24 @@ const ProfileUpdate = ({ closeModal }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  // Effect to toggle scrollbar
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
-    } else {
-      document.body.style.overflow = ""; // Reset to default
+  const validateForm = () => {
+    let isValid = true;
+
+    // Validate phone number
+    if (!/^\d{10}$/.test(profileData?.phoneNumber)) {
+      toast.error("Phone number must be exactly 10 digits.");
+      isValid = false;
     }
 
-    // Cleanup when component unmounts or modal closes
-    return () => {
-      document.body.style.overflow = ""; // Ensure scrolling is restored
-    };
-  }, [isModalOpen]);
+    // Validate bio
+    const wordCount = profileData?.bio.trim().split(/\s+/).length;
+    if (wordCount > 50) {
+      toast.error("Bio must not exceed 50 words.");
+      isValid = false;
+    }
+
+    return isValid;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +46,9 @@ const ProfileUpdate = ({ closeModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      return; // Stop submission if validation fails
+    }
     try {
       const response = await handleUpdateProfile(profileData);
       if (response.status === 200) {
@@ -60,6 +67,19 @@ const ProfileUpdate = ({ closeModal }) => {
     setIsModalOpen(false);
     closeModal();
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = ""; // Reset to default
+    }
+
+    // Cleanup when component unmounts or modal closes
+    return () => {
+      document.body.style.overflow = ""; // Ensure scrolling is restored
+    };
+  }, [isModalOpen]);
 
   return (
     <>
@@ -82,7 +102,7 @@ const ProfileUpdate = ({ closeModal }) => {
               <input
                 type="text"
                 name="firstName"
-                value={profileData.firstName}
+                value={profileData?.firstName}
                 onChange={handleInputChange}
                 autoComplete="off"
                 required
@@ -93,7 +113,7 @@ const ProfileUpdate = ({ closeModal }) => {
               <input
                 type="text"
                 name="lastName"
-                value={profileData.lastName}
+                value={profileData?.lastName}
                 onChange={handleInputChange}
                 autoComplete="off"
                 required
@@ -104,7 +124,7 @@ const ProfileUpdate = ({ closeModal }) => {
             <label>Bio : </label>
             <textarea
               name="bio"
-              value={profileData.bio}
+              value={profileData?.bio}
               onChange={handleInputChange}
             />
           </div>
@@ -113,7 +133,7 @@ const ProfileUpdate = ({ closeModal }) => {
             <input
               type="text"
               name="countryCode"
-              value={profileData.countryCode}
+              value={profileData?.countryCode}
               autoComplete="off"
               required
               onChange={handleInputChange}
@@ -124,7 +144,7 @@ const ProfileUpdate = ({ closeModal }) => {
             <input
               type="text"
               name="phoneNumber"
-              value={profileData.phoneNumber}
+              value={profileData?.phoneNumber}
               onChange={handleInputChange}
               autoComplete="off"
               required
@@ -138,7 +158,7 @@ const ProfileUpdate = ({ closeModal }) => {
               autoComplete="off"
               value={
                 profileData.dob
-                  ? new Date(profileData.dob).toISOString().split("T")[0]
+                  ? new Date(profileData?.dob).toISOString().split("T")[0]
                   : ""
               }
               onChange={handleInputChange}
@@ -151,7 +171,7 @@ const ProfileUpdate = ({ closeModal }) => {
             <input
               type="text"
               name="location"
-              value={profileData.location}
+              value={profileData?.location}
               onChange={handleInputChange}
               autoComplete="off"
             />
