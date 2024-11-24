@@ -1,7 +1,7 @@
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
@@ -19,7 +19,6 @@ const GetProfileByUsername = () => {
   const fetchUserData = async () => {
     try {
       const response = await handleFetchuserData(username);
-     
       setUserData(response);
     } catch (error) {
       toast.error("Error fetching user data:", error);
