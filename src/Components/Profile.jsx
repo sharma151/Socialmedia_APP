@@ -6,12 +6,10 @@ import "../Styles/Profile.scss";
 
 const Profile = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
-  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <Link to={"/profile-page"}>
       <div className="Profile">
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         {UserprofileData?.account?.avatar?.url && (
           <img
             src={UserprofileData?.account?.avatar?.url}
