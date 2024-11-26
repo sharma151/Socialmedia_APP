@@ -1,85 +1,60 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect, useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { AuthContext } from "../Context/Authcontext";
-import axios from "../services/Api";
-import debounce from "lodash/debounce";
-import "../Styles/Navbar.scss";
-import { PiBookmarkSimpleBold } from "react-icons/pi";
+import { useState, useCallback, useContext } from "react";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { UsernameContext } from "../Context/Setusername";
+import { Handlelogout } from "../services/AuthService";
+import { AuthContext } from "../Context/Authcontext";
+import { useNavigate } from "react-router-dom";
+import { TbLogout } from "react-icons/tb";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai"; // Import close icon
+import debounce from "lodash/debounce";
+import axios from "../services/Api";
+import "../Styles/Navbar.scss";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
-  const [suggestions, setSuggestions] = useState();
-  const [error, setError] = useState("");
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { SetUserName } = useContext(UsernameContext);
+  const { UserprofileData } = useContext(UpdatedataContext);
   const navigate = useNavigate();
 
   const debouncedFetchUsernames = useCallback(
     debounce(async (searchQuery) => {
       try {
-        const response = await axios.get(
-          `social-media/profile/u/${searchQuery}`
-        );
-
-        if (response?.data?.data) {
-          // console.log(response?.data?.data?.account?.username);
-          // work to be continued
-          setSuggestions(response?.data?.data?.account);
-          setError("");
-        } else {
-          setSuggestions([]);
-        }
+        await axios.get(`social-media/profile/u/${searchQuery}`);
       } catch (error) {
-        console.error("Error fetching user suggestions:", error);
-        setSuggestions([]);
+        toast.error("Error fetching user ", error);
       }
     }, 700),
     []
   );
 
-  useEffect(() => {
-    if (username) {
-      debouncedFetchUsernames(username);
-    } else {
-      setSuggestions([]);
-      setError("");
-    }
-  }, [username, debouncedFetchUsernames]);
-
   const handleInputChange = (e) => {
+    debouncedFetchUsernames(e.target.value);
     setUsername(e.target.value);
     SetUserName(e.target.value);
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (!error) {
-      navigate(`/profile/${username}`);
-    }
+    navigate(`/profile/${username}`);
   };
 
-  // const handleSuggestionClick = (suggestion) => {
-  //   setUsername(suggestion);
-  //   setSuggestions([]);
-  //   setError("");
-  //   navigate(`/profile/${suggestion?.account?.username}`);
-  // };
+  const handleClearSearch = () => {
+    setUsername("");
+    SetUserName("");
+  };
 
-  window.addEventListener("beforeunload", () => {
-    handleLogout();
-  });
-  const handleLogout = async () => {
-    try {
-      await axios.post(`/users/logout`);
+  const handleLogoutClick = async () => {
+    const success = await Handlelogout();
+    if (success) {
       localStorage.removeItem("AccessToken");
       setIsAuthenticated(false);
-      navigate("/");
-    } catch (error) {
-      console.error("Error logging out", error);
-      toast.error("Failed to logout User. Please try again later.");
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } else {
+      toast.error("Logout failed");
     }
   };
 
@@ -88,47 +63,47 @@ const Navbar = () => {
       <ul>
         {isAuthenticated ? (
           <>
-            <Link to="/home" className="home">
+            <Link to="/" className="home">
               HOME
             </Link>
-            <Link to="/Bookmarks" className="bookmarks">
-              Bookmarks
-              <PiBookmarkSimpleBold />
+
+            <Link to="/profile-page">
+              <div className="profileimg-navbar">
+                {UserprofileData?.account?.avatar?.url && (
+                  <img
+                    src={UserprofileData?.account?.avatar?.url}
+                    alt={UserprofileData?.posts?.avatar}
+                  />
+                )}
+              </div>
             </Link>
-            <form onSubmit={handleSearchSubmit}>
-              <input
-                type="text"
-                value={username}
-                onChange={handleInputChange}
-                placeholder="Enter username"
-                autoComplete="off"
-              />
-
-              {/* {Array.isArray(suggestions) && suggestions.length > 0 && (
-                <ul className="dropdown">
-                  {suggestions?.map((suggestion, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                    >
-                      {suggestion}
-                    </li>
-                  ))}
-                </ul>
-              )} */}
-
-              {error && <div className="error-message">{error}</div>}
+            <form onSubmit={handleSearchSubmit} className="search-form">
+              <div className="search-input-container">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={handleInputChange}
+                  placeholder="Enter username..."
+                  autoComplete="off"
+                />
+                {username && (
+                  <button
+                    type="button"
+                    onClick={handleClearSearch}
+                    className="clear-search-btn"
+                    aria-label="Clear search"
+                  >
+                    <AiOutlineClose size={18} />
+                  </button>
+                )}
+              </div>
             </form>
-
-            <button onClick={handleLogout} className="logout">
-              Logout
+            <button onClick={handleLogoutClick} className="logout-btn">
+              <TbLogout size={20} />
+              <span className="logout-log">Logout </span>
             </button>
           </>
-        ) : (
-          <li>
-            <Link to="/Register">Register</Link>
-          </li>
-        )}
+        ) : null}
       </ul>
     </nav>
   );
