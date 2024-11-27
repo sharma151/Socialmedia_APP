@@ -18,7 +18,7 @@ nav {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 20px;
     border: 1px solid white;
-    padding: 2px 4px;
+    padding: 5px 10px;
     border-radius: 7px;
     font-weight: 800;
     &:hover{
@@ -51,6 +51,15 @@ nav {
         }
       }
       
+      .clear-search-btn{
+        position: relative;
+        background-color: transparent;
+        border: none;
+        top: 18px;
+        left: 270px;
+      }
+      
+    
     .logout-btn{
       position: relative;
       left: 610px;
