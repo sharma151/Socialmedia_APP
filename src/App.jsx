@@ -30,7 +30,7 @@ function App() {
               >
                 <Route path="/" element={<Home />} />
                 <Route path="/Bookmarks" element={<Bookmarks />} />
-                {/* <Route path="/Bookmarks-withoutApi" element={<Bookmarks />} /> */}
+
                 <Route
                   path="/profile/:username"
                   element={<ProfileByUsername />}
