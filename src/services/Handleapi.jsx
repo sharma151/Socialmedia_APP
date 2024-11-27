@@ -119,8 +119,38 @@ export const handleUpdateProfile = async (profileData) => {
 export const handleLikePost = async (_id) => {
   try {
     const response = await apiClient.post(`/social-media/like/post/${_id}`);
-    
+
     return response?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleSetBookmarks = async (_id) => {
+  try {
+    const response = await apiClient.post(`/social-media/bookmarks/${_id}`);
+    return response?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleFetchBookmarks = async () => {
+  try {
+    const response = await apiClient.get(
+      "/social-media/bookmarks?page=1&limit=100"
+    );
+    console.log(response);
+    return response?.data?.data?.bookmarkedPosts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleRandomusers = async () => {
+  try {
+    const response = await apiClient.get("/public/randomusers");
+    return response?.data?.data?.data;
   } catch (error) {
     console.log(error);
   }
