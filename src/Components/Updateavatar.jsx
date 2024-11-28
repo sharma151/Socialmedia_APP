@@ -1,32 +1,27 @@
-import axios from "../services/Api";
+import { handleUpdateAvatar } from "../services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
-import "../Styles/Updateavatar.scss";
 import { toast } from "react-toastify";
+import "../Styles/Updateavatar.scss";
 
 const Updateavatar = ({ onUpdate }) => {
-  const handleFileChange = (e) => {
+  
+  const handleUpdateAvatarFileChange = async (e) => {
     const formData = new FormData();
     formData.append("avatar", e.target.files[0]);
 
-    const token = localStorage.getItem("AccessToken");
-    axios
-      .patch("/users/avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log("Avatar updated successfully", response.data);
+    try {
+      const response = await handleUpdateAvatar(formData);
+      if (response) {
         toast.success("Avatar updated successfully", response.data);
         if (onUpdate) {
           onUpdate();
         }
-      })
-      .catch((error) => {
-        console.error("Error updating avatar", error);
-        toast.error("Error updating avatar", error);
-      });
+      } else {
+        toast.error("Failed to Update coverimage. Try again.");
+      }
+    } catch (error) {
+      toast.error("Error updating avatar", error);
+    }
   };
 
   return (
@@ -35,7 +30,7 @@ const Updateavatar = ({ onUpdate }) => {
         type="file"
         id="updateavatar"
         accept="image/*"
-        onChange={handleFileChange}
+        onChange={handleUpdateAvatarFileChange}
         style={{ display: "none" }}
       />
       <label htmlFor="updateavatar">
