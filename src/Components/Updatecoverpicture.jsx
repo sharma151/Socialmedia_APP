@@ -1,36 +1,29 @@
-import axios from "../services/Api";
+import { handleUpdateCoverImage } from "../services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
 import "../Styles/UpdateCoverImage.scss";
 
 const UpdateCoverPage = ({ onUpdate }) => {
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const formData = new FormData();
     formData.append("coverImage", e.target.files[0]);
-    const token = localStorage.getItem("AccessToken");
-
-    axios
-      .patch("/social-media/profile/cover-image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log("Coverpage updated successfully", response?.data);
+    try {
+      const response = await handleUpdateCoverImage(formData);
+      if (response) {
         toast.success("Coverpage updated successfully", response?.data);
         if (onUpdate) {
           onUpdate();
         }
-      })
-      .catch((error) => {
-        console.error("Error updating Coverpage", error);
-        toast.error("Coverpage updating avatar", error);
-      });
+      } else {
+        toast.error("Failed to Update coverimage. Try again.");
+      }
+    } catch (error) {
+      toast.error("Coverpage updating avatar", error);
+    }
   };
 
   return (
-    <div className="updatecoverpage">
+    <div className="updatecoverpage ">
       <input
         type="file"
         accept="image/*"
