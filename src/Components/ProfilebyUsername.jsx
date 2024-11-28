@@ -1,7 +1,7 @@
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
@@ -44,7 +44,7 @@ const GetProfileByUsername = () => {
       <div className="Images">
         {userData?.data?.coverImage?.url && (
           <img
-            key={userData?.id}
+            // key={userData?.id}
             src={userData?.data?.coverImage?.url}
             alt={userData?.data?.coverImage}
             className="coverimage"
@@ -72,7 +72,6 @@ const GetProfileByUsername = () => {
             <FaUserAlt /> {userData?.data?.bio}
           </p>
           <p className="DOB">
-            {/* <strong>Date of Birth:</strong> */}
             <FaBirthdayCake />{" "}
             {new Date(userData?.data?.dob).toLocaleDateString()}
           </p>
