@@ -10,12 +10,12 @@ const ProfileUpdate = ({ closeModal }) => {
   const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
   const [profileData, setProfileData] = useState({
     bio: UserprofileData?.bio || "",
-    countryCode: UserprofileData.countryCode || "",
-    dob: UserprofileData.dob || "",
-    firstName: UserprofileData.firstName || "",
-    lastName: UserprofileData.lastName || "",
-    location: UserprofileData.location || "",
-    phoneNumber: UserprofileData.phoneNumber || "",
+    countryCode: UserprofileData?.countryCode || "",
+    dob: UserprofileData?.dob || "",
+    firstName: UserprofileData?.firstName || "",
+    lastName: UserprofileData?.lastName || "",
+    location: UserprofileData?.location || "",
+    phoneNumber: UserprofileData?.phoneNumber || "",
   });
 
   const [isModalOpen, setIsModalOpen] = useState(true);
