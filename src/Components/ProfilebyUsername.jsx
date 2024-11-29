@@ -1,10 +1,11 @@
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
+import { UsernameContext } from "../Context/Setusername";
 import "../Styles/ProfilePage.scss";
 import {
   handleFetchpostByusername,
@@ -13,6 +14,7 @@ import {
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
+  const { SetUserName } = useContext(UsernameContext);
   const [userData, setUserData] = useState(null);
   const [userNamepost, setUserNamePost] = useState([]);
 
