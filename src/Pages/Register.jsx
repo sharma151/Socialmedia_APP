@@ -1,11 +1,12 @@
-// src/components/Register.js
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
+// src/Pages/Register.js
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
+import { Handleregister } from "../services/AuthService";
 import { GrUserWorker } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
+import { IoIosMail } from "react-icons/io";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import "../Styles/Registration.scss";
 
 const Register = () => {
@@ -16,6 +17,7 @@ const Register = () => {
     role: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -27,60 +29,57 @@ const Register = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const [errors, setErrors] = useState({});
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   const validateForm = () => {
-    let validationErrors = {};
+    let isValid = true;
 
-    if (!formData.username.trim()) {
-      validationErrors.username = "Username is required";
+    // Username validation
+    if (!formData?.username.trim()) {
+      toast.error("Username is required");
+      isValid = false;
     }
 
-    if (!formData.email) {
-      validationErrors.email = "Email is required";
-    } else if (!emailRegex.test(formData.email)) {
-      validationErrors.email = "Invalid email format";
+    // Email validation
+    if (!formData?.email) {
+      toast.error("Email is required");
+      isValid = false;
+    } else if (!emailRegex.test(formData?.email)) {
+      toast.error("Invalid email format");
+      isValid = false;
     }
 
-    if (!formData.password) {
-      validationErrors.password = "Password is required";
-    } else if (!passwordRegex.test(formData.password)) {
-      validationErrors.password =
-        "Password must be at least 8 characters long, contain an uppercase letter, and a number";
+    // Password validation
+    if (!formData?.password) {
+      toast.error("Password is required");
+      isValid = false;
+    } else if (!passwordRegex.test(formData?.password)) {
+      toast.error(
+        "Password must be at least 8 characters long, contain an uppercase letter, and a number"
+      );
+      isValid = false;
     }
 
-    if (!formData.role) {
-      validationErrors.role = "Role is required";
+    // Role validation
+    if (!formData?.role) {
+      toast.error("Role is required");
+      isValid = false;
     }
 
-    setErrors(validationErrors);
-
-    return Object.keys(validationErrors).length === 0;
+    return isValid;
   };
 
-  const handleSubmit = async (e) => {
+  const Registerhandlesubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/v1/users/register",
-          formData
-        );
-        console.log("Registration Successful", response?.data);
-        toast("Registration Successful", response?.data);
+        const response = await Handleregister(formData);
+        toast.success("User Successfully Registered", response);
+        navigate("/");
       } catch (error) {
-        if (error.response) {
-          const errorMessage =
-            error.response?.data?.message || "Error during registration";
-          console.error("Error during registration:", errorMessage);
-          toast.error(errorMessage);
-        } else {
-          console.error("Network error or no response from the server");
-          toast.error("Network error or server is down");
-        }
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
@@ -88,9 +87,13 @@ const Register = () => {
   return (
     <div className="Registerform">
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={(e) => {
+          Registerhandlesubmit(e);
+        }}
+      >
         <div className="Username">
-          <label>Username :</label>
+          <label>Username *</label>
           <div className="username-input-container">
             <span className="UserIcon">
               <FaUser />
@@ -103,13 +106,10 @@ const Register = () => {
               autoComplete="off"
               required
             />
-            {errors.username && (
-              <span style={{ color: "white" }}>{errors.username}</span>
-            )}
           </div>
         </div>
         <div className="Email">
-          <label>Email:</label>
+          <label>Email *</label>
           <div className="Email-input-container">
             <span className="Mailicon">
               <IoIosMail />
@@ -122,13 +122,10 @@ const Register = () => {
               autoComplete="off"
               required
             />
-            {errors.email && (
-              <span style={{ color: "white" }}>{errors.email}</span>
-            )}
           </div>
         </div>
         <div className="Role">
-          <label>Role</label>
+          <label>Role *</label>
           <div className="role-input-container">
             <span className="RoleIcon">
               <GrUserWorker />
@@ -141,19 +138,16 @@ const Register = () => {
               autoComplete="off"
               required
             >
-              <option className=" value" value="">
+              <option className="value" value="" disabled hidden>
                 Select a role
               </option>
               <option value="ADMIN">ADMIN</option>
               <option value="USER">USER</option>
             </select>
-            {errors.role && (
-              <span style={{ color: "white" }}>{errors.role}</span>
-            )}
           </div>
         </div>
         <div className="Password">
-          <label>Password </label>
+          <label>Password * </label>
           <div className="password-input-container">
             <span className="lock">
               <FaLock />
@@ -171,9 +165,6 @@ const Register = () => {
               {showPassword ? <FaRegEyeSlash /> : <FaEye />}{" "}
               {/* Use any icon library or emoji */}
             </span>
-            {errors.password && (
-              <span style={{ color: "white" }}>{errors.password}</span>
-            )}
           </div>
         </div>
 
@@ -181,7 +172,7 @@ const Register = () => {
         <p>
           Already have an account?
           <Link to="/">
-            <span>LogIn</span>
+            <span style={{ textDecoration: "none" }}>LogIn</span>
           </Link>
         </p>
       </form>
