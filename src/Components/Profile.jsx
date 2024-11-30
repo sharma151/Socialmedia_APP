@@ -20,8 +20,9 @@ const Profile = () => {
         <div className="profile-info">
           <div className="data">
             <div className="name">
-              <p>{UserprofileData?.firstName}</p>
-              <p>{UserprofileData?.lastName}</p>
+              <p>
+                {UserprofileData?.firstName} {UserprofileData?.lastName}
+              </p>
             </div>
             <p className="Bio">{UserprofileData?.bio}</p>
           </div>
