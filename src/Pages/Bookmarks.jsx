@@ -1,10 +1,10 @@
-// import { AuthContext } from "../Context/Authcontext";
-// import { useContext } from "react";
+import { handleFetchBookmarks } from "../services/Handleapi";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
 import "../Styles/Bookmarks.scss";
-import { toast } from "react-toastify";
-import { handleFetchBookmarks } from "../services/Handleapi";
+// import { AuthContext } from "../Context/Authcontext";
+// import { useContext } from "react";
 
 const Bookmarks = () => {
   // const { bookmarks } = useContext(AuthContext);
@@ -36,7 +36,7 @@ const Bookmarks = () => {
     //   )}
     // </div>
     <>
-      <Userpost posts={bookmarkedPosts} />
+      <Userpost posts={bookmarkedPosts} className="Bookmarks-posts" />
     </>
   );
 };
