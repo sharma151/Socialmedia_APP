@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai"; // Import close icon
+import { AiOutlineClose } from "react-icons/ai";
 import debounce from "lodash/debounce";
 import axios from "../services/Api";
 import "../Styles/Navbar.scss";
@@ -64,7 +64,7 @@ const Navbar = () => {
         {isAuthenticated ? (
           <>
             <Link to="/" className="home">
-              HOME
+              SS
             </Link>
 
             <Link to="/profile-page">
