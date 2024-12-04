@@ -20,7 +20,6 @@ export const UpdateProfileContextProvider = ({ children }) => {
     const fetchProfile = async () => {
       try {
         const response = await handleFetchMyprofile();
-
         setUserProfileData(response);
       } catch (error) {
         console.error("Error fetching profile:", error);
