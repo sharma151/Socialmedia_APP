@@ -1,21 +1,19 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { FaLock, FaUser, FaEye, FaRegEyeSlash } from "react-icons/fa";
+import { useState, useContext } from "react";
+import { Handlelogin } from "../services/AuthService";
+import { AuthContext } from "../Context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "../Styles/Registration.scss";
-import { AuthContext } from "../Context/Authcontext";
-import Navbar from "./navbar";
+import { Link } from "react-router-dom";
+import "../Styles/Login.scss";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,72 +27,65 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const [errors, setErrors] = useState({});
-
   const usernameRegex = /^[a-zA-Z0-9]{4,}$/;
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
   const validateForm = () => {
-    let validationErrors = {};
+    let isValid = true;
 
     // Username validation
     if (!formData.username) {
-      validationErrors.username = "Username is required";
+      toast.error("Username is required");
+      isValid = false;
     } else if (!usernameRegex.test(formData.username)) {
-      validationErrors.username =
-        "Username must be at least 4 characters long and contain only letters and numbers";
+      toast.error(
+        "Username must be at least 4 characters long and contain only letters and numbers"
+      );
+      isValid = false;
     }
 
     // Password validation
     if (!formData.password) {
-      validationErrors.password = "Password is required";
+      toast.error("Password is required");
+      isValid = false;
     } else if (!passwordRegex.test(formData.password)) {
-      validationErrors.password =
-        "Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character";
+      toast.error(
+        "Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character"
+      );
+      isValid = false;
     }
 
-    setErrors(validationErrors);
-
-    return Object.keys(validationErrors).length === 0;
+    return isValid;
   };
 
-  const handleSubmit = async (e) => {
+  const Loginhandlesubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/v1/users/login",
-          formData
-        );
-        console.log("Login Successful", response.data);
-        toast.success("Login Successful", response.data);
-        localStorage.setItem("AccessToken", response?.data?.data?.accessToken);
-        setIsAuthenticated(true);
-        navigate("/home");
-      } catch (error) {
-        if (error.response) {
-          const errorMessage =
-            error.response?.data?.message || "Error during registration";
-          console.error("Error during registration:", errorMessage);
-          toast.error(errorMessage);
-          isLoggedIn(false);
+        const response = await Handlelogin(formData);
+        const accessToken = response;
+        if (accessToken) {
+          localStorage.setItem("AccessToken", accessToken);
+          setIsAuthenticated(true);
+          toast.success("Logged in successfully!");
+          navigate("/");
         } else {
-          console.error("Network error or no response from the server");
-          toast.error("Network error or server is down");
+          toast.error("Login failed. Please check your credentials.");
         }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
 
   return (
     <>
-      <Navbar />
       <div className="loginform">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => Loginhandlesubmit(e)}>
           <div className="Username">
-            <label>Username:</label>
+            <label>Username : *</label>
             <div className="username-input-container">
               <span className="UserIcon">
                 <FaUser />
@@ -107,13 +98,10 @@ const Login = () => {
                 autoComplete="off"
                 required
               />
-              {errors.username && (
-                <span style={{ color: "red" }}>{errors.username}</span>
-              )}
             </div>
           </div>
           <div className="Password">
-            <label>Password:</label>
+            <label>Password : *</label>
             <div className="password-input-container">
               <span className="lock">
                 <FaLock />
@@ -129,9 +117,6 @@ const Login = () => {
               <span className="eye-icon" onClick={togglePasswordVisibility}>
                 {showPassword ? <FaRegEyeSlash /> : <FaEye />}
               </span>
-              {errors.password && (
-                <span style={{ color: "white" }}>{errors.password}</span>
-              )}
             </div>
           </div>
 
