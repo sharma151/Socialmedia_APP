@@ -187,7 +187,7 @@ const Home = () => {
         <Loader className="homeloader" />
       ) : (
         <>
-          <Profile />
+          <Profile  className="homepage-Profile"/>
           <Userpost
             className="Getallpost"
             posts={posts}
