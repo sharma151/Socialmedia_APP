@@ -1,89 +1,148 @@
 nav {
-    background-color:#243642;
-    width: 100%;
-    height: 60px;
-    position:fixed;
-    top:0px;
-    z-index: 999;
-    
-    ul{
-      display: flex;
-    
-  .home{
-    position: absolute;
-    top: 13px;
-    left: 100px;
-    color: white;
-    text-decoration: none;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
-    border: 1px solid white;
-    padding: 5px 10px;
-    border-radius: 7px;
-    font-weight: 800;
-    &:hover{
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    
+  background-color: #2b3e50;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    list-style: none;
+    margin: 0;
+
+    .home {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      border: 1px solid #ffffff;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-weight: 700;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+      }
     }
 
-  }
-  .profileimg-navbar>img{
-    height: 40px;
-    width: 40px;
-    position: relative;
-    left: 1090px;
-    cursor: pointer;
-    border-radius: 50%;
-    top: 9px;
-  }
-    input{
-        border-radius: 50px;
-        border-style: none;
-        width: 500px;
-        padding: 8px 15px;
-        font-family: sans-serif;
+    .profileimg-navbar > img {
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      max-width: 500px;
+      margin: 0 20px;
+
+      .search-input-container {
         position: relative;
-        left: 300px;
-        top: 13px;
-        &:focus {
-          outline: none;
-          
+        width: 100%;
+
+        input {
+          border-radius: 50px;
+          border: none;
+          width: 100%;
+          padding: 8px 15px;
+          font-family: 'Roboto', sans-serif;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+          font-size: 14px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .clear-search-btn {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
         }
       }
-      
-      .clear-search-btn{
-        position: relative;
-        background-color: transparent;
-        border: none;
-        top: 18px;
-        left: 270px;
-      }
-      
-    
-    .logout-btn{
-      position: relative;
-      left: 610px;
-      top: 16px;
-      height: fit-content;
-      padding: 2px 6px;
+    }
+
+    .logout-btn {
+      padding: 5px 10px;
       border-radius: 5px;
-      background-color: #629584;
-      color: white;
+      background-color: #4a7c94;
+      color: #ffffff;
       border: none;
       cursor: pointer;
-      .logout-log{
-        position: relative;
-        bottom: 5px;
-        font-family: sans-serif;
-        margin-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:hover {
+        background-color: #37667d;
       }
-        
+
+      .logout-log {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
       }
     }
   }
 
+  @media (max-width: 768px) {
+    ul {
+      .search-form {
+        max-width: 300px;
 
-  
-  
-  
-    
+        .search-input-container {
+          input {
+            font-size: 12px;
+            padding: 6px 10px;
+          }
+        }
+      }
+
+      .logout-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+      }
+
+      .profileimg-navbar > img {
+        height: 35px;
+        width: 35px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    ul {
+      .search-form {
+        max-width: 200px;
+
+        .search-input-container {
+          input {
+            font-size: 10px;
+            padding: 5px 8px;
+          }
+        }
+      }
+
+      .logout-btn {
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+
+      .profileimg-navbar > img {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+}
