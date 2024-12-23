@@ -1,0 +1,111 @@
+nav {
+  background-color: #2b3e50;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+.nav-content{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 95%;
+  justify-content: space-between;
+  margin: auto;
+  .Logo {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        border: 1px solid #ffffff;
+        padding: 5px 10px;
+        border-radius: 7px;
+        font-weight: 700;
+        transition: box-shadow 0.3s ease;
+     
+  
+        &:hover {
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+        }
+      }
+      .icons-div{
+        display: flex;
+        max-width: 400px;
+        width: 100%;
+        justify-content: space-between;
+       
+        .icons{
+          gap: 10px;
+        }
+      }
+    
+      .profileimg-navbar { 
+      
+        img {
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            border-radius: 50%;
+            
+          }}
+          
+          
+          
+      .search-form {
+            .search-input-container {
+              display: flex; /* Use flexbox for alignment */
+              align-items: center; /* Center items vertically */
+              position: relative;
+          
+              input {
+                border-radius: 80px;
+                border: none;
+                padding: 8px 15px;
+                font-family: 'Roboto', sans-serif;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                font-size: 14px;
+                width: 270px;
+                
+                &:focus {
+                  outline: none;
+                }
+              }
+          
+              .clear-search-btn {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-left: -30px; /* Adjust margin to overlap inside input */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          }
+          
+  
+    .logout-btn {
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #4a7c94;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &:hover {
+        background-color: #37667d;
+      }
+
+      .logout-log {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+      }
+    }
+  }
+
+
+}
+
