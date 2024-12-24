@@ -64,7 +64,8 @@ nav {
                 font-family: 'Roboto', sans-serif;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
                 font-size: 14px;
-                width: 270px;
+                max-width: 270px;
+                width: 100%;
                 
                 &:focus {
                   outline: none;
