@@ -1,0 +1,28 @@
+.updateavatar{
+    position: absolute;
+    top: 450px;
+    left: 360px;
+    background-color: rgb(196, 186, 186);
+    padding: 4px;
+    border-radius: 50%;
+    label{
+    cursor: pointer;
+    font-size: 25px;
+    }
+    @media (max-width:360px){
+        position: absolute;
+        top:260px;
+        left: 200px;
+        background-color: rgb(196, 186, 186);
+        padding: 4px 6px;
+        border-radius: 50%;
+        width: 10%;
+        z-index: 1;
+        padding:2px 7px;
+        label{
+            font-size: 20px;
+            
+        }
+        
+    }
+}
