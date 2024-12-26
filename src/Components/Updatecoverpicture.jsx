@@ -1,9 +1,9 @@
 import { handleUpdateCoverImage } from "../services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
-import "../Styles/UpdateCoverImage.scss";
+import "../Styles/Sass/Components/UpdateCoverImage.scss";
 
-const UpdateCoverPage = ({ onUpdate }) => {
+const UpdateCoverPage = ({ onUpdate, className }) => {
   const handleFileChange = async (e) => {
     const formData = new FormData();
     formData.append("coverImage", e.target.files[0]);
@@ -23,7 +23,7 @@ const UpdateCoverPage = ({ onUpdate }) => {
   };
 
   return (
-    <div className="updatecoverpage ">
+    <div className={`updatecoverpage ${className}`}>
       <input
         type="file"
         accept="image/*"
@@ -32,8 +32,8 @@ const UpdateCoverPage = ({ onUpdate }) => {
         style={{ display: "none" }}
       />
       <label htmlFor="Updatecover">
-        <IoIosCamera size={30} />
-        <p>Update CoverPage</p>
+        <IoIosCamera />
+        <p>Edit</p>
       </label>
     </div>
   );

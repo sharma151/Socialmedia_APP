@@ -3,7 +3,7 @@ import { Handlecreatepost } from "../services/Handleapi";
 import { useContext, useState } from "react";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
-import "../Styles/Createpost.scss";
+import "../Styles/Sass/Components/Createpost.scss";
 
 const Createpost = ({ className, onUpdate }) => {
   const [content, setcontent] = useState("");
@@ -74,7 +74,7 @@ const Createpost = ({ className, onUpdate }) => {
             autoComplete="off"
           />
         </div>
-        <div>
+        <div className="input-buttons">
           <input
             type="file"
             id="input"
@@ -83,7 +83,7 @@ const Createpost = ({ className, onUpdate }) => {
             style={{ display: "none" }}
           />
           <label htmlFor="input" className="custom-file-upload">
-            <IoImages size={25} />
+            <IoImages  />
           </label>
           <div className="previewImage">
             {previewImage ? (
@@ -104,4 +104,3 @@ const Createpost = ({ className, onUpdate }) => {
 };
 
 export default Createpost;
-  

@@ -49,11 +49,11 @@
     }
 
     @media (min-width:768px)and (max-width:1024px){
-      margin-top: -860px;
+      margin-top: -830px;
     }
 
     @media(min-width:1025px){
-      margin-top:-850px;
+      margin-top:-840px;
     }
 
 
@@ -72,13 +72,15 @@
     @media(min-width:641px) and (max-width:768px){
       margin-left: 20px;
       width: 57%;
+      height: 100%;
+      max-height: 250px;
     }
   }
   
   .birthday{
-    position: absolute;
-    top: 270px;
-    left:75%;
+    max-width: 250px;
+    width: 30%;
+    margin-left: auto;
     @media (max-width:360px){
       display: none;
     }
@@ -90,7 +92,15 @@
       top: 260px;
       left:67.5%;
    }
-        
+   @media (min-width:768px)and (max-width:1024px){
+      margin-top: 20px;
+   }
+   @media(min-width:1025px){
+    margin-top: 10px;
+    width: 300px;
+    max-width: 28%;
+
+   }  
     p {
       font-family: sans-serif;
       font-weight: 700;
@@ -105,9 +115,7 @@
      }
     
   }
-  // .Homepage-Suggestions{
-    
-  // }
+ 
   
 }
  

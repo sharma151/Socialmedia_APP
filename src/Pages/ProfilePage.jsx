@@ -13,7 +13,7 @@ import Updateavatar from "../Components/Updateavatar";
 import Createpost from "../Components/Createpost";
 import Userpost from "../Components/Userpost";
 import Loader from "../assets/Loader";
-import "../Styles/ProfilePage.scss";
+import "../Styles/Sass/Pages/Profilepage.scss";
 
 const ProfilePage = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
@@ -72,26 +72,44 @@ const ProfilePage = () => {
       ) : (
         <>
           <div className="Images">
-            {profileImages?.coverImage?.url && (
-              <img
-                key={profileImages?.id}
-                src={profileImages?.coverImage?.url}
-                alt={profileImages?.coverImage}
-                className="coverimage"
-              />
-            )}
+            <div
+              className="coverimage"
+              style={{
+                backgroundImage: `url(${profileImages?.coverImage?.url || ""})`,
+                backgroundSize: "100% 100%",
+                overflow: "hidden",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                
+              }}
+            >
+              <div className="update-coverpage">
+                <UpdateCoverPage onUpdate={() => fetchProfile()} />
+              </div>
+            </div>
 
-            {profileImages?.account?.avatar?.url && (
-              <img
-                src={profileImages?.account?.avatar?.url}
-                alt={profileImages?.posts?.avatar}
-                className="avatar"
-              />
-            )}
+            <div
+              className="avatar"
+              style={{
+                backgroundImage: `url(${
+                  profileImages?.account?.avatar?.url || ""
+                })`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="update-avatar">
+                <Updateavatar onUpdate={() => fetchProfile()} />
+              </div>
+            </div>
 
             <div className="Name">
-              <p> {UserprofileData?.firstName}</p>
-              <p> {UserprofileData?.lastName}</p>
+              <p>
+                {" "}
+                {UserprofileData?.firstName}
+                {UserprofileData?.lastName}
+              </p>
+
               <h1>{UserprofileData?.account?.username}</h1>
             </div>
           </div>
@@ -101,32 +119,32 @@ const ProfilePage = () => {
             <div className="data">
               <div className="Bio">
                 <span>
-                  <FaUserAlt size={18} className="Bio-icon" />
+                  <FaUserAlt className="Bio-icon" />
                 </span>{" "}
                 {UserprofileData?.bio}
               </div>
               <div className="DOB">
                 {/* <strong>Date of Birth:</strong> */}
                 <span className="birthday-icon">
-                  <FaBirthdayCake size={18} />
+                  <FaBirthdayCake />
                 </span>{" "}
                 {new Date(UserprofileData?.dob).toLocaleDateString()}
               </div>
               <div className="Location">
                 <span className="location-icon">
-                  <FaLocationDot size={18} />{" "}
+                  <FaLocationDot />{" "}
                 </span>
                 {UserprofileData?.location}
               </div>
               <div className="Phonenumber">
                 <span className="phone">
-                  <IoCall size={18} />{" "}
+                  <IoCall />{" "}
                 </span>
                 {UserprofileData?.countryCode} {UserprofileData?.phoneNumber}
               </div>
               <div className="Mail">
                 <span className="emailicons">
-                  <IoIosMail size={18} />
+                  <IoIosMail />
                 </span>{" "}
                 {UserprofileData?.account?.email}
               </div>
@@ -150,8 +168,7 @@ const ProfilePage = () => {
             onUpdate={() => fetchMyPosts()}
             posts={posts}
           />
-          <UpdateCoverPage onUpdate={() => fetchProfile()} />
-          <Updateavatar onUpdate={() => fetchProfile()} />
+
           {showModal && (
             <ProfileUpdate
               // currentProfile={profile}

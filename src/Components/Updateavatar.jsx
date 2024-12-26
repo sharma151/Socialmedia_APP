@@ -1,7 +1,7 @@
 import { handleUpdateAvatar } from "../services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
-import "../Styles/Updateavatar.scss";
+import "../Styles/Sass/Components/Updateavatar.scss";
 
 const Updateavatar = ({ onUpdate }) => {
   
@@ -34,7 +34,7 @@ const Updateavatar = ({ onUpdate }) => {
         style={{ display: "none" }}
       />
       <label htmlFor="updateavatar">
-        <IoIosCamera size={25} />
+        <IoIosCamera  />
       </label>
     </div>
   );
