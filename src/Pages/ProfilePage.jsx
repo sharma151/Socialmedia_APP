@@ -80,7 +80,6 @@ const ProfilePage = () => {
                 overflow: "hidden",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                
               }}
             >
               <div className="update-coverpage">
@@ -88,86 +87,90 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            <div
-              className="avatar"
-              style={{
-                backgroundImage: `url(${
-                  profileImages?.account?.avatar?.url || ""
-                })`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <div className="update-avatar">
-                <Updateavatar onUpdate={() => fetchProfile()} />
-              </div>
-            </div>
-
-            <div className="Name">
-              <p>
-                {" "}
-                {UserprofileData?.firstName}
-                {UserprofileData?.lastName}
-              </p>
-
-              <h1>{UserprofileData?.account?.username}</h1>
-            </div>
-          </div>
-
-          <div className="profile-info">
-            <h4>Profile Details</h4>
-            <div className="data">
-              <div className="Bio">
-                <span>
-                  <FaUserAlt className="Bio-icon" />
-                </span>{" "}
-                {UserprofileData?.bio}
-              </div>
-              <div className="DOB">
-                {/* <strong>Date of Birth:</strong> */}
-                <span className="birthday-icon">
-                  <FaBirthdayCake />
-                </span>{" "}
-                {new Date(UserprofileData?.dob).toLocaleDateString()}
-              </div>
-              <div className="Location">
-                <span className="location-icon">
-                  <FaLocationDot />{" "}
-                </span>
-                {UserprofileData?.location}
-              </div>
-              <div className="Phonenumber">
-                <span className="phone">
-                  <IoCall />{" "}
-                </span>
-                {UserprofileData?.countryCode} {UserprofileData?.phoneNumber}
-              </div>
-              <div className="Mail">
-                <span className="emailicons">
-                  <IoIosMail />
-                </span>{" "}
-                {UserprofileData?.account?.email}
-              </div>
-              <button
-                className="Updateprofile"
-                onClick={() => setShowModal(true)}
+            <div className="avatar_name">
+              <div
+                className="avatar"
+                style={{
+                  backgroundImage: `url(${
+                    profileImages?.account?.avatar?.url || ""
+                  })`,
+                  backgroundSize: "100% 100%",
+                  backgroundPosition: "center",
+                }}
               >
-                {/* <MdModeEdit size={25} /> */}
-                <p>Edit profile</p>
-              </button>
+                <div className="update-avatar">
+                  <Updateavatar onUpdate={() => fetchProfile()} />
+                </div>
+              </div>
+              <div className="Name">
+                <p>
+                  {" "}
+                  {UserprofileData?.firstName}
+                  {UserprofileData?.lastName}
+                </p>
+
+                <h1>{UserprofileData?.account?.username}</h1>
+              </div>
             </div>
           </div>
+          <div className="profilepage-body">
+            <div className="profilepage-info">
+              <h4>Profile Details</h4>
+              <div className="data">
+                <div className="Bio">
+                  <span>
+                    <FaUserAlt className="Bio-icon" />
+                  </span>{" "}
+                  {UserprofileData?.bio}
+                </div>
+                <div className="DOB">
+                  {/* <strong>Date of Birth:</strong> */}
+                  <span className="birthday-icon">
+                    <FaBirthdayCake />
+                  </span>{" "}
+                  {new Date(UserprofileData?.dob).toLocaleDateString()}
+                </div>
+                <div className="Location">
+                  <span className="location-icon">
+                    <FaLocationDot />{" "}
+                  </span>
+                  {UserprofileData?.location}
+                </div>
+                <div className="Phonenumber">
+                  <span className="phone">
+                    <IoCall />{" "}
+                  </span>
+                  {UserprofileData?.countryCode} {UserprofileData?.phoneNumber}
+                </div>
+                <div className="Mail">
+                  <span className="emailicons">
+                    <IoIosMail />
+                  </span>{" "}
+                  {UserprofileData?.account?.email}
+                </div>
+                <button
+                  className="Updateprofile"
+                  onClick={() => setShowModal(true)}
+                >
+                  {/* <MdModeEdit size={25} /> */}
+                  <p>Edit profile</p>
+                </button>
+              </div>
+            </div>
 
-          <Createpost
-            className="profilepage-createpost"
-            onUpdate={() => fetchMyPosts()}
-          />
+            <div className="profile-data">
+              <Createpost
+                className="profilepage-createpost"
+                onUpdate={() => fetchMyPosts()}
+              />
 
-          <Userpost
-            className="Getmyposts"
-            onUpdate={() => fetchMyPosts()}
-            posts={posts}
-          />
+              <Userpost
+                className="Getmyposts"
+                onUpdate={() => fetchMyPosts()}
+                posts={posts}
+              />
+            </div>
+          </div>
 
           {showModal && (
             <ProfileUpdate

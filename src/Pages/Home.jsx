@@ -100,34 +100,39 @@ const Home = () => {
     <>
       <div className="maincontainer">
         <Aside className="Homepage-Aside" />
-        <Profile className="homepage-Profile" />
-        <div className="birthday">
-          <p>Birthday</p>
-          <div className="birthdate">
-            <FaGifts size={22} />
-            <span>{formattedDOB}</span>
-          </div>
+
+        <div className="middle-div">
+          <Createpost
+            className="Homepage-createpost"
+            onUpdate={() => {
+              fetchallPosts();
+            }}
+          />
+          {loading ? (
+            <Loader className="homeloader" />
+          ) : (
+            <>
+              <Userpost
+                className="Getallpost"
+                posts={posts}
+                onUpdate={() => {
+                  fetchallPosts();
+                }}
+              />
+            </>
+          )}
         </div>
-        <Suggestions className="Homepage-Suggestions" />
-        <Createpost
-          className="Homepage-createpost"
-          onUpdate={() => {
-            fetchallPosts();
-          }}
-        />
-        {loading ? (
-          <Loader className="homeloader" />
-        ) : (
-          <>
-            <Userpost
-              className="Getallpost"
-              posts={posts}
-              onUpdate={() => {
-                fetchallPosts();
-              }}
-            />
-          </>
-        )}
+        <div className="right-div">
+          <Profile className="homepage-Profile" />
+          <div className="birthday">
+            <p>Birthday</p>
+            <div className="birthdate">
+              <FaGifts size={22} />
+              <span>{formattedDOB}</span>
+            </div>
+          </div>
+          <Suggestions className="Homepage-Suggestions" />
+        </div>
       </div>
     </>
   );
