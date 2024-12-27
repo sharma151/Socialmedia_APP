@@ -1,0 +1,75 @@
+.Profile-img {
+    max-width: 250px;
+    width: 30%;
+    // position: absolute;
+    // top: 80px;
+    // left: 85%;
+    // transform: translateX(-50%);
+    text-align: center;
+    // padding: 20px 10px;
+    border-radius: 10px;
+    // background-color: #f9f9f9;
+      @media(min-width: 361px) and (max-width:768px){
+      width: 30%;
+      margin-right: 20px;
+      margin-left: auto;
+      margin-top: 70px;
+     }
+     @media (min-width:768px)and (max-width:1024px){
+        width: 30%;
+        margin-left: auto;
+        padding-right: 20px;
+        margin-top: -370px;
+        
+      }
+      @media (min-width:1025px){
+        margin-left: auto;
+        margin-right: 20px;
+        margin-top: -370px;
+        max-width: 26%;
+        width: 300px;
+      }
+}
+.avatar {
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    border: 2px solid black;
+    position: relative;
+    margin: 0 auto;
+    top: -10%;  
+    background-color: white; 
+    z-index: 1;
+}
+
+.profile-info {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px 10px 10px; /* Top padding accounts for avatar overlap */
+    margin-top: -30px; /* Adjust for avatar overlap */
+    background-color: #ffffff; /* Optional: Contrast for the info section */
+    text-align: center;
+    color: black;
+}
+
+.profile-info .data {
+    margin: 0 auto;
+}
+
+.profile-info .name {
+    margin-top: 7px;
+}
+
+.profile-info .name p {
+    font-family: "Roboto", sans-serif; /* Modern font */
+    font-size: 20px;
+    font-weight: 500;
+    color: #333; /* Dark gray */
+}
+
+.profile-info .Bio {
+    margin-top: 6px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: #555; /* Slightly lighter gray */
+}

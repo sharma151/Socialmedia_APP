@@ -10,7 +10,7 @@ import {
   HandleDeletePost,
   handleLikePost,
 } from "../services/Handleapi";
-import "../Styles/Post.scss";
+import "../Styles/Sass/Components/Post.scss";
 import { useNavigate } from "react-router-dom";
 
 const formatDate = (dateString) => {
@@ -166,7 +166,7 @@ const Posts = ({ className, posts, onUpdate }) => {
   }, [posts]);
 
   return (
-    <div className={`posts ${className}  `}>
+    <div className={`posts ${className}`}>
       <div className="posts-list">
         {userposts.map((post) => (
           <div key={post?._id} className="post-item">
@@ -199,20 +199,26 @@ const Posts = ({ className, posts, onUpdate }) => {
               }
               style={{ cursor: "pointer" }}
             >
-              <p className="FirstName">{post?.author?.firstName}</p>
-              <p className="LastName">{post?.author?.lastName}</p>
+              <p className="FullName">
+                {post?.author?.firstName} {post?.author?.lastName}
+              </p>
+              <hr/>
               <p className="createdAt">{formatDate(post?.createdAt)}</p>
+              
             </div>
+            <hr className="underline"/> 
             {UserprofileData?._id === post?.author?._id && (
               <>
                 <button
                   className="delete-btn"
                   onClick={(e) => Handledeletepostsubmit(e, post?._id)}
                 >
-                  <MdDelete size={25} />
+                  <MdDelete />
                 </button>
               </>
             )}
+            
+            
 
             <p className="content">{post?.content}</p>
             <div className="images">
@@ -233,20 +239,20 @@ const Posts = ({ className, posts, onUpdate }) => {
                 style={{ cursor: "pointer" }}
               >
                 {post?.isLiked ? (
-                  <BiSolidLike size={27} />
+                  <BiSolidLike  />
                 ) : (
-                  <BiLike size={27} />
+                  <BiLike  />
                 )}
-                <span className="like-count">{post.likes}</span>
+                <span className="like-count">{post?.likes}</span>
               </button>
               <button
                 className="bookmark"
                 onClick={() => handleBookmarkClick(post?._id)}
               >
                 {post?.isBookmarked ? (
-                  <PiBookmarkSimpleFill size={27} />
+                  <PiBookmarkSimpleFill  />
                 ) : (
-                  <PiBookmarkSimpleBold size={27} />
+                  <PiBookmarkSimpleBold  />
                 )}
               </button>
             </div>

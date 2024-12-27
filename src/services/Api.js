@@ -23,3 +23,6 @@ apiClient.interceptors.request.use(
 );
 
 export default apiClient;
+//handle error -todo
+//add toast
+//add env file 

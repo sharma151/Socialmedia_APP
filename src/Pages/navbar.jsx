@@ -10,7 +10,11 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import debounce from "lodash/debounce";
 import axios from "../services/Api";
-import "../Styles/Navbar.scss";
+import "../Styles/Sass/Components/Navbar.scss";
+import { MdOutlineOndemandVideo } from "react-icons/md";
+import { IoStorefront } from "react-icons/io5";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { IoGameController } from "react-icons/io5";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -60,23 +64,13 @@ const Navbar = () => {
 
   return (
     <nav>
-      <ul>
-        {isAuthenticated ? (
-          <>
-            <Link to="/" className="home">
+      {isAuthenticated ? (
+        <>
+          <div className="nav-content">
+            <Link to="/" className="Logo">
               SS
             </Link>
 
-            <Link to="/profile-page">
-              <div className="profileimg-navbar">
-                {UserprofileData?.account?.avatar?.url && (
-                  <img
-                    src={UserprofileData?.account?.avatar?.url}
-                    alt={UserprofileData?.posts?.avatar}
-                  />
-                )}
-              </div>
-            </Link>
             <form onSubmit={handleSearchSubmit} className="search-form">
               <div className="search-input-container">
                 <input
@@ -98,13 +92,40 @@ const Navbar = () => {
                 )}
               </div>
             </form>
+
+            <div className="icons-div">
+              <div className="icons">
+                <MdOutlineOndemandVideo color="white" />
+              </div>
+              <div className="icons">
+                <IoStorefront  color="white" />
+              </div>
+              <div className="icons">
+                <HiMiniUserGroup  color="white" />
+              </div>
+              <div className="icons">
+                <IoGameController  color="white" />
+              </div>
+            </div>
+
+            <Link to="/profile-page">
+              <div className="profileimg-navbar">
+                {UserprofileData?.account?.avatar?.url && (
+                  <img
+                    src={UserprofileData?.account?.avatar?.url}
+                    alt={UserprofileData?.posts?.avatar}
+                  />
+                )}
+              </div>
+            </Link>
+
             <button onClick={handleLogoutClick} className="logout-btn">
               <TbLogout size={20} />
               <span className="logout-log">Logout </span>
             </button>
-          </>
-        ) : null}
-      </ul>
+          </div>
+        </>
+      ) : null}
     </nav>
   );
 };

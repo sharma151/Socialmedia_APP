@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import "../Styles/Sass/Components/Aside.scss";
 
-const aside = () => {
+const aside = ({ className }) => {
   const { UserprofileData } = useContext(UpdatedataContext);
 
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const aside = () => {
   };
   return (
     <>
-      <div className="aside">
+      <div className={`aside ${className}`}>
         <div
           className="profile"
           onClick={() => handleProfileClick()}
