@@ -1,12 +1,11 @@
 .aside {
-  height: auto; /* Allow height to adjust automatically based on content */
-  width: 100%; /* Default to full width */
-  max-width: 220px; /* Set a maximum width */
-  margin-left: 10px; /* Adjust spacing instead of fixed position */
-  top: 50px; /* Keep vertical positioning */
-  border-radius: 7px;
-  padding: 1px 0px ;
-
+  // height: auto; /* Allow height to adjust automatically based on content */
+  // width: 100%; /* Default to full width */
+  // max-width: 220px; /* Set a maximum width */
+  // margin-left: 10px; /* Adjust spacing instead of fixed position */
+  // top: 50px; /* Keep vertical positioning */
+  // padding: 1px 0px ;
+  width: max-content;
   .profile {
     display: flex;
     gap: 10px;
