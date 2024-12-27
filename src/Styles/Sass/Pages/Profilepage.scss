@@ -1,66 +1,64 @@
 .ProfilePage {
     margin-top: 60px;
-    // flex-direction: column;
-    // align-items: center;
+    
 
     .Images {
         width: 95%;
-        margin: auto;
+        border: 1px solid red;
+        margin: 0 auto;
         border-bottom: 1px solid grey;
-        display: grid;
-        grid-template-rows: auto auto auto;
-        gap: 20px;
-        justify-items: center;
         
-        @media (max-width:360px){
-            height: 100%;
-            max-height: 300px;
-            border-bottom: 1.5px solid grey;
-        }
-        @media(min-width:361px) and (max-width:640px){
-            max-height:430px;
-            height: 100%;
-        }
-        @media (min-width:640px) and (max-width:768px){
-            height: 100%;
-            max-height: 430px;
-        }
-        @media (min-width:640px) and (max-width:768px){
-            height:100%;
-            max-height: 565px;
-        }
-        @media (min-width:768px)and (max-width:1024px){
-            height: 100%;
-            max-height: 480px;
-        }
+        
+        // @media (max-width:360px){
+        //     height: 100%;
+        //     max-height: 300px;
+        //     border-bottom: 1.5px solid grey;
+        // }
+        // @media(min-width:361px) and (max-width:640px){
+        //     max-height:430px;
+        //     height: 100%;
+        // }
+        // @media (min-width:640px) and (max-width:768px){
+        //     height: 100%;
+        //     max-height: 430px;
+        // }
+        // @media (min-width:640px) and (max-width:768px){
+        //     height:100%;
+        //     max-height: 565px;
+        // }
+        // @media (min-width:768px)and (max-width:1024px){
+        //     height: 100%;
+        //     max-height: 480px;
+        // }
 
         
 
 
         .coverimage {
             width: 95%;
-            height: 340px;
+            margin: auto;
+            height: 350px;
             box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, 
                         rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
                         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-            object-fit: cover;
+            // object-fit: cover;
             border-radius: 0px 0px 10px 10px;
 
-            @media (max-width:360px){
-                width: 100%;
-                height: 190px;
-            }
-            @media(min-width:361px) and (max-width:640px){
-                width: 100%;
-                height: 260px;
-                background-size: cover;
+            // @media (max-width:360px){
+            //     width: 100%;
+            //     height: 190px;
+            // }
+            // @media(min-width:361px) and (max-width:640px){
+            //     width: 100%;
+            //     height: 260px;
+            //     background-size: cover;
                 
-            }
-            @media (min-width:640px) and (max-width:768px){
-            width: 100%;
-            }
+            // }
+            // @media (min-width:640px) and (max-width:768px){
+            // width: 100%;
+            // }
             .update-coverpage {  
-                width: 70px;
+                width: 90px;
                 margin-left:auto;
                 margin-right: 35px;
                 margin-top: 280px;
@@ -68,88 +66,95 @@
                 color: rgb(27, 27, 27);
                 padding: 8px 12px;
                 border-radius: 4px;
-                font-size: 14px;
+                label{
+                    font-size:30px;
+                    align-items: center;
+                    p{
+                        font-size: 20px;
+                    }
+                }
                 cursor: pointer;
                 text-align: center;
-                @media (max-width:360px){
-                    margin-top: 158px;
-                    margin-right: 8px;
-                    padding: 4px 6px;
-                    width: fit-content;
-                }
-                @media(min-width:361px) and (max-width:640px){
-                    margin-top: 220px;
-                    margin-right: 10px;
+                // @media (max-width:360px){
+                //     margin-top: 158px;
+                //     margin-right: 8px;
+                //     padding: 4px 6px;
+                //     width: fit-content;
+                // }
+                // @media(min-width:361px) and (max-width:640px){
+                //     margin-top: 220px;
+                //     margin-right: 10px;
                     
-                }
-                @media (min-width:640px) and (max-width:768px){
-                 margin-top: 300px;
-                 margin-right: 10px;
-                }
-                @media (min-width:768px)and (max-width:1024px){
-                    width: 100px;
-                    height: 39px;
-                    font-size: 25px;
-                    align-items: center;
-                    margin-top: 290px;
-                    margin-right: 10px;
-                }
+                // }
+                // @media (min-width:640px) and (max-width:768px){
+                //  margin-top: 300px;
+                //  margin-right: 10px;
+                // }
+                // @media (min-width:768px)and (max-width:1024px){
+                //     width: 100px;
+                //     height: 39px;
+                //     font-size: 25px;
+                //     align-items: center;
+                //     margin-top: 290px;
+                //     margin-right: 10px;
+                // }
             }
         }
 
         .avatar {
-            height: 150px;
-            width: 150px;
+            height: 200px;
+            width: 200px;
             border: 2px solid black;
             border-radius: 50%;
             position: relative;
+            left: -400px;
             top: -75px;
-            @media (max-width:360px){
-               width: 100px;
-               height: 100px;
-            }
-            @media (min-width:640px) and (max-width:768px){
-                width: 200px;
-                height: 200px;
-                position: relative;
-                top: -100px;
-            }
-            @media (min-width:768px)and (max-width:1024px){
-                width: 205px;
-                height: 205px;
-                position: relative;
-                left: -260px;
-                top: -100px;
-            }
+            // @media (max-width:360px){
+            //    width: 100px;
+            //    height: 100px;
+            // }
+            // @media (min-width:640px) and (max-width:768px){
+            //     width: 200px;
+            //     height: 200px;
+            //     position: relative;
+            //     top: -100px;
+            // }
+            // @media (min-width:768px)and (max-width:1024px){
+            //     width: 205px;
+            //     height: 205px;
+            //     position: relative;
+            //     left: -260px;
+            //     top: -100px;
+            // }
             
             .update-avatar {
                 position: absolute;
-                bottom: 5px;
-                right: 0px;
+                bottom: 8px;
+                right: 5px;
                 background-color: rgba(248, 240, 240, 0.7);
                 color: rgb(0, 0, 0);
                 border-radius: 50%;
                 padding: 5px;
-                display: flex;
+                // display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                font-size: 12px; /* Adjust as needed */
-                @media(min-width:361px) and (max-width:640px){
-                    position: absolute;
-                    bottom: 10px;
-                    right: 10px;
-                    font-size: 15px;
-                }
-                @media (min-width:640px) and (max-width:768px){
-                    position: absolute;
-                    bottom: 10px;
-                    right: 10px;
-                    font-size: 25px;
-                }
-                @media (min-width:768px)and (max-width:1024px){
-                    font-size: 29px;
-                }
+                font-size: 30px; /* Adjust as needed */
+                // @media(min-width:361px) and (max-width:640px){
+                //     position: absolute;
+                //     bottom: 10px;
+                //     right: 10px;
+                //     font-size: 15px;
+                // }
+                // @media (min-width:640px) and (max-width:768px){
+                //     position: absolute;
+                //     bottom: 10px;
+                //     right: 10px;
+                //     font-size: 25px;
+                // }
+                // @media (min-width:768px)and (max-width:1024px){
+                //     font-size: 29px;
+                // }
             }
 
 
@@ -220,44 +225,48 @@
 
         }
     }
+.profilepage-body{
+    display: flex;
+    width: 95%;
+    margin: auto;
+    justify-content: space-around;
+    // margin-top: 100px;
+    border: 1px solid red;
+    
 
     .profile-info {
-        // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        // border-radius: 7px;
-        width: 95%;
-        // max-width: 380px;
-        height: auto;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+       
+       margin-top: 20px;
+       height: max-content;
+       border: 1px solid black;
+       width: 40%;
     
-        @media (max-width: 360px) {
-            margin: auto;
-            width: 100%;
-            border: none;
-            align-items: flex-start; /* Align items to the flex-start */
-            padding: 10px;
-        }
-        @media(min-width:361px) and (max-width:640px){
-            margin: auto;
-            width:  100%;
-            border:none;
-            align-items: flex-start;
-        }
-        @media (min-width:640px) and (max-width:768px){
-            border: none;
-            margin: auto;
-            width: 95%;
-            padding:8px;
-            // background-color: transparent;
-            align-items: flex-start;
-        }
-        @media (min-width:768px)and (max-width:1024px){
-            width: 40%;
-            margin-top:0px;
-            margin-left: 3%;
-        }
+        // @media (max-width: 360px) {
+        //     margin: auto;
+        //     width: 100%;
+        //     border: none;
+        //     align-items: flex-start; /* Align items to the flex-start */
+        //     padding: 10px;
+        // }
+        // @media(min-width:361px) and (max-width:640px){
+        //     margin: auto;
+        //     width:  100%;
+        //     border:none;
+        //     align-items: flex-start;
+        // }
+        // @media (min-width:640px) and (max-width:768px){
+        //     border: none;
+        //     margin: auto;
+        //     width: 95%;
+        //     padding:8px;
+        //     // background-color: transparent;
+        //     align-items: flex-start;
+        // }
+        // @media (min-width:768px)and (max-width:1024px){
+        //     width: 40%;
+        //     margin-top:0px;
+        //     margin-left: 3%;
+        // }
         
         
     
@@ -272,22 +281,22 @@
                         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
                         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     
-            @media (max-width: 360px) {
-                width: 100%;
-                margin: auto;
-            }
-            @media(min-width:361px) and (max-width:640px){
-                width: 100%;
-                margin: auto;
-            }
-            @media (min-width:640px) and (max-width:768px){
-                width: 100%;
-                margin: auto;
-            }
-            @media (min-width:768px)and (max-width:1024px){
-                width: 100%;
+            // @media (max-width: 360px) {
+            //     width: 100%;
+            //     margin: auto;
+            // }
+            // @media(min-width:361px) and (max-width:640px){
+            //     width: 100%;
+            //     margin: auto;
+            // }
+            // @media (min-width:640px) and (max-width:768px){
+            //     width: 100%;
+            //     margin: auto;
+            // }
+            // @media (min-width:768px)and (max-width:1024px){
+            //     width: 100%;
                 
-            }
+            // }
             
             
         }
@@ -298,39 +307,41 @@
             border-radius: 7px;
             font-family: sans-serif;
             transition: background 0.3s;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
     
-            @media (max-width: 360px) {
-                font-size: 12px;
-                padding: 5px;
-                margin-left: 0px;
-                display: flex;
-                justify-content: flex-start;
-                gap: 10px;
-            }
-            @media(min-width:361px) and (max-width:640px){
-                font-size: 14px;
-                padding: 5px;
-                margin-left: 0px;
-                display: flex;
-                justify-content: flex-start;
-                gap: 10px;
-            }
-            @media (min-width:640px) and (max-width:768px){
-                display: flex;
-                justify-content: flex-start;
-                font-size: 15px;
-                padding: 5px;
-                margin-left: 0px;
-                gap: 15px;
-            }
-            @media (min-width:768px)and (max-width:1024px){
-                display: flex;
-                justify-content: flex-start;
-                font-size: 15px;
-                padding: 5px;
-                margin-left: 0px;
-                gap: 15px;
-            }
+            // @media (max-width: 360px) {
+            //     font-size: 12px;
+            //     padding: 5px;
+            //     margin-left: 0px;
+                
+            //     gap: 10px;
+            // }
+            // @media(min-width:361px) and (max-width:640px){
+            //     font-size: 14px;
+            //     padding: 5px;
+            //     margin-left: 0px;
+            //     display: flex;
+            //     justify-content: flex-start;
+            //     gap: 10px;
+            // }
+            // @media (min-width:640px) and (max-width:768px){
+            //     display: flex;
+            //     justify-content: flex-start;
+            //     font-size: 15px;
+            //     padding: 5px;
+            //     margin-left: 0px;
+            //     gap: 15px;
+            // }
+            // @media (min-width:768px)and (max-width:1024px){
+            //     display: flex;
+            //     justify-content: flex-start;
+            //     font-size: 15px;
+            //     padding: 5px;
+            //     margin-left: 0px;
+            //     gap: 15px;
+            // }
 
             
     
@@ -345,99 +356,110 @@
             padding: 10px;
             border-radius: 7px;
             border: none;
-            text-align: center;
             font-family: sans-serif;
+            text-align: center;
+          
             transition: background-color 0.3s;
-            @media (max-width: 360px) {
-                padding: 5px;
+            // @media (max-width: 360px) {
+            //     padding: 5px;
                 
-            }
-            p{
-                @media (max-width: 360px) {
-                   font-family: sans-serif; 
-            }
-            @media(min-width:361px) and (max-width:640px){
-                font-family: sans-serif;
-            }
-            @media(min-width:640px) and (max-width:768px){
-                font-family: sans-serif;
-            }
-            @media (min-width:768px)and (max-width:1024px){
-                font-family: sans-serif;
-            }
-            
+            // }
+            // p{
+            //     @media (max-width: 360px) {
+            //        font-family: sans-serif; 
+            // }
+            // @media(min-width:361px) and (max-width:640px){
+            //     font-family: sans-serif;
+            // }
+            // @media(min-width:640px) and (max-width:768px){
+            //     font-family: sans-serif;
+            // }
+            // @media (min-width:768px)and (max-width:1024px){
+            //     font-family: sans-serif;
+            // }
         
-        }
+        
+        
 
     
             &:hover {
                 background-color: rgb(225, 220, 220);
             }
+            }
         }
     }
-    
-
-    .GetuserprofilebyUsername, 
-    .profilepage-createpost, 
-    .Getmyposts, 
-    .Profilepage-loader {
-        position: relative;
+    .profile-data{  
+        // flex: 1; 
         margin-top: 20px;
-    }
+        width: 58%;
 
+       
     .profilepage-createpost {
-        @media (max-width:360px){
-           width: 95%;
-           margin: auto;
-           margin-bottom: 10px;
-          }
-          @media(min-width:361px) and (max-width:640px){
-            width: 95%;
-            margin: auto;
-            margin-bottom: 10px;
-        }
-        @media (min-width:640px) and (max-width:768px){
-            width: 95%;
-            max-width: 700px;
-            margin-bottom: 10px;
+        width: 100%;
+        max-width: 650px;
+        // @media (max-width:360px){
+        //    width: 95%;
+        //    margin: auto;
+        //    margin-bottom: 10px;
+        //   }
+        //   @media(min-width:361px) and (max-width:640px){
+        //     width: 95%;
+        //     margin: auto;
+        //     margin-bottom: 10px;
+        // }
+        // @media (min-width:640px) and (max-width:768px){
+        //     width: 95%;
+        //     max-width: 700px;
+        //     margin-bottom: 10px;
             
-        }
-        @media (min-width:768px)and (max-width:1024px){
-            width: 50%;
-            margin-top: -290px;
-            margin-right: 30px;
+        // }
+        // @media (min-width:768px)and (max-width:1024px){
+        //     width: 50%;
+        //     margin-top: -290px;
+        //     margin-right: 30px;
         
-        }
+        // }
         
 
     }
 
     .Getmyposts {
-        @media (max-width:360px){
-            width: 95%;
-            margin: auto;
-           }
-           @media(min-width:361px) and (max-width:640px){
-            width: 95%;
-            margin: auto;
-        }
-        @media (min-width:640px) and (max-width:768px){
-            width: 95%;
-            max-width: 700px;
-            margin: auto;
-        }   
-        @media (min-width:768px)and (max-width:1024px){
-            width: 50%;
-            margin-right:20px;
+        margin-top: 10px;
+        width: 100%;
+        max-width: 650px;
+        // @media (max-width:360px){
+        //     width: 95%;
+        //     margin: auto;
+        //    }
+        //    @media(min-width:361px) and (max-width:640px){
+        //     width: 95%;
+        //     margin: auto;
+        // }
+        // @media (min-width:640px) and (max-width:768px){
+        //     width: 95%;
+        //     max-width: 700px;
+        //     margin: auto;
+        // }   
+        // @media (min-width:768px)and (max-width:1024px){
+        //     width: 50%;
+        //     margin-right:20px;
         
-        }
+        // }
         
     }
-
+}
+}
     .Profilepage-loader {
         align-self: center;
     }
 
 
     
-}
+
+// .GetuserprofilebyUsername, 
+    // .profilepage-createpost, 
+    // .Getmyposts, 
+    // .Profilepage-loader {
+    //     position: relative;
+    //     margin-top: 20px;
+    // }
