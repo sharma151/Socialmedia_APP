@@ -11,9 +11,10 @@ import { AiOutlineClose } from "react-icons/ai";
 import debounce from "lodash/debounce";
 import axios from "../services/Api";
 import "../Styles/Sass/Components/Navbar.scss";
+import { IoHome } from "react-icons/io5";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import { IoStorefront } from "react-icons/io5";
 import { HiMiniUserGroup } from "react-icons/hi2";
+import { LuMenu } from "react-icons/lu";
 import { IoGameController } from "react-icons/io5";
 
 const Navbar = () => {
@@ -22,13 +23,14 @@ const Navbar = () => {
   const { SetUserName } = useContext(UsernameContext);
   const { UserprofileData } = useContext(UpdatedataContext);
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const debouncedFetchUsernames = useCallback(
     debounce(async (searchQuery) => {
       try {
         await axios.get(`social-media/profile/u/${searchQuery}`);
       } catch (error) {
-        toast.error("Error fetching user ", error);
+        navigate("/usernotfound");
       }
     }, 700),
     []
@@ -62,69 +64,121 @@ const Navbar = () => {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav>
       {isAuthenticated ? (
-        <>
-          <div className="nav-content">
-            <Link to="/" className="Logo">
-              SS
-            </Link>
+        <div className="nav-content">
+          <Link to="/" className="Logo">
+            SS
+          </Link>
 
-            <form onSubmit={handleSearchSubmit} className="search-form">
-              <div className="search-input-container">
-                <input
-                  type="text"
-                  value={username}
-                  onChange={handleInputChange}
-                  placeholder="Enter username..."
-                  autoComplete="off"
-                />
-                {username && (
-                  <button
-                    type="button"
-                    onClick={handleClearSearch}
-                    className="clear-search-btn"
-                    aria-label="Clear search"
-                  >
-                    <AiOutlineClose size={18} />
-                  </button>
-                )}
-              </div>
-            </form>
-
-            <div className="icons-div">
-              <div className="icons">
-                <MdOutlineOndemandVideo color="white" />
-              </div>
-              <div className="icons">
-                <IoStorefront  color="white" />
-              </div>
-              <div className="icons">
-                <HiMiniUserGroup  color="white" />
-              </div>
-              <div className="icons">
-                <IoGameController  color="white" />
-              </div>
-            </div>
-
-            <Link to="/profile-page">
-              <div className="profileimg-navbar">
-                {UserprofileData?.account?.avatar?.url && (
-                  <img
-                    src={UserprofileData?.account?.avatar?.url}
-                    alt={UserprofileData?.posts?.avatar}
-                  />
-                )}
-              </div>
-            </Link>
-
-            <button onClick={handleLogoutClick} className="logout-btn">
-              <TbLogout size={20} />
-              <span className="logout-log">Logout </span>
-            </button>
+          {/* Hamburger Icon */}
+          <div className="hamburger-icon" onClick={toggleMenu}>
+            <LuMenu color="white" size={28} />
           </div>
-        </>
+
+          {/* Search Form */}
+          <form onSubmit={handleSearchSubmit} className="search-form">
+            <div className="search-input-container">
+              <input
+                type="text"
+                value={username}
+                onChange={handleInputChange}
+                placeholder="Enter username..."
+                autoComplete="off"
+              />
+              {username && (
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  className="clear-search-btn"
+                  aria-label="Clear search"
+                >
+                  <AiOutlineClose size={18} />
+                </button>
+              )}
+            </div>
+          </form>
+
+          {/* Regular Navigation Icons */}
+          <div className="icons-div">
+            <div className="icons">
+              <Link to="/">
+                <IoHome color="white" />
+              </Link>
+            </div>
+            <div className="icons">
+              <MdOutlineOndemandVideo color="white" />
+            </div>
+            <div className="icons">
+              <HiMiniUserGroup color="white" />
+            </div>
+            <div className="icons">
+              <IoGameController color="white" />
+            </div>
+          </div>
+
+          <Link to="/profile-page">
+            <div className="profileimg-navbar">
+              {UserprofileData?.account?.avatar?.url && (
+                <img
+                  src={UserprofileData?.account?.avatar?.url}
+                  alt={UserprofileData?.posts?.avatar}
+                />
+              )}
+            </div>
+          </Link>
+
+          <button onClick={handleLogoutClick} className="logout-btn">
+            <TbLogout size={20} />
+            <span className="logout-log">Logout </span>
+          </button>
+
+          {/* Dropdown Menu */}
+          {isMenuOpen && (
+            <div className="dropdown-menu">
+              {/* <div className="icons-div">
+                <div className="icons">
+                  <Link to="/">
+                    <IoHome color="white" />
+                  </Link>
+                </div>
+                <div className="icons">
+                  <MdOutlineOndemandVideo color="white" />
+                </div>
+                <div className="icons">
+                  <HiMiniUserGroup color="white" />
+                </div>
+                <div className="icons">
+                  <IoGameController color="white" />
+                </div>
+              </div> */}
+
+              <Link to="/profile-page">
+                <div className="dropdown-profileimg-navbar">
+                  {UserprofileData?.account?.avatar?.url && (
+                    <img
+                      src={UserprofileData?.account?.avatar?.url}
+                      alt={UserprofileData?.posts?.avatar}
+                    />
+                  )}
+                </div>
+              </Link>
+
+              <button
+                onClick={handleLogoutClick}
+                className="dropdown-logout-btn"
+              >
+                <TbLogout size={20} />
+                <span className="logout-log">Logout </span>
+              </button>
+            </div>
+          )}
+        </div>
       ) : null}
     </nav>
   );
