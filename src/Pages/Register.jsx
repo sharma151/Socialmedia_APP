@@ -7,7 +7,7 @@ import { IoIosMail } from "react-icons/io";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import "../Styles/Registration.scss";
+import "../Styles/Sass/Pages/Registration.scss";
 
 const Register = () => {
   const [formData, setFormData] = useState({

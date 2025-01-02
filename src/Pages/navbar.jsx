@@ -76,7 +76,6 @@ const Navbar = () => {
             SS
           </Link>
 
-          {/* Hamburger Icon */}
           <div className="hamburger-icon" onClick={toggleMenu}>
             <LuMenu color="white" size={28} />
           </div>
@@ -141,24 +140,19 @@ const Navbar = () => {
           {/* Dropdown Menu */}
           {isMenuOpen && (
             <div className="dropdown-menu">
-              {/* <div className="icons-div">
-                <div className="icons">
-                  <Link to="/">
-                    <IoHome color="white" />
-                  </Link>
+              <form onSubmit={handleSearchSubmit} className="dropdown-search-form">
+                <div className="dropdown-search-input-container">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={handleInputChange}
+                    placeholder="Search user..."
+                    autoComplete="off"
+                  />
                 </div>
-                <div className="icons">
-                  <MdOutlineOndemandVideo color="white" />
-                </div>
-                <div className="icons">
-                  <HiMiniUserGroup color="white" />
-                </div>
-                <div className="icons">
-                  <IoGameController color="white" />
-                </div>
-              </div> */}
+              </form>
 
-              <Link to="/profile-page">
+              <Link className="dropdown-profile-name" to="/profile-page">
                 <div className="dropdown-profileimg-navbar">
                   {UserprofileData?.account?.avatar?.url && (
                     <img
@@ -167,14 +161,15 @@ const Navbar = () => {
                     />
                   )}
                 </div>
+                <span className="dropdown-username">{UserprofileData?.account?.username}</span>
               </Link>
 
               <button
                 onClick={handleLogoutClick}
                 className="dropdown-logout-btn"
               >
-                <TbLogout size={20} />
-                <span className="logout-log">Logout </span>
+                <TbLogout  size={20}/>
+                <span className="dropdown-logout-log">Logout </span>
               </button>
             </div>
           )}
