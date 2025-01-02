@@ -5,7 +5,7 @@ import { AuthContext } from "../Context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import "../Styles/Login.scss";
+import "../Styles/Sass/Pages/Login.scss";
 
 const Login = () => {
   const [formData, setFormData] = useState({

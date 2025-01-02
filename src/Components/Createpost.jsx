@@ -65,7 +65,7 @@ const Createpost = ({ className, onUpdate }) => {
         }}
       >
         <div>
-          <input
+          <textarea
             type="text"
             id="content"
             value={content}
@@ -83,7 +83,7 @@ const Createpost = ({ className, onUpdate }) => {
             style={{ display: "none" }}
           />
           <label htmlFor="input" className="custom-file-upload">
-            <IoImages  />
+            <IoImages />
           </label>
           <div className="previewImage">
             {previewImage ? (

@@ -68,9 +68,11 @@ export const handleFetchuserData = async (username) => {
 export const handleFetchMyprofile = async () => {
   try {
     const response = await apiClient.get("/social-media/profile");
+
     return response?.data?.data;
   } catch (error) {
     console.log(error);
+    // toast.error(error?.response?.data?.statusCode);
   }
 };
 
