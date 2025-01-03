@@ -1,21 +1,21 @@
 import { useState, useCallback, useContext } from "react";
+import { MdOutlineOndemandVideo } from "react-icons/md";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { IoGameController } from "react-icons/io5";
 import { UsernameContext } from "../Context/Setusername";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { AiOutlineClose } from "react-icons/ai";
 import { Handlelogout } from "../services/AuthService";
 import { AuthContext } from "../Context/Authcontext";
 import { useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
+import { LuMenu } from "react-icons/lu";
+import { IoHome } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
 import debounce from "lodash/debounce";
 import axios from "../services/Api";
 import "../Styles/Sass/Components/Navbar.scss";
-import { IoHome } from "react-icons/io5";
-import { MdOutlineOndemandVideo } from "react-icons/md";
-import { HiMiniUserGroup } from "react-icons/hi2";
-import { LuMenu } from "react-icons/lu";
-import { IoGameController } from "react-icons/io5";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
@@ -35,6 +35,13 @@ const Navbar = () => {
     }, 700),
     []
   );
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const handleInputChange = (e) => {
     debouncedFetchUsernames(e.target.value);
@@ -72,7 +79,7 @@ const Navbar = () => {
     <nav>
       {isAuthenticated ? (
         <div className="nav-content">
-          <Link to="/" className="Logo">
+          <Link to="/" className="Logo" onClick={handleScrollToTop}>
             SS
           </Link>
 
@@ -106,7 +113,7 @@ const Navbar = () => {
           {/* Regular Navigation Icons */}
           <div className="icons-div">
             <div className="icons">
-              <Link to="/">
+              <Link to="/" onClick={handleScrollToTop}>
                 <IoHome color="white" />
               </Link>
             </div>
@@ -140,7 +147,10 @@ const Navbar = () => {
           {/* Dropdown Menu */}
           {isMenuOpen && (
             <div className="dropdown-menu">
-              <form onSubmit={handleSearchSubmit} className="dropdown-search-form">
+              <form
+                onSubmit={handleSearchSubmit}
+                className="dropdown-search-form"
+              >
                 <div className="dropdown-search-input-container">
                   <input
                     type="text"
@@ -161,14 +171,16 @@ const Navbar = () => {
                     />
                   )}
                 </div>
-                <span className="dropdown-username">{UserprofileData?.account?.username}</span>
+                <span className="dropdown-username">
+                  {UserprofileData?.account?.username}
+                </span>
               </Link>
 
               <button
                 onClick={handleLogoutClick}
                 className="dropdown-logout-btn"
               >
-                <TbLogout  size={20}/>
+                <TbLogout size={20} />
                 <span className="dropdown-logout-log">Logout </span>
               </button>
             </div>
