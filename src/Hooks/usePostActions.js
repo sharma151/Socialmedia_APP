@@ -91,7 +91,7 @@ const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
     handleLikePostSubmit,
     handleBookmarkClick,
     handleDeletePostSubmit,
-  
+    // isUpdating,
   };
 };
 
