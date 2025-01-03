@@ -1,99 +1,84 @@
-.maincontainer{
-    width: 100%;
-    display: flex;
+.maincontainer {
+  width: 100%;
+  display: flex;
   .homeloader {
     position: absolute;
     top: 350px;
     left: 555px;
   }
 
-  .Homepage-Aside{
+  .Homepage-Aside {
     margin-top: 70px;
- 
-    flex:0.4;
+
+    flex: 0.4;
     padding: 10px;
-   
-    @media (max-width:360px){
+
+    @media (max-width: 360px) {
       display: none;
     }
 
-    @media(min-width: 361px) and (max-width:768px){
+    @media (min-width: 361px) and (max-width: 768px) {
       display: none;
     }
-    // @media (min-width:1025px){
-    //     margin-left: 40px;
-       
-       
-         
-    // }
-
-
   }
-  .middle-div{
-   
-  
-    flex:0.8;
-    margin:  70px auto;
-    
-    @media (max-width:360px){
-    flex: 0.9;
+  .middle-div {
+    flex: 0.8;
+    margin: 70px auto;
+
+    @media (max-width: 360px) {
+      flex: 0.9;
     }
-    @media(min-width:361px) and (max-width:640px){
-    flex: 0.9;
+    @media (min-width: 361px) and (max-width: 640px) {
+      flex: 0.9;
     }
-    @media (min-width:640px) and (max-width:768px){
-     padding: 10px;
+    @media (min-width: 640px) and (max-width: 768px) {
+      padding: 10px;
     }
 
-  
-  .Getallpost {
-    margin-top:10px;  
-   }
+    .Getallpost {
+      margin-top: 10px;
+    }
   }
-  
-  .right-div{
-    
- 
+
+  .right-div {
     margin-top: 70px;
-    flex:0.4;
+    flex: 0.4;
     padding: 10px;
-    @media (max-width:360px){
+    @media (max-width: 360px) {
       display: none;
     }
-    @media(min-width:361px) and (max-width:640px){
+    @media (min-width: 361px) and (max-width: 640px) {
       display: none;
     }
-  
-  .birthday{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    gap: 10px;
-    @media (max-width:360px){
-      display: none;
+
+    .birthday {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      gap: 10px;
+      @media (max-width: 360px) {
+        display: none;
+      }
+      @media (min-width: 361px) and (max-width: 640px) {
+        display: none;
+      }
+
+      p {
+        font-family: sans-serif;
+        font-weight: 700;
+      }
+      .birthdate {
+        span {
+          margin-left: 10px;
+        }
+      }
     }
-    @media(min-width:361px) and (max-width:640px){
-      display: none;
-    }
-  
-    p {
-      font-family: sans-serif;
-      font-weight: 700;
-    }
-    .birthdate{
-      span{
-        margin-left: 10px;
+    .homepage-Profile {
+      @media (max-width: 360px) {
+        display: none;
+      }
+      @media (min-width: 361px) and (max-width: 640px) {
+        display: none;
       }
     }
   }
-  .homepage-Profile{
-    @media (max-width:360px){
-      display: none;
-    }
-    @media(min-width: 361px) and (max-width:640px){
-      display: none;
-     }
-    
-  }
-  }
 }
- 

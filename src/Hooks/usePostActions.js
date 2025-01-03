@@ -1,18 +1,14 @@
 // hooks/usePostActions.js
-import { useState } from "react";
 import { toast } from "react-toastify";
 import {
   handleSetBookmarks,
   HandleDeletePost,
   handleLikePost,
-} from "../services/Handleapi";
+} from "../services/Handleapi"; 
 
 const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
-
-
   const handleLikePostSubmit = async (_id) => {
     try {
-    
       const response = await handleLikePost(_id);
 
       setUserposts((prevPosts) =>
@@ -22,7 +18,6 @@ const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
               ...post,
               isLiked: response.isLiked,
               likes: response.isLiked ? post.likes + 1 : post.likes - 1,
- 
             };
           }
           return post;
@@ -38,7 +33,6 @@ const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
       }
     } catch (error) {
       console.error("Error liking post:", error);
- 
     }
   };
 
@@ -91,7 +85,7 @@ const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
     handleLikePostSubmit,
     handleBookmarkClick,
     handleDeletePostSubmit,
-  
+    // isUpdating,
   };
 };
 
