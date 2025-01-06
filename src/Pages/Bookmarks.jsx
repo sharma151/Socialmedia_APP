@@ -5,7 +5,6 @@ import Userpost from "../Components/Userpost";
 import "../Styles/Sass/Pages/Bookmarks.scss";
 const Bookmarks = () => {
 
-
   const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
 
   useEffect(() => {
