@@ -1,178 +1,111 @@
-  import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
-  import { useState, useContext, useEffect } from "react";
-  import { UpdatedataContext } from "../Context/UpdateProfileContext";
-  import { MdDelete } from "react-icons/md";
-  import { BiLike, BiSolidLike } from "react-icons/bi";
-  import Modal from "../Modals/Modal";
-  import { toast } from "react-toastify";
-  import {
-    handleSetBookmarks,
-    HandleDeletePost,
-    handleLikePost,
-  } from "../services/Handleapi";
-  import "../Styles/Sass/Components/Post.scss";
-  import { useNavigate } from "react-router-dom";
+import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
+import { useState, useContext, useEffect } from "react";
+import { BiLike, BiSolidLike } from "react-icons/bi";
+import { handleFetchallPost } from "../services/Handleapi";
+import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
+import Modal from "../Modals/Modal";
+import usePostActions from "../Hooks/usePostActions";
+import "../Styles/Sass/Components/Post.scss";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../assets/Loader";
+import apiClient from "../services/Api";
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, options);
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const date = new Date(dateString);
+  return date.toLocaleDateString(undefined, options);
+};
+
+const Posts = ({ className, posts, onUpdate }) => {
+  const { UserprofileData } = useContext(UpdatedataContext);
+  const [userposts, setUserposts] = useState(posts);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState();
+  const navigate = useNavigate();
+
+  const { handleLikePostSubmit, handleBookmarkClick, handleDeletePostSubmit } =
+    usePostActions(userposts, setUserposts, selectedPost, setSelectedPost);
+
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+    setIsModalOpen(true);
   };
 
-  const Posts = ({ className, posts, onUpdate }) => {
-    const { UserprofileData } = useContext(UpdatedataContext);
-    const [userposts, setUserposts] = useState(posts);
-    const [selectedPost, setSelectedPost] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPost(null);
+  };
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    setUserposts(posts);
+  }, [posts]);
 
-    const handlePostClick = (post) => {
-      setSelectedPost(post);
-      setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-      setIsModalOpen(false);
-      setSelectedPost(null);
-    };
-
-    const Handledeletepostsubmit = async (e, _id) => {
-      e.preventDefault();
-      try {
-        const response = await HandleDeletePost(_id);
-        if (response === 200) {
-          toast.success("Post deleted successfully");
-          if (onUpdate) {
-            onUpdate();
-          }
-        }
-      } catch (error) {
-        console.error("Error deleting post:", error);
-        toast.error("Failed to delete the post.");
+  const fetchMoreData = async () => {
+    try {
+      if (page <= 0) {
+        setHasMore(false);
+        return;
       }
-    };
 
-    // const handleLikePostSubmit = async (_id) => {
-    //   try {
-    //     const response = await handleLikePost(_id);
-    //     const updatedPosts = userposts.map((post) => {
-    //       if (post._id === _id) {
-    //         return {
-    //           ...post,
-    //           isLiked: response.isLiked,
-    //           likes: response.isLiked ? post.likes + 1 : post.likes - 1,
-    //         };
-    //       }
-    //       return post;
-    //     });
+      const response = await handleFetchallPost(page); // Fetch posts from the current page
 
-    //     setUserposts(updatedPosts);
-
-    //     // Update the selectedPost if the modal is open and the post matches
-    //     if (selectedPost && selectedPost._id === _id) {
-    //       setSelectedPost((prev) => ({
-    //         ...prev,
-    //         isLiked: response.isLiked,
-    //         likes: response.isLiked ? prev.likes + 1 : prev.likes - 1,
-    //       }));
-    //     }
-    //   } catch (error) {
-    //     console.error("Error liking post:", error);
-    //   }
-    // };
-
-    const handleLikePostSubmit = async (_id) => {
-      try {
-        // Disable the like button for this post to prevent rapid clicks
-        setUserposts((prevPosts) =>
-          prevPosts.map((post) =>
-            post._id === _id ? { ...post, isUpdating: true } : post
-          )
+      if (response.length > 0) {
+        const sortedPosts = response.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-
-        const response = await handleLikePost(_id); // Call API to toggle like
-
-        setUserposts((prevPosts) =>
-          prevPosts.map((post) => {
-            if (post._id === _id) {
-              return {
-                ...post,
-                isLiked: response.isLiked, // Update like status
-                likes: response.isLiked ? post.likes + 1 : post.likes - 1, // Adjust likes
-                isUpdating: false, // Re-enable button
-              };
-            }
-            return post;
-          })
-        );
-
-        // Update the selectedPost if the modal is open and the post matches
-        if (selectedPost && selectedPost._id === _id) {
-          setSelectedPost((prev) => ({
-            ...prev,
-            isLiked: response.isLiked,
-            likes: response.isLiked ? prev.likes + 1 : prev.likes - 1,
-          }));
-        }
-      } catch (error) {
-        console.error("Error liking post:", error);
-
-        // Re-enable the like button and revert state on failure
-        setUserposts((prevPosts) =>
-          prevPosts.map((post) =>
-            post._id === _id ? { ...post, isUpdating: false } : post
-          )
-        );
+        setUserposts((prevPosts) => [...prevPosts, ...sortedPosts]);
+        setPage((prevPage) => prevPage - 1);
+      } else {
+        setHasMore(false);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching more posts:", error);
+    }
+  };
 
-    const handleBookmarkClick = async (_id) => {
+  useEffect(() => {
+    const initializePosts = async () => {
       try {
-        const response = await handleSetBookmarks(_id);
-        const updatedPosts = userposts.map((post) => {
-          if (post?._id === _id) {
-            return {
-              ...post,
-              isBookmarked: response?.isBookmarked,
-            };
-          }
-          return post;
-        });
+        const totalpageresponse = await apiClient.get(`/social-media/posts`);
+        const initialPage = totalpageresponse?.data?.data?.totalPages || 0;
 
-        setUserposts(updatedPosts);
+        if (initialPage > 0) {
+          setPage(initialPage);
 
-        // Update the selectedPost if the modal is open and the post matches
-        if (selectedPost && selectedPost._id === _id) {
-          setSelectedPost((prev) => ({
-            ...prev,
-            isBookmarked: response?.isBookmarked,
-          }));
-        }
-
-        // Show toast notifications
-        if (response?.isBookmarked) {
-          toast.success("Bookmarked Successfully");
+          const response = await handleFetchallPost(initialPage);
+          const sortedPosts = response.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setUserposts(sortedPosts);
         } else {
-          toast.info("Bookmark Removed");
+          setHasMore(false); // No pages available
         }
       } catch (error) {
-        console.error("Error handling bookmarks:", error);
+        console.error("Error initializing posts:", error);
       }
     };
 
-    useEffect(() => {
-      setUserposts(posts);
-    }, [posts]);
+    initializePosts();
+  }, []);
 
-    return (
-      <div className={`posts ${className}`}>
+  return (
+    <div className={`posts ${className}`} id="scrollableDiv">
+      <InfiniteScroll
+        dataLength={userposts?.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<Loader />}
+        scrollThreshold={0.9}
+      >
         <div className="posts-list">
           {userposts.map((post) => (
             <div key={post?._id} className="post-item">
               {post?.author?.account?.avatar?.url && (
                 <img
-                  // key={post?.id}
                   src={post?.author?.account?.avatar?.url}
                   alt={post?.avatar}
                   onClick={() =>
@@ -192,6 +125,7 @@
               >
                 {post?.author?.account?.username}
               </p>
+
               <div
                 className="Name"
                 onClick={() =>
@@ -206,15 +140,14 @@
                 <p className="createdAt">{formatDate(post?.createdAt)}</p>
               </div>
               <hr className="underline" />
+
               {UserprofileData?._id === post?.author?._id && (
-                <>
-                  <button
-                    className="delete-btn"
-                    onClick={(e) => Handledeletepostsubmit(e, post?._id)}
-                  >
-                    <MdDelete />
-                  </button>
-                </>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeletePostSubmit(post?._id)}
+                >
+                  <MdDelete />
+                </button>
               )}
 
               <p className="content">{post?.content}</p>
@@ -229,6 +162,7 @@
                   />
                 )}
               </div>
+
               <div className="Post-buttons">
                 <button
                   onClick={() => handleLikePostSubmit(post?._id)}
@@ -252,90 +186,83 @@
             </div>
           ))}
         </div>
+      </InfiniteScroll>
 
-        {/* Modals UI starts here */}
-
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          {selectedPost && (
-            <div className="main-modal">
-              <div className="modal-post-image">
-                <img
-                  src={selectedPost?.images?.[0]?.url}
-                  alt={selectedPost?.images?.[0]?.url}
-                />
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {selectedPost && (
+          <div className="main-modal">
+            <div className="modal-post-image">
+              <img
+                src={selectedPost?.images?.[0]?.url}
+                alt={selectedPost?.images?.[0]?.url}
+              />
+            </div>
+            <div className="modal-postdetails">
+              <div className="modal-head">
+                <div className="modal-post-admin-avatar">
+                  {selectedPost?.author?.account?.avatar?.url && (
+                    <img
+                      src={selectedPost?.author?.account?.avatar?.url}
+                      alt={selectedPost?.avatar}
+                      onClick={() =>
+                        navigate(
+                          `/profile/${selectedPost?.author?.account?.username}`
+                        )
+                      }
+                      style={{ cursor: "pointer" }}
+                      className="modal-avatar"
+                    />
+                  )}
+                </div>
+                <div
+                  className="Name"
+                  onClick={() =>
+                    navigate(
+                      `/profile/${selectedPost?.author?.account?.username}`
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <p className="FullName">
+                    {selectedPost?.author?.firstName}{" "}
+                    {selectedPost?.author?.lastName}
+                  </p>
+                  <p className="modal-post-createdAt">
+                    {formatDate(selectedPost?.createdAt)}
+                  </p>
+                </div>
               </div>
-
-              <div className="modal-postdetails">
-                <div className="modal-head">
-                  <div className="modal-post-admin-avatar">
-                    {selectedPost?.author?.account?.avatar?.url && (
-                      <img
-                        key={selectedPost?.id}
-                        src={selectedPost?.author?.account?.avatar?.url}
-                        alt={selectedPost?.avatar}
-                        onClick={() =>
-                          navigate(
-                            `/profile/${selectedPost?.author?.account?.username}`
-                          )
-                        }
-                        style={{ cursor: "pointer" }}
-                        className="modal-avatar"
-                      />
-                    )}
-                  </div>
-                  <div
-                    className="Name"
-                    onClick={() =>
-                      navigate(
-                        `/profile/${selectedPost?.author?.account?.username}`
-                      )
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    <p className="FullName">
-                      {selectedPost?.author?.firstName}
-                      {selectedPost?.author?.lastName}
-                    </p>
-                    <p className="modal-post-createdAt">
-                      {formatDate(selectedPost?.createdAt)}
-                    </p>
-                  </div>
-                </div>
-                <p className="modal-comment">{selectedPost?.content}</p>
-                
-                
-              
-                <div className="modal-post-buttons">
-                  <button
-                    onClick={() => handleLikePostSubmit(selectedPost?._id)}
-                    className="modal-Like-dislike"
-                    style={{ cursor: "pointer" }}
-                  >
-                    {selectedPost?.isLiked ? (
-                      <BiSolidLike size={27} />
-                    ) : (
-                      <BiLike size={27} />
-                    )}
-                    <span className="modal-like-count">{selectedPost.likes}</span>
-                  </button>
-
-                  <button
-                    className="bookmark"
-                    onClick={() => handleBookmarkClick(selectedPost?._id)}
-                  >
-                    {selectedPost?.isBookmarked ? (
-                      <PiBookmarkSimpleFill size={27} />
-                    ) : (
-                      <PiBookmarkSimpleBold size={27} />
-                    )}
-                  </button>
-                </div>
+              <p className="modal-comment">{selectedPost?.content}</p>
+              <div className="modal-post-buttons">
+                <button
+                  onClick={() => handleLikePostSubmit(selectedPost?._id)}
+                  className="modal-Like-dislike"
+                  style={{ cursor: "pointer" }}
+                >
+                  {selectedPost?.isLiked ? (
+                    <BiSolidLike size={27} />
+                  ) : (
+                    <BiLike size={27} />
+                  )}
+                  <span className="modal-like-count">{selectedPost.likes}</span>
+                </button>
+                <button
+                  className="bookmark"
+                  onClick={() => handleBookmarkClick(selectedPost?._id)}
+                >
+                  {selectedPost?.isBookmarked ? (
+                    <PiBookmarkSimpleFill size={27} />
+                  ) : (
+                    <PiBookmarkSimpleBold size={27} />
+                  )}
+                </button>
               </div>
             </div>
-          )}
-        </Modal>
-      </div>
-    );
-  };
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
+};
 
-  export default Posts;
+export default Posts;
