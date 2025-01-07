@@ -7,10 +7,13 @@ import Createpost from "../Components/Createpost";
 import debounce from "lodash/debounce";
 import Userpost from "../Components/Userpost";
 import Profile from "../Components/Profile";
-import Loader from "../assets/Loader";
+
 import "../Styles/Sass/Pages/Home.scss";
 import Aside from "../Components/aside";
 import Suggestions from "../Components/Suggestions";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../assets/Loader";
+import apiClient from "../services/Api";
 import {
   handleFetchallPost,
   handleFetchpostByusername,
@@ -21,8 +24,10 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const { UserName } = useContext(UsernameContext);
   const { UserprofileData } = useContext(UpdatedataContext);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState();
 
-  const fetchallPosts = async () => {
+  const fetchAllPosts = async () => {
     setLoading(true);
     try {
       const response = await handleFetchallPost();
@@ -30,20 +35,21 @@ const Home = () => {
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setPosts(sortedPosts);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
       toast.error("Failed to fetch posts. Please try again later.");
     }
   };
 
-  const debouncefetchpostByUsername = useCallback(
+  const debounceFetchPostByUsername = useCallback(
     debounce(async (userName) => {
       try {
         const response = await handleFetchpostByusername(userName);
-        const posts = response;
-        if (posts) {
-          setPosts(posts);
+        if (response) {
+          setPosts(response);
         } else {
+          setPosts([]);
         }
       } catch (error) {
         toast.error(`Error fetching user data: ${error.message || error}`);
@@ -61,7 +67,6 @@ const Home = () => {
     const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
 
-    // Add suffix for the day
     const daySuffix = (day) => {
       if (day >= 11 && day <= 13) return "th";
       switch (day % 10) {
@@ -83,9 +88,9 @@ const Home = () => {
 
   useEffect(() => {
     if (UserName) {
-      debouncefetchpostByUsername(UserName);
+      debounceFetchPostByUsername(UserName);
     } else {
-      fetchallPosts();
+      fetchAllPosts();
     }
   }, [UserName]);
 
@@ -96,6 +101,64 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [posts]);
 
+  const fetchMoreData = async () => {
+    try {
+      if (page <= 0) {
+        setHasMore(false);
+        return;
+      }
+
+      const response = await handleFetchallPost(page);
+
+      if (response.length > 0) {
+        const sortedPosts = response.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setPosts((prevPosts) => [...sortedPosts, ...prevPosts]);
+        setPage((prevPage) => prevPage - 1);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Error fetching more posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    const initializePosts = async () => {
+      try {
+        const totalPageResponse = await apiClient.get(`/social-media/posts`);
+        const initialPage = totalPageResponse?.data?.data?.totalPages;
+        setPage(initialPage);
+        const response = await handleFetchallPost(initialPage);
+        const sortedPosts = response.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setPosts(sortedPosts);
+      } catch (error) {
+        console.error("Error initializing posts:", error);
+      }
+    };
+
+    initializePosts();
+  }, []);
+
+  const onCreateSuceess = async () => {
+    setLoading(true);
+
+    try {
+      const response = await handleFetchallPost(page);
+      const sortedPosts = response.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setPosts(sortedPosts);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      toast.error("Failed to fetch posts. Please try again later.");
+    }
+  };
+
   return (
     <>
       <div className="maincontainer">
@@ -104,21 +167,25 @@ const Home = () => {
         <div className="middle-div">
           <Createpost
             className="Homepage-createpost"
-            onUpdate={() => {
-              fetchallPosts();
-            }}
+            onUpdate={onCreateSuceess}
           />
           {loading ? (
             <Loader className="homeloader" />
           ) : (
             <>
-              <Userpost
-                className="Getallpost"
-                posts={posts}
-                onUpdate={() => {
-                  fetchallPosts();
-                }}
-              />
+              <InfiniteScroll
+                dataLength={posts?.length}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<Loader />}
+                scrollThreshold={0.9}
+              >
+                <Userpost
+                  className="Getallpost"
+                  posts={posts}
+                  onUpdate={fetchAllPosts}
+                />
+              </InfiniteScroll>
             </>
           )}
         </div>
