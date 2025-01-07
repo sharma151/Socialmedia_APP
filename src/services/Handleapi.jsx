@@ -34,14 +34,15 @@ export const handleFetchmyPost = async () => {
   }
 };
 
-export const handleFetchallPost = async () => {
+export const handleFetchallPost = async (page = 1, limit = 10) => {
   try {
-    const response = await apiClient.get(
-      `/social-media/posts?page=1&limit=100`
-    );
+    const response = await apiClient.get(`/social-media/posts`, {
+      params: { page, limit },
+    });
     return response?.data?.data?.posts;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching posts:", error);
+    throw error; // Optional: Re-throw the error for better error handling in the calling function
   }
 };
 
