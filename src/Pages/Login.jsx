@@ -64,9 +64,13 @@ const Login = () => {
     if (validateForm()) {
       try {
         const response = await Handlelogin(formData);
-        const accessToken = response;
-        if (accessToken) {
+        const accessToken = response?.accessToken;
+        const RefreshToken = response?.refreshToken;
+        console.log(response);
+        console.log(response);
+        if (accessToken && RefreshToken) {
           localStorage.setItem("AccessToken", accessToken);
+          localStorage.setItem("RefreshToken", RefreshToken);
           setIsAuthenticated(true);
           toast.success("Logged in successfully!");
           navigate("/");
