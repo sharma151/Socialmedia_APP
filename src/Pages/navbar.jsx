@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback, useContext, useRef, useEffect } from "react";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
 import { IoHome } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import debounce from "lodash/debounce";
@@ -24,16 +25,22 @@ const Navbar = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
 
   const debouncedFetchUsernames = useCallback(
     debounce(async (searchQuery) => {
       try {
+        if (searchQuery.trim() === "") {
+          navigate("/");
+          return;
+        }
         await axios.get(`social-media/profile/u/${searchQuery}`);
       } catch (error) {
         navigate("/usernotfound");
       }
     }, 700),
-    []
+    [navigate]
   );
 
   const handleScrollToTop = () => {
@@ -44,19 +51,25 @@ const Navbar = () => {
   };
 
   const handleInputChange = (e) => {
-    debouncedFetchUsernames(e.target.value);
-    setUsername(e.target.value);
-    SetUserName(e.target.value);
+    const value = e.target.value;
+    setUsername(value);
+    SetUserName(value);
+    debouncedFetchUsernames(value);
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    navigate(`/profile/${username}`);
+    if (username.trim() === "") {
+      navigate("/");
+    } else {
+      navigate(`/profile/${username}`);
+    }
   };
 
   const handleClearSearch = () => {
     setUsername("");
     SetUserName("");
+    navigate("/");
   };
 
   const handleLogoutClick = async () => {
@@ -74,6 +87,25 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+  useEffect(() => {
+    closeMenu();
+  }, [location]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav>
@@ -146,7 +178,7 @@ const Navbar = () => {
 
           {/* Dropdown Menu */}
           {isMenuOpen && (
-            <div className="dropdown-menu">
+            <div className="dropdown-menu" ref={dropdownRef}>
               <form
                 onSubmit={handleSearchSubmit}
                 className="dropdown-search-form"
