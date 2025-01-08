@@ -5,7 +5,7 @@ export const Handlelogin = async (formData) => {
   try {
     const response = await apiClient.post("/users/login", formData);
 
-    return response?.data?.data?.accessToken;
+    return response?.data?.data;
   } catch (error) {
     toast.error(
       error.response?.data?.message || error.message,
