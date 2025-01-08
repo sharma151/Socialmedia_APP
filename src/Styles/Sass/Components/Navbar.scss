@@ -189,6 +189,9 @@ nav {
     @media (min-width: 360px) {
       display: flex;
     }
+    @media (min-width: 640px) and (max-width: 768px) {
+      display: none;
+    }
     input {
       border-radius: 5px;
       border: none;
