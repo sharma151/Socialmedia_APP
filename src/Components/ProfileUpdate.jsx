@@ -4,7 +4,7 @@ import { handleUpdateProfile } from "../services/Handleapi";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
-import "../Styles/ProfileUpdate.scss";
+import "../Styles/Sass/Components/ProfileUpdate.scss";
 
 const ProfileUpdate = ({ closeModal }) => {
   const { UserprofileData, setUserProfileData } = useContext(UpdatedataContext);
