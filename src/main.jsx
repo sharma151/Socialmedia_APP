@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "../src/Redux/Store.js";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <App />
       <ToastContainer
@@ -24,5 +24,5 @@ createRoot(document.getElementById("root")).render(
         theme="light"
       />
     </Provider>
-  </StrictMode>
+  // </StrictMode>
 );
