@@ -23,7 +23,7 @@ export default [
       react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      import: eslintPluginImport, // Add this line
+      import: eslintPluginImport, 
     },
     rules: {
       "import/no-unresolved": [2, { caseSensitive: true }],
