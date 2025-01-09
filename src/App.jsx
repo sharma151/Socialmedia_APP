@@ -10,7 +10,7 @@ import Userpost from "./Components/Userpost";
 import Layout from "./Layouts/Layout";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
-import "./App.css";
+// import "./App.css";
 import Pagenotfound from "./Pages/Pagenotfound";
 import Usernotfound from "./Pages/Usernotfound";
 
