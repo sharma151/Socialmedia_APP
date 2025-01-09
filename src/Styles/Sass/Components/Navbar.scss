@@ -122,6 +122,9 @@ nav {
           display: flex;
           align-items: center;
           justify-content: center;
+          @media(max-width:640px){
+            display: none;
+          }
         }
       }
     }
@@ -189,6 +192,9 @@ nav {
     @media (min-width: 360px) {
       display: flex;
     }
+    @media (min-width: 640px) and (max-width: 768px) {
+      display: none;
+    }
     input {
       border-radius: 5px;
       border: none;
@@ -198,21 +204,23 @@ nav {
       font-size: 10px;
       max-width: 270px;
       width: 100%;
+      margin-bottom: 10px;
 
       &:focus {
         outline: none;
       }
     }
 
-    .clear-search-btn {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      margin-left: -30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    //   .dropdown-clear-search-btn {
+    //     background-color: transparent;
+    //     border: none;
+    //     cursor: pointer;
+    //     margin-left: -30px;
+    //     margin-bottom: 5px;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //   }
   }
 
   .dropdown-profile-name {
