@@ -179,6 +179,21 @@ const Navbar = () => {
           {/* Dropdown Menu */}
           {isMenuOpen && (
             <div className="dropdown-menu" ref={dropdownRef}>
+             
+             <Link className="dropdown-profile-name" to="/profile-page">
+                <div className="dropdown-profileimg-navbar">
+                  {UserprofileData?.account?.avatar?.url && (
+                    <img
+                      src={UserprofileData?.account?.avatar?.url}
+                      alt={UserprofileData?.posts?.avatar}
+                    />
+                  )}
+                </div>
+                <span className="dropdown-username">
+                  {UserprofileData?.account?.username}
+                </span>
+              </Link>
+             
               <form
                 onSubmit={handleSearchSubmit}
                 className="dropdown-search-form"
@@ -194,19 +209,7 @@ const Navbar = () => {
                 </div>
               </form>
 
-              <Link className="dropdown-profile-name" to="/profile-page">
-                <div className="dropdown-profileimg-navbar">
-                  {UserprofileData?.account?.avatar?.url && (
-                    <img
-                      src={UserprofileData?.account?.avatar?.url}
-                      alt={UserprofileData?.posts?.avatar}
-                    />
-                  )}
-                </div>
-                <span className="dropdown-username">
-                  {UserprofileData?.account?.username}
-                </span>
-              </Link>
+             
 
               <button
                 onClick={handleLogoutClick}
