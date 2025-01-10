@@ -1,4 +1,5 @@
 import { useState, useCallback, useContext, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
@@ -7,11 +8,9 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { AiOutlineClose } from "react-icons/ai";
 import { Handlelogout } from "../services/AuthService";
 import { AuthContext } from "../Context/Authcontext";
-import { useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
 import { IoHome } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import debounce from "lodash/debounce";
@@ -179,8 +178,7 @@ const Navbar = () => {
           {/* Dropdown Menu */}
           {isMenuOpen && (
             <div className="dropdown-menu" ref={dropdownRef}>
-             
-             <Link className="dropdown-profile-name" to="/profile-page">
+              <Link className="dropdown-profile-name" to="/profile-page">
                 <div className="dropdown-profileimg-navbar">
                   {UserprofileData?.account?.avatar?.url && (
                     <img
@@ -193,7 +191,7 @@ const Navbar = () => {
                   {UserprofileData?.account?.username}
                 </span>
               </Link>
-             
+
               <form
                 onSubmit={handleSearchSubmit}
                 className="dropdown-search-form"
@@ -208,8 +206,6 @@ const Navbar = () => {
                   />
                 </div>
               </form>
-
-             
 
               <button
                 onClick={handleLogoutClick}
