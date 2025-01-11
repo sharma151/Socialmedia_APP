@@ -7,7 +7,6 @@ import Createpost from "../Components/Createpost";
 import debounce from "lodash/debounce";
 import Userpost from "../Components/Userpost";
 import Profile from "../Components/Profile";
-
 import "../Styles/Sass/Pages/Home.scss";
 import Aside from "../Components/aside";
 import Suggestions from "../Components/Suggestions";
@@ -26,6 +25,7 @@ const Home = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState();
+  const [totalPosts, setTotalPost] = useState();
 
   const fetchAllPosts = async () => {
     setLoading(true);
@@ -37,7 +37,6 @@ const Home = () => {
       setPosts(sortedPosts);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching posts:", error);
       toast.error("Failed to fetch posts. Please try again later.");
     }
   };
@@ -103,18 +102,18 @@ const Home = () => {
 
   const fetchMoreData = async () => {
     try {
-      if (page <= 0) {
+      if (page <= 1) {
         setHasMore(false);
         return;
       }
 
-      const response = await handleFetchallPost(page);
+      const response = await handleFetchallPost(page - 1);
 
       if (response.length > 0) {
         const sortedPosts = response.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-        setPosts((prevPosts) => [...sortedPosts, ...prevPosts]);
+        setPosts((prevPosts) => [...prevPosts, ...sortedPosts]);
         setPage((prevPage) => prevPage - 1);
       } else {
         setHasMore(false);
@@ -129,6 +128,7 @@ const Home = () => {
       try {
         const totalPageResponse = await apiClient.get(`/social-media/posts`);
         const initialPage = totalPageResponse?.data?.data?.totalPages;
+        setTotalPost(totalPageResponse?.data?.data?.totalPosts);
         setPage(initialPage);
         const response = await handleFetchallPost(initialPage);
         const sortedPosts = response.sort(
@@ -147,14 +147,36 @@ const Home = () => {
     setLoading(true);
 
     try {
-      const response = await handleFetchallPost(page);
+      let newPage = page;
+      if (totalPosts % 10 == 0) newPage = page + 1;
+      const response = await handleFetchallPost(newPage);
       const sortedPosts = response.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
+
       setPosts(sortedPosts);
+      setPage(newPage);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      toast.error("Failed to fetch posts. Please try again later.");
+    }
+  };
+
+  const onDeleteSuccess = async () => {
+    setLoading(true);
+    try {
+      let newPage = page;
+      console.log("ondeletecalled", totalPosts, totalPosts % 10 == 0);
+      if (totalPosts % 10 == 0) newPage = page - 1;
+      const response = await handleFetchallPost(newPage);
+      const sortedPosts = response.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setPosts(sortedPosts);
+      setPage(newPage);
+      setLoading(false);
+    } catch (error) {
       toast.error("Failed to fetch posts. Please try again later.");
     }
   };
@@ -163,7 +185,6 @@ const Home = () => {
     <>
       <div className="maincontainer">
         <Aside className="Homepage-Aside" />
-
         <div className="middle-div">
           <Createpost
             className="Homepage-createpost"
@@ -184,6 +205,7 @@ const Home = () => {
                   className="Getallpost"
                   posts={posts}
                   onUpdate={fetchAllPosts}
+                  onDeleteSuccess={onDeleteSuccess}
                 />
               </InfiniteScroll>
             </>

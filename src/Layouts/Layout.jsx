@@ -6,8 +6,7 @@ function Layout() {
   return (
     <div>
       <Setusername>
-        <Navbar />
-        
+        <Navbar />        
         <div className="content">
           <Outlet />
         </div>

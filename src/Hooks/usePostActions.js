@@ -4,9 +4,16 @@ import {
   handleSetBookmarks,
   HandleDeletePost,
   handleLikePost,
-} from "../services/Handleapi"; 
+  handleFetchallPost,
+} from "../services/Handleapi";
 
-const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
+const usePostActions = (
+  posts,
+  setUserposts,
+  selectedPost,
+  setSelectedPost,
+  onDeleteSuccess
+) => {
   const handleLikePostSubmit = async (_id) => {
     try {
       const response = await handleLikePost(_id);
@@ -71,9 +78,12 @@ const usePostActions = (posts, setUserposts, selectedPost, setSelectedPost) => {
       const response = await HandleDeletePost(_id);
       if (response === 200) {
         toast.success("Post deleted successfully");
-        setUserposts((prevPosts) =>
-          prevPosts.filter((post) => post._id !== _id)
-        );
+
+        onDeleteSuccess();
+        // setUserposts((prevPosts) =>
+        //   prevPosts.filter((post) => post._id !== _id)
+        // );
+        // handleFetchallPost();
       }
     } catch (error) {
       console.error("Error deleting post:", error);
