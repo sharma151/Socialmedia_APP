@@ -70,9 +70,9 @@ const ProfileUpdate = ({ closeModal }) => {
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
+      document.body.style.overflow = "hidden"; 
     } else {
-      document.body.style.overflow = ""; // Reset to default
+      document.body.style.overflow = ""; 
     }
 
     // Cleanup when component unmounts or modal closes
