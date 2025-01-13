@@ -1,7 +1,6 @@
 import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
 import { useState, useContext, useEffect } from "react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
-// import { handleFetchallPost } from "../services/Handleapi";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";

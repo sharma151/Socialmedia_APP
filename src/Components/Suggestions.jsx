@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { handleRandomusers } from "../services/Handleapi";
 import "../Styles/Sass/Components/Suggestions.scss";
 const Suggestions = ({className}) => {
+  
   const [randomUsers, setrandomUsers] = useState([]);
   const fetchRandomUsers = async () => {
     try {

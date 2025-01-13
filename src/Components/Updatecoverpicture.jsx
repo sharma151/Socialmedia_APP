@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "../Styles/Sass/Components/UpdateCoverImage.scss";
 
 const UpdateCoverPage = ({ onUpdate, className }) => {
+  
   const handleFileChange = async (e) => {
     const formData = new FormData();
     formData.append("coverImage", e.target.files[0]);
@@ -23,7 +24,10 @@ const UpdateCoverPage = ({ onUpdate, className }) => {
   };
 
   return (
-    <div className={`updatecoverpage ${className}`}>
+    <div
+      className={`updatecoverpage ${className}`}
+      style={{ cursor: "pointer" }}
+    >
       <input
         type="file"
         accept="image/*"
@@ -31,8 +35,8 @@ const UpdateCoverPage = ({ onUpdate, className }) => {
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
-      <label htmlFor="Updatecover">
-        <IoIosCamera />
+      <label htmlFor="Updatecover" style={{ cursor: "pointer" }}>
+        <IoIosCamera style={{ cursor: "pointer" }} />
         <p>Edit</p>
       </label>
     </div>

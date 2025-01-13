@@ -65,12 +65,8 @@ const Login = () => {
       try {
         const response = await Handlelogin(formData);
         const accessToken = response?.accessToken;
-        const RefreshToken = response?.refreshToken;
-        console.log(response);
-        console.log(response);
-        if (accessToken && RefreshToken) {
+        if (accessToken) {
           localStorage.setItem("AccessToken", accessToken);
-          localStorage.setItem("RefreshToken", RefreshToken);
           setIsAuthenticated(true);
           toast.success("Logged in successfully!");
           navigate("/");
