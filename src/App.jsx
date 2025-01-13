@@ -10,7 +10,6 @@ import Userpost from "./Components/Userpost";
 import Layout from "./Layouts/Layout";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
-// import "./App.css";
 import Pagenotfound from "./Pages/Pagenotfound";
 import Usernotfound from "./Pages/Usernotfound";
 
@@ -37,9 +36,9 @@ function App() {
                   path="/profile/:username"
                   element={<ProfileByUsername />}
                 />
-                <Route path="/Error" element={<Pagenotfound />}></Route>
+                <Route path="/Error" element={<Pagenotfound />} />
                 <Route path="/posts" element={<Userpost />} />
-                <Route path="/usernotfound" element={<Usernotfound />}></Route>
+                <Route path="/usernotfound" element={<Usernotfound />} />
                 <Route path="/profile-page" element={<ProfilePage />} />
                 <Route path="*" element={<Pagenotfound />} />
               </Route>
