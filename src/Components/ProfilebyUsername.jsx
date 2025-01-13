@@ -1,13 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
-// import { UsernameContext } from "../Context/Setusername";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
-import "../Styles/Sass/Pages/Profilepage.scss";         
+import "../Styles/Sass/Pages/Profilepage.scss";
 import {
   handleFetchpostByusername,
   handleFetchuserData,
@@ -15,10 +14,10 @@ import {
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
-  // const { SetUserName } = useContext(UsernameContext);
   const [userData, setUserData] = useState(null);
   const [userNamepost, setUserNamePost] = useState([]);
   const navigate = useNavigate();
+
   const fetchUserData = async () => {
     try {
       const response = await handleFetchuserData(username);
@@ -106,7 +105,6 @@ const GetProfileByUsername = () => {
                 {userData?.data?.bio}
               </div>
               <div className="DOB">
-                {/* <strong>Date of Birth:</strong> */}
                 <span className="birthday-icon">
                   <FaBirthdayCake />
                 </span>{" "}
