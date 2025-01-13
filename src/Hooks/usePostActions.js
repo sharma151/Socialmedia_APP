@@ -4,7 +4,7 @@ import {
   handleSetBookmarks,
   HandleDeletePost,
   handleLikePost,
-  handleFetchallPost,
+  // handleFetchallPost,
 } from "../services/Handleapi";
 
 const usePostActions = (
@@ -78,7 +78,6 @@ const usePostActions = (
       const response = await HandleDeletePost(_id);
       if (response === 200) {
         toast.success("Post deleted successfully");
-
         onDeleteSuccess();
         // setUserposts((prevPosts) =>
         //   prevPosts.filter((post) => post._id !== _id)
@@ -95,7 +94,6 @@ const usePostActions = (
     handleLikePostSubmit,
     handleBookmarkClick,
     handleDeletePostSubmit,
-    // isUpdating,
   };
 };
 

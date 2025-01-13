@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import "../Styles/Sass/Components/Updateavatar.scss";
 
 const Updateavatar = ({ onUpdate }) => {
-  
   const handleUpdateAvatarFileChange = async (e) => {
     const formData = new FormData();
     formData.append("avatar", e.target.files[0]);
@@ -25,7 +24,7 @@ const Updateavatar = ({ onUpdate }) => {
   };
 
   return (
-    <div className="updateavatar">
+    <div className="updateavatar" style={{ cursor: "pointer" }}>
       <input
         type="file"
         id="updateavatar"
@@ -34,7 +33,7 @@ const Updateavatar = ({ onUpdate }) => {
         style={{ display: "none" }}
       />
       <label htmlFor="updateavatar">
-        <IoIosCamera  />
+        <IoIosCamera style={{ cursor: "pointer" }} />
       </label>
     </div>
   );

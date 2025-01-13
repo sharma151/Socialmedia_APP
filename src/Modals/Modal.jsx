@@ -1,4 +1,4 @@
-import "../Styles/Modal.scss";
+import "../Styles/Sass/Components/Modals.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         }}
       >
         <button className="modal-close" onClick={onClose}>
-          <IoIosCloseCircleOutline size={30}/>
+          <IoIosCloseCircleOutline size={30} />
         </button>
         {children}
       </div>

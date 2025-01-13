@@ -106,7 +106,6 @@ const Home = () => {
         setHasMore(false);
         return;
       }
-
       const response = await handleFetchallPost(page - 1);
 
       if (response.length > 0) {
@@ -198,7 +197,7 @@ const Home = () => {
                 dataLength={posts?.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={<Loader />}
+                loader={<Loader className="infinite-loader" />}
                 scrollThreshold={0.9}
               >
                 <Userpost
