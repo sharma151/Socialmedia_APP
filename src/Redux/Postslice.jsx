@@ -27,7 +27,7 @@ const postSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  // reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(createPost.pending, (state) => {

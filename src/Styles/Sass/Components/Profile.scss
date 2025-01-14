@@ -1,9 +1,9 @@
 .profile {
-  
   .Profile-img {
     text-align: center;
     border-radius: 10px;
   }
+
   .avatar {
     height: 85px;
     width: 85px;
@@ -18,11 +18,10 @@
 
   .profile-info {
     border: 2px solid black;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     border-radius: 10px;
     padding: 20px 50px 10px 50px;
-  
-    width: 100%;
     margin-top: -30px;
     background-color: #ffffff;
     text-align: center;
@@ -35,6 +34,9 @@
 
   .profile-info .name {
     margin-top: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .profile-info .name p {
@@ -49,5 +51,8 @@
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
