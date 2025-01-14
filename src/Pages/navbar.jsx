@@ -1,5 +1,4 @@
 import { useState, useCallback, useContext, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
@@ -7,6 +6,7 @@ import { UsernameContext } from "../Context/Setusername";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { AiOutlineClose } from "react-icons/ai";
 import { Handlelogout } from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
 import { TbLogout } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
@@ -25,7 +25,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const location = useLocation();
 
   const debouncedFetchUsernames = useCallback(
     debounce(async (searchQuery) => {
@@ -84,14 +83,11 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prevState) => !prevState);
   };
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
-  useEffect(() => {
-    closeMenu();
-  }, [location]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
