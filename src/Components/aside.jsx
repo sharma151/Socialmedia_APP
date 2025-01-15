@@ -8,7 +8,7 @@ import { FaGlobeAsia } from "react-icons/fa";
 import { useContext } from "react";
 import { MdGroups } from "react-icons/md";
 import { Link } from "react-router-dom";
-import "../Styles/Sass/Components/Aside.scss";
+
 
 const aside = ({ className }) => {
   const { UserprofileData } = useContext(UpdatedataContext);

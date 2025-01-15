@@ -3,7 +3,7 @@ import { createPost } from "../Redux/Postslice";
 import { useState } from "react";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
-import "../Styles/Sass/Components/Createpost.scss";
+
 
 const Createpost = ({ className, onUpdate }) => {
   const [content, setContent] = useState("");

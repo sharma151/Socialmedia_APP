@@ -13,7 +13,7 @@ import Updateavatar from "../Components/Updateavatar";
 import Createpost from "../Components/Createpost";
 import Userpost from "../Components/Userpost";
 import Loader from "../assets/Loader";
-import "../Styles/Sass/Pages/Profilepage.scss";
+
 
 const ProfilePage = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
