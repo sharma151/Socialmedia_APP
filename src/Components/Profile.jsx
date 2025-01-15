@@ -1,7 +1,7 @@
 import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import "../Styles/Sass/Components/Profile.scss";
+
 
 const Profile = ({ className }) => {
   const { UserprofileData } = useContext(UpdatedataContext);
