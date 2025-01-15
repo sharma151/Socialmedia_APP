@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
 import Userpost from "../Components/Userpost";
-import "../Styles/Sass/Pages/Profilepage.scss";
+
 import {
   handleFetchpostByusername,
   handleFetchuserData,
