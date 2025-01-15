@@ -1,20 +1,25 @@
-@import "./Base/Reset.scss";
-@import "./Components/Aside.scss";
-@import "./Components/Createpost.scss";
-@import "./Components/Modals.scss";
-@import "./Components/Navbar.scss";
-@import "./Components/post.scss";
-@import "./Components/Profile.scss";
-@import "./Components/ProfileUpdate.scss";
-@import "./Components/Suggestions.scss";
-@import "./Components/Updateavatar.scss";
+//Components
+
 @import "./Components/UpdateCoverImage.scss";
+@import "./Components/ProfileUpdate.scss";
+@import "./Components/Updateavatar.scss";
+@import "./Components/Suggestions.scss";
+@import "./Components/Createpost.scss";
+@import "./Components/Profile.scss";
+@import "./Components/Navbar.scss";
+@import "./Components/Modals.scss";
+@import "./Components/Aside.scss";
+@import "./Components/post.scss";
 
 // pages
 
+@import "./Pages/Usernotfound.scss";
+@import "./Pages/Registration.scss";
+@import "./Pages/Profilepage.scss";
 @import "./Pages/Bookmarks.scss";
 @import "./Pages//Home.scss";
 @import "./Pages/Login.scss";
-@import "./Pages/Profilepage.scss";
-@import "./Pages/Registration.scss";
-@import "./Pages/Usernotfound.scss";
+
+//Base
+
+@import "./Base/Reset.scss";    
