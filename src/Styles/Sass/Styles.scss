@@ -20,6 +20,10 @@
 @import "./Pages//Home.scss";
 @import "./Pages/Login.scss";
 
+//abstracts
+
+@import "./Abstracts/variables.scss";
+
 //Base
 
-@import "./Base/Reset.scss";    
+@import "./Base/Reset.scss";
