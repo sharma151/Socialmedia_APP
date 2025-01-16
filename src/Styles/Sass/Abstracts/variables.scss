@@ -1,3 +1,23 @@
 $navbackground: #2b3e50;
 $logout-btn: #4a7c94;
 $form-color: #629584;
+
+
+body {
+  background-color: var(--primary-color);
+}
+
+
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #f0f0f0;
+  --text-color: #000000;
+}
+
+
+[data-theme="dark"] {
+  --primary-color: #4c4a4a;
+  --secondary-color: #1e1e1e;
+  --text-color: #ffffff;
+}
+
