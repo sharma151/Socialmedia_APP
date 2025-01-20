@@ -33,6 +33,21 @@ nav {
         box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
       }
     }
+
+    .themebtn {
+      background-color: transparent;
+      border-style: none;
+      font-size: 20px;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+    .dropdown-themebtn {
+      background-color: transparent;
+      border-style: none;
+      font-size: 20px;
+    }
+
     .icons-div {
       display: flex;
       max-width: 400px;
