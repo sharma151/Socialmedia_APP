@@ -1,7 +1,7 @@
 import { handleUpdateAvatar } from "../services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
-import "../Styles/Sass/Components/Updateavatar.scss";
+
 
 const Updateavatar = ({ onUpdate }) => {
   const handleUpdateAvatarFileChange = async (e) => {
