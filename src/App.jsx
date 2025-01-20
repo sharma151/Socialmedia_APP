@@ -12,6 +12,7 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Pagenotfound from "./Pages/Pagenotfound";
 import Usernotfound from "./Pages/Usernotfound";
+import { ThemeProvider } from "./Context/ThemeContext";
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
               <Route
                 element={
                   <UpdateProfileContextProvider>
-                    <Layout />
+                    <ThemeProvider>
+                      <Layout />
+                    </ThemeProvider>
                   </UpdateProfileContextProvider>
                 }
               >
