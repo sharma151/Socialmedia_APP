@@ -12,16 +12,17 @@ import { TbLogout } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
 import { IoHome } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { ThemeContext } from "../Context/ThemeContext";
 import { Link } from "react-router-dom";
 import debounce from "lodash/debounce";
 import axios from "../services/Api";
-import "../Styles/Sass/Components/Navbar.scss";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { SetUserName } = useContext(UsernameContext);
   const { UserprofileData } = useContext(UpdatedataContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -109,6 +110,10 @@ const Navbar = () => {
           <Link to="/" className="Logo" onClick={handleScrollToTop}>
             SS
           </Link>
+
+          <button className="themebtn" onClick={toggleTheme}>
+            {theme === "light" ? "☀️" : "🌙"}
+          </button>
 
           <div className="hamburger-icon" onClick={toggleMenu}>
             <LuMenu color="white" size={28} />
@@ -209,6 +214,9 @@ const Navbar = () => {
               >
                 <TbLogout size={20} />
                 <span className="dropdown-logout-log">Logout </span>
+              </button>
+              <button className="dropdown-themebtn" onClick={toggleTheme}>
+                {theme === "light" ? "🌙" : "☀️"}
               </button>
             </div>
           )}
