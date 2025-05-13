@@ -4,7 +4,6 @@ import { useState } from "react";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
 
-
 const Createpost = ({ className, onUpdate }) => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
@@ -49,9 +48,12 @@ const Createpost = ({ className, onUpdate }) => {
   };
 
   return (
-    <div className={`Create-posts ${className}`}>
-      <h2>Create a Post</h2>
-      <form onSubmit={handlePostSubmit}>
+    <div
+      className={`Create-posts ${className} bg-[#242526] text-white rounded-lg p-4 shadow-md `}
+    >
+      <h2 className="text-lg font-semibold mb-3">Create a Post</h2>
+      <form onSubmit={handlePostSubmit} className="space-y-4">
+        {/* Textarea */}
         <div>
           <textarea
             id="content"
@@ -61,31 +63,45 @@ const Createpost = ({ className, onUpdate }) => {
             autoComplete="off"
             rows="3"
             required
+            className="w-full bg-[#3A3B3C] text-white p-3 rounded-md resize-none outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
           />
         </div>
-        <div className="input-buttons">
-          <input
-            type="file"
-            id="input"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
-          />
-          <label htmlFor="input" className="custom-file-upload">
-            <IoImages />
-          </label>
+
+        {/* Image upload, preview, and post button */}
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          {/* Image Upload */}
+          <div className="flex items-center gap-2">
+            <input
+              type="file"
+              id="input"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            <label
+              htmlFor="input"
+              className="cursor-pointer text-blue-400 hover:text-blue-300 text-xl"
+              title="Add Photo"
+            >
+              <IoImages />
+            </label>
+          </div>
+
+          {/* Preview Image */}
           {previewImage && (
-            <div className="previewImage">
+            <div className="w-full rounded-md overflow-hidden border border-gray-600 mt-2">
               <img
                 src={previewImage}
                 alt="Preview"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                className="w-full h-60 object-cover"
               />
             </div>
           )}
+
+          {/* Post Button */}
           <button
             type="submit"
-            className="createpost-button"
+            className="ml-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? "Posting..." : "Post"}
@@ -97,7 +113,3 @@ const Createpost = ({ className, onUpdate }) => {
 };
 
 export default Createpost;
-
-
-
-
