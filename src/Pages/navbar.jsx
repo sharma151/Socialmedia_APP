@@ -104,124 +104,259 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav>
-      {isAuthenticated ? (
-        <div className="nav-content">
-          <Link to="/" className="Logo" onClick={handleScrollToTop}>
-            SS
-          </Link>
+    // <nav>
+    //   {isAuthenticated ? (
+    //     <div className="nav-content">
+    //       <Link to="/" className="Logo" onClick={handleScrollToTop}>
+    //         SS
+    //       </Link>
 
-          <button className="themebtn" onClick={toggleTheme}>
-            {theme === "light" ? "☀️" : "🌙"}
-          </button>
+    //       <button className="themebtn" onClick={toggleTheme}>
+    //         {theme === "light" ? "☀️" : "🌙"}
+    //       </button>
 
-          <div className="hamburger-icon" onClick={toggleMenu}>
-            <LuMenu color="white" size={28} />
-          </div>
+    //       <div className="hamburger-icon" onClick={toggleMenu}>
+    //         <LuMenu color="white" size={28} />
+    //       </div>
 
-          {/* Search Form */}
-          <form onSubmit={handleSearchSubmit} className="search-form">
-            <div className="search-input-container">
-              <input
-                type="text"
-                value={username}
-                onChange={handleInputChange}
-                placeholder="Enter username..."
-                autoComplete="off"
-              />
-              {username && (
-                <button
-                  type="button"
-                  onClick={handleClearSearch}
-                  className="clear-search-btn"
-                  aria-label="Clear search"
-                >
-                  <AiOutlineClose size={18} />
-                </button>
-              )}
-            </div>
-          </form>
+    //       {/* Search Form */}
+    //       <form onSubmit={handleSearchSubmit} className="search-form">
+    //         <div className="search-input-container">
+    //           <input
+    //             type="text"
+    //             value={username}
+    //             onChange={handleInputChange}
+    //             placeholder="Enter username..."
+    //             autoComplete="off"
+    //           />
+    //           {username && (
+    //             <button
+    //               type="button"
+    //               onClick={handleClearSearch}
+    //               className="clear-search-btn"
+    //               aria-label="Clear search"
+    //             >
+    //               <AiOutlineClose size={18} />
+    //             </button>
+    //           )}
+    //         </div>
+    //       </form>
 
-          {/* Regular Navigation Icons */}
-          <div className="icons-div">
-            <div className="icons">
-              <Link to="/" onClick={handleScrollToTop}>
-                <IoHome color="white" />
-              </Link>
-            </div>
-            <div className="icons">
-              <MdOutlineOndemandVideo color="white" />
-            </div>
-            <div className="icons">
-              <HiMiniUserGroup color="white" />
-            </div>
-            <div className="icons">
-              <IoGameController color="white" />
-            </div>
-          </div>
+    //       {/* Regular Navigation Icons */}
+    //       <div className="icons-div">
+    //         <div className="icons">
+    //           <Link to="/" onClick={handleScrollToTop}>
+    //             <IoHome color="white" />
+    //           </Link>
+    //         </div>
+    //         <div className="icons">
+    //           <MdOutlineOndemandVideo color="white" />
+    //         </div>
+    //         <div className="icons">
+    //           <HiMiniUserGroup color="white" />
+    //         </div>
+    //         <div className="icons">
+    //           <IoGameController color="white" />
+    //         </div>
+    //       </div>
 
-          <Link to="/profile-page">
-            <div className="profileimg-navbar">
-              {UserprofileData?.account?.avatar?.url && (
-                <img
-                  src={UserprofileData?.account?.avatar?.url}
-                  alt={UserprofileData?.posts?.avatar}
+    //       <Link to="/profile-page">
+    //         <div className="profileimg-navbar">
+    //           {UserprofileData?.account?.avatar?.url && (
+    //             <img
+    //               src={UserprofileData?.account?.avatar?.url}
+    //               alt={UserprofileData?.posts?.avatar}
+    //             />
+    //           )}
+    //         </div>
+    //       </Link>
+
+    //       <button onClick={handleLogoutClick} className="logout-btn">
+    //         <TbLogout size={20} />
+    //         <span className="logout-log">Logout </span>
+    //       </button>
+
+    //       {/* Dropdown Menu */}
+    //       {isMenuOpen && (
+    //         <div className="dropdown-menu" ref={dropdownRef}>
+    //           <Link className="dropdown-profile-name" to="/profile-page">
+    //             <div className="dropdown-profileimg-navbar">
+    //               {UserprofileData?.account?.avatar?.url && (
+    //                 <img
+    //                   src={UserprofileData?.account?.avatar?.url}
+    //                   alt={UserprofileData?.posts?.avatar}
+    //                 />
+    //               )}
+    //             </div>
+    //             <span className="dropdown-username">
+    //               {UserprofileData?.account?.username}
+    //             </span>
+    //           </Link>
+
+    //           <form
+    //             onSubmit={handleSearchSubmit}
+    //             className="dropdown-search-form"
+    //           >
+    //             <div className="dropdown-search-input-container">
+    //               <input
+    //                 type="text"
+    //                 value={username}
+    //                 onChange={handleInputChange}
+    //                 placeholder="Search user..."
+    //                 autoComplete="off"
+    //               />
+    //             </div>
+    //           </form>
+
+    //           <button
+    //             onClick={handleLogoutClick}
+    //             className="dropdown-logout-btn"
+    //           >
+    //             <TbLogout size={20} />
+    //             <span className="dropdown-logout-log">Logout </span>
+    //           </button>
+    //           <button className="dropdown-themebtn" onClick={toggleTheme}>
+    //             {theme === "light" ? "🌙" : "☀️"}
+    //           </button>
+    //         </div>
+    //       )}
+    //     </div>
+    //   ) : null}
+    // </nav>
+    <nav className="bg-[#242526] text-white shadow-sm sticky top-0 z-50 w-full">
+      {isAuthenticated && (
+        <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-14">
+          {/* Left: Logo + Search */}
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="text-2xl font-bold text-white"
+              onClick={handleScrollToTop}
+            >
+              SS
+            </Link>
+
+            <form onSubmit={handleSearchSubmit} className="hidden sm:block">
+              <div className="flex items-center bg-[#3A3B3C] rounded-full px-3 py-1">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={handleInputChange}
+                  placeholder="Search..."
+                  className="bg-transparent text-white placeholder-gray-400 outline-none w-40 sm:w-64"
                 />
-              )}
+                {username && (
+                  <button
+                    type="button"
+                    onClick={handleClearSearch}
+                    className="ml-2 text-gray-300 hover:text-white"
+                    aria-label="Clear search"
+                  >
+                    <AiOutlineClose size={16} />
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
+
+          {/* Center: Icon Nav */}
+          <div className="hidden md:flex gap-6 items-center">
+            <Link
+              to="/"
+              onClick={handleScrollToTop}
+              className="p-2 hover:bg-[#3A3B3C] rounded-full"
+            >
+              <IoHome size={24} />
+            </Link>
+            <div className="p-2 hover:bg-[#3A3B3C] rounded-full cursor-pointer">
+              <MdOutlineOndemandVideo size={24} />
             </div>
-          </Link>
+            <div className="p-2 hover:bg-[#3A3B3C] rounded-full cursor-pointer">
+              <HiMiniUserGroup size={24} />
+            </div>
+            <div className="p-2 hover:bg-[#3A3B3C] rounded-full cursor-pointer">
+              <IoGameController size={24} />
+            </div>
+          </div>
 
-          <button onClick={handleLogoutClick} className="logout-btn">
-            <TbLogout size={20} />
-            <span className="logout-log">Logout </span>
-          </button>
+          {/* Right: Profile + Logout + Theme + Menu */}
+          <div className="flex items-center gap-4">
+            <button onClick={toggleTheme} className="hidden sm:inline text-lg">
+              {theme === "light" ? "☀️" : "🌙"}
+            </button>
 
-          {/* Dropdown Menu */}
+            <Link to="/profile-page">
+              <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-400">
+                {UserprofileData?.account?.avatar?.url && (
+                  <img
+                    src={UserprofileData.account.avatar.url}
+                    alt="profile"
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            </Link>
+
+            <button
+              onClick={handleLogoutClick}
+              className="text-sm flex items-center gap-1 hover:text-red-400"
+            >
+              <TbLogout size={18} />
+            </button>
+
+            {/* Mobile menu toggle */}
+            <div className="md:hidden">
+              <button onClick={toggleMenu}>
+                <LuMenu size={24} />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile dropdown menu */}
           {isMenuOpen && (
-            <div className="dropdown-menu" ref={dropdownRef}>
-              <Link className="dropdown-profile-name" to="/profile-page">
-                <div className="dropdown-profileimg-navbar">
+            <div
+              ref={dropdownRef}
+              className="absolute top-14 right-4 w-64 bg-[#3A3B3C] text-white rounded-md p-4 shadow-lg space-y-4"
+            >
+              <Link to="/profile-page" className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden">
                   {UserprofileData?.account?.avatar?.url && (
                     <img
-                      src={UserprofileData?.account?.avatar?.url}
-                      alt={UserprofileData?.posts?.avatar}
+                      src={UserprofileData.account.avatar.url}
+                      alt="profile"
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>
-                <span className="dropdown-username">
-                  {UserprofileData?.account?.username}
-                </span>
+                <span>{UserprofileData?.account?.username}</span>
               </Link>
 
-              <form
-                onSubmit={handleSearchSubmit}
-                className="dropdown-search-form"
-              >
-                <div className="dropdown-search-input-container">
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={handleInputChange}
-                    placeholder="Search user..."
-                    autoComplete="off"
-                  />
-                </div>
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={handleInputChange}
+                  placeholder="Search user..."
+                  className="w-full px-3 py-2 rounded-md bg-[#4E4F50] text-white placeholder-gray-300"
+                />
               </form>
 
-              <button
-                onClick={handleLogoutClick}
-                className="dropdown-logout-btn"
-              >
-                <TbLogout size={20} />
-                <span className="dropdown-logout-log">Logout </span>
-              </button>
-              <button className="dropdown-themebtn" onClick={toggleTheme}>
-                {theme === "light" ? "🌙" : "☀️"}
-              </button>
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={handleLogoutClick}
+                  className="flex items-center gap-2 hover:text-red-400"
+                >
+                  <TbLogout size={20} />
+                  Logout
+                </button>
+                <button onClick={toggleTheme}>
+                  {theme === "light" ? "🌙" : "☀️"}
+                </button>
+              </div>
             </div>
           )}
         </div>
-      ) : null}
+      )}
     </nav>
   );
 };
