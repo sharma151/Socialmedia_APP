@@ -2,77 +2,106 @@ import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { GoProjectSymlink } from "react-icons/go";
 import { BsBookmarksFill } from "react-icons/bs";
 import { SiYoutubemusic } from "react-icons/si";
-import { MdEmojiEvents } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { MdEmojiEvents, MdGroups } from "react-icons/md";
+import { useNavigate, Link } from "react-router-dom";
 import { FaGlobeAsia } from "react-icons/fa";
 import { useContext } from "react";
-import { MdGroups } from "react-icons/md";
-import { Link } from "react-router-dom";
 
-
-const aside = ({ className }) => {
+const Aside = ({ className }) => {
   const { UserprofileData } = useContext(UpdatedataContext);
-
   const navigate = useNavigate();
+
   const handleProfileClick = () => {
-    navigate(`/profile-page`);
+    navigate("/profile-page");
   };
+
+  const baseItemClass =
+    "flex items-center gap-2 p-2 m-1 rounded-md text-black dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer";
+
   return (
-    <>
-      <div className={`aside ${className}`}>
-        <div
-          className="profile"
-          onClick={() => handleProfileClick()}
-          style={{ cursor: "pointer" }}
-        >
-          <div className="profileimg">
-            {UserprofileData?.account?.avatar?.url && (
-              <img
-                src={UserprofileData?.account?.avatar?.url}
-                alt={UserprofileData?.posts?.avatar}
-              />
-            )}
-          </div>
-          <div className="Name">
-            <p> {UserprofileData?.firstName}</p>
-            <p> {UserprofileData?.lastName}</p>
-          </div>
+    <div className={`w-max ${className}`}>
+      {/* Profile Section */}
+      <div className={`${baseItemClass}`} onClick={handleProfileClick}>
+        <div className="w-10 h-10 rounded-full overflow-hidden">
+          {UserprofileData?.account?.avatar?.url && (
+            <img
+              src={UserprofileData.account.avatar.url}
+              alt="Profile Avatar"
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
-        <Link to="/Bookmarks" className="bookmarks">
-          <BsBookmarksFill size={25} />
-          <p>Saved</p>
-        </Link>
-        <div className="groups">
-          <MdGroups size={25} />
-          <p>groups</p>
-        </div>
-        <div className="website" style={{ cursor: "pointer" }}>
-          <FaGlobeAsia size={25} />
-          <a href="http://sauravsharma.vercel.app" target="_blank">
-            <p>Website</p>
-          </a>
-        </div>
-        <div className="projects" style={{ cursor: "pointer" }}>
-          <GoProjectSymlink size={25} />
-          <a href="https://yodorawebsite.netlify.app/" target="_blank">
-            <p>projects</p>
-          </a>
-        </div>
-        <div className="music" style={{ cursor: "pointer" }}>
-          <SiYoutubemusic size={25} />
-          <a href="https://music.youtube.com/" target="_blank">
-            <p>Youtube Music</p>
-          </a>
-        </div>
-        <div className="music" style={{ cursor: "pointer" }}>
-          <MdEmojiEvents size={25} />
-          <a href="https://music.youtube.com/" target="_blank">
-            <p>Events</p>
-          </a>
+        <div className="flex gap-2 text-sm font-normal font-sans">
+          <p>{UserprofileData?.firstName}</p>
+          <p>{UserprofileData?.lastName}</p>
         </div>
       </div>
-    </>
+
+      {/* Saved Bookmarks */}
+      <Link to="/Bookmarks" className={`${baseItemClass} no-underline`}>
+        <BsBookmarksFill size={25} />
+        <p className="text-sm font-sans pt-0.5">Saved</p>
+      </Link>
+
+      {/* Groups */}
+      <div className={baseItemClass}>
+        <MdGroups size={25} />
+        <p className="text-sm font-sans pt-0.5">Groups</p>
+      </div>
+
+      {/* Website */}
+      <div className={baseItemClass}>
+        <FaGlobeAsia size={25} />
+        <a
+          href="http://sauravsharma.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-black dark:text-white"
+        >
+          <p className="text-sm font-sans pt-0.5">Website</p>
+        </a>
+      </div>
+
+      {/* Projects */}
+      <div className={baseItemClass}>
+        <GoProjectSymlink size={25} />
+        <a
+          href="https://yodorawebsite.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-black dark:text-white"
+        >
+          <p className="text-sm font-sans pt-0.5">Projects</p>
+        </a>
+      </div>
+
+      {/* Youtube Music */}
+      <div className={baseItemClass}>
+        <SiYoutubemusic size={25} />
+        <a
+          href="https://music.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-black dark:text-white"
+        >
+          <p className="text-sm font-sans pt-0.5">Youtube Music</p>
+        </a>
+      </div>
+
+      {/* Events */}
+      <div className={baseItemClass}>
+        <MdEmojiEvents size={25} />
+        <a
+          href="https://music.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-black dark:text-white"
+        >
+          <p className="text-sm font-sans pt-0.5">Events</p>
+        </a>
+      </div>
+    </div>
   );
 };
 
-export default aside;
+export default Aside;
