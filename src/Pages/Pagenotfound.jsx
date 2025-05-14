@@ -1,4 +1,3 @@
-import "../Styles/Sass/Pages/Usernotfound.scss";
 import { Link } from "react-router-dom";
 
 const Pagenotfound = () => {
