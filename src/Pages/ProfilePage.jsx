@@ -1,22 +1,15 @@
 import { handleFetchmyPost, handleFetchMyprofile } from "../services/Handleapi";
-import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { UpdatedataContext } from "../Context/UpdateProfileContext";
-import { FaLocationDot } from "react-icons/fa6";
+import { UpdatedataContext } from "@/Context/UpdateProfileContext";
 import { useContext } from "react";
-import { IoIosMail } from "react-icons/io";
-import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
-import UpdateCoverPage from "../Components/Updatecoverpicture";
-import ProfileUpdate from "../Components/ProfileUpdate";
-import Updateavatar from "../Components/Updateavatar";
-import Createpost from "../Components/Createpost";
-import Userpost from "../Components/Userpost";
-import Loader from "../assets/Loader";
+import ProfileUpdate from "@/Components/ProfileUpdate";
+import Createpost from "@/Components/Createpost";
+import Userpost from "@/Components/Userpost";
 import ProfileDetail from "../Components/Profiledetail";
-import CoverImage from "../Components/CoverImage";
-import ProfileAvatar from "../Components/ProfileAvatar"; // inside return JSX
-import Modal from "./Modals/Modal";
+import CoverImage from "@/Components/CoverImage";
+import ProfileAvatar from "@/Components/ProfileAvatar";
+import Modal from "@/Modals/Modal";
 
 const ProfilePage = () => {
   const { UserprofileData } = useContext(UpdatedataContext);
@@ -72,67 +65,66 @@ const ProfilePage = () => {
     setSelectedPost(null);
   };
 
-
   return (
     <div className="ProfilePage">
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
-      {loading ? (
+      {/* {loading ? (
         <Loader className="Profilepage-loader" />
-      ) : (
-        <>
-          <div className="bg-gray-100 dark:bg-gray-800 pb-6">
-            <CoverImage
-              coverImageUrl={profileImages?.coverImage?.url || ""}
+      ) : ( */}
+      <>
+        <div className="bg-gray-100 dark:bg-gray-800 pb-6">
+          <CoverImage
+            coverImageUrl={profileImages?.coverImage?.url || ""}
+            onUpdate={() => fetchProfile()}
+          />
+          <div className="relative max-w-6xl mx-auto -mt-20 px-4 sm:px-6 lg:px-8">
+            <ProfileAvatar
+              avatarUrl={profileImages?.account?.avatar?.url || ""}
+              name={`${UserprofileData?.firstName || ""} ${
+                UserprofileData?.lastName || ""
+              }`}
+              username={UserprofileData?.account?.username || ""}
               onUpdate={() => fetchProfile()}
             />
-            <div className="relative max-w-6xl mx-auto -mt-20 px-4 sm:px-6 lg:px-8">
-              <ProfileAvatar
-                avatarUrl={profileImages?.account?.avatar?.url || ""}
-                name={`${UserprofileData?.firstName || ""} ${
-                  UserprofileData?.lastName || ""
-                }`}
-                username={UserprofileData?.account?.username || ""}
-                onUpdate={() => fetchProfile()}
-              />
-            </div>
           </div>
+        </div>
 
-          {/* Main profile content layout */}
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left - Profile Detail */}
-            <div className="col-span-1">
-              <ProfileDetail
-                setIsModalOpen={setIsModalOpen}
-                UserprofileData={UserprofileData}
-              />
-            </div>
-
-            {/* Right - Create Post & Posts */}
-            <div className="col-span-1 lg:col-span-2 space-y-4">
-              <Createpost
-                className="profilepage-createpost"
-                onUpdate={() => fetchMyPosts()}
-              />
-              <Userpost
-                className="Getmyposts"
-                onUpdate={() => fetchMyPosts()}
-                posts={posts}
-              />
-            </div>
-          </div>
-
-          {/* Modal for profile update */}
-          {/* {showModal && ( */}
-          <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-            <ProfileUpdate
-              closeModal={showModal}
-              onUpdate={() => fetchProfile()}
+        {/* Main profile content layout */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left - Profile Detail */}
+          <div className="col-span-1">
+            <ProfileDetail
+              setIsModalOpen={setIsModalOpen}
+              UserprofileData={UserprofileData}
             />
-          </Modal>
-          {/* )} */}
-        </>
-      )}
+          </div>
+
+          {/* Right - Create Post & Posts */}
+          <div className="col-span-1 lg:col-span-2 space-y-4">
+            <Createpost
+              className="profilepage-createpost"
+              onUpdate={() => fetchMyPosts()}
+            />
+            <Userpost
+              className="Getmyposts"
+              onUpdate={() => fetchMyPosts()}
+              posts={posts}
+            />
+          </div>
+        </div>
+
+        {/* Modal for profile update */}
+        {/* {showModal && ( */}
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <ProfileUpdate
+            closeModal={showModal}
+            onUpdate={() => fetchProfile()}
+          />
+        </Modal>
+        {/* )} */}
+      </>
+      {/* )} */}
     </div>
   );
 };
