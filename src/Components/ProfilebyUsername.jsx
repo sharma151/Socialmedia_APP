@@ -1,16 +1,16 @@
-import { useEffect, useState, useContext } from "react";
-import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { IoCall } from "react-icons/io5";
 import { toast } from "react-toastify";
-import Userpost from "../Components/Userpost";
+import Userpost from "@/Components/Userpost";
+import CoverImage from "@/Components/CoverImage";
+import ProfileAvatar from "@/Components/ProfileAvatar";
 
 import {
   handleFetchpostByusername,
   handleFetchuserData,
 } from "../services/Handleapi";
+import ProfileDetail from "./Profiledetail";
 
 const GetProfileByUsername = () => {
   const { username } = useParams();
@@ -22,7 +22,7 @@ const GetProfileByUsername = () => {
     try {
       const response = await handleFetchuserData(username);
       if (response) {
-        setUserData(response);
+        setUserData(response?.data);
       } else {
         navigate("/usernotfound");
       }
@@ -34,6 +34,8 @@ const GetProfileByUsername = () => {
       }
     }
   };
+
+  // console.log("searcheduserdata", userData);
 
   const fetchpostByUsername = async () => {
     try {
@@ -60,76 +62,38 @@ const GetProfileByUsername = () => {
   return (
     <>
       <div className="ProfilePage">
-        <div className="Images">
-          <div
-            className="coverimage"
-            style={{
-              backgroundImage: `url(${userData?.data?.coverImage?.url || ""})`,
-              backgroundSize: "100% 100%",
-              overflow: "hidden",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          ></div>
-
-          <div className="avatar_name">
-            <div
-              className="avatar"
-              style={{
-                backgroundImage: `url(${
-                  userData?.data?.account?.avatar?.url || ""
-                })`,
-                backgroundSize: "100% 100%",
-                backgroundPosition: "center",
-              }}
-            ></div>
-            <div className="Name">
-              <p>
-                {" "}
-                {userData?.data?.firstName}
-                {userData?.data?.lastName}
-              </p>
-
-              <h1>{userData?.data?.account?.username}</h1>
-            </div>
+        <div className="bg-gray-100 dark:bg-gray-800 pb-6">
+          <CoverImage
+            coverImageUrl={userData?.coverImage?.url || ""}
+            onUpdate={() => fetchProfile()}
+            userData={userData}
+          />
+          <div className="relative max-w-6xl mx-auto -mt-20 px-4 sm:px-6 lg:px-8">
+            <ProfileAvatar
+              avatarUrl={userData?.account?.avatar?.url || ""}
+              name={`${userData?.firstName || ""} ${userData?.lastName || ""}`}
+              username={userData?.account?.username || ""}
+              onUpdate={() => fetchProfile()}
+            />
           </div>
         </div>
-        <div className="profilepage-body">
-          <div className="profilepage-info">
-            <h4>Profile Details</h4>
-            <div className="data">
-              <div className="Bio">
-                <span>
-                  <FaUserAlt className="Bio-icon" />
-                </span>{" "}
-                {userData?.data?.bio}
-              </div>
-              <div className="DOB">
-                <span className="birthday-icon">
-                  <FaBirthdayCake />
-                </span>{" "}
-                {new Date(userData?.data?.dob).toLocaleDateString()}
-              </div>
-              <div className="Location">
-                <span className="location-icon">
-                  <FaLocationDot />{" "}
-                </span>
-                {userData?.data?.location}
-              </div>
-              <div className="Phonenumber">
-                <span className="phone">
-                  <IoCall />{" "}
-                </span>
-                {userData?.data?.countryCode} {userData?.data?.phoneNumber}
-              </div>
+
+        <div className="profilepage-body max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Profile Detail - Left 2/5 on large screens */}
+            <div className="w-full lg:w-2/5">
+              <ProfileDetail UserprofileData={userData} />
+            </div>
+
+            {/* User Posts - Right 3/5 on large screens */}
+            <div className="w-full lg:w-3/5">
+              <Userpost
+                className="Getmyposts"
+                onUpdate={() => fetchMyPosts()}
+                posts={userNamepost}
+              />
             </div>
           </div>
-
-          <Userpost
-            className="Getmyposts"
-            onUpdate={() => fetchMyPosts()}
-            posts={userNamepost}
-          />
         </div>
       </div>
     </>
