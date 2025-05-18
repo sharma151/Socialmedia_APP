@@ -3,16 +3,16 @@ import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { UsernameContext } from "../Context/Setusername";
 import { FaGifts } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Createpost from "../Components/Createpost";
+import Createpost from "@/Components/Createpost";
 import debounce from "lodash/debounce";
-import Userpost from "../Components/Userpost";
-import Profile from "../Components/Profile";
-import "../Styles/Sass/Pages/Home.scss";
-import Aside from "../Components/aside";
-import Suggestions from "../Components/Suggestions";
+import Userpost from "@/Components/Userpost";
+import Profile from "@/Components/Profile";
+// import "../Styles/Sass/Pages/Home.scss";
+import Aside from "@/Components/aside";
+import Suggestions from "@/Components/Suggestions";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "../assets/Loader";
-import apiClient from "../services/Api";
+// import Loader from "@/assets/Loader";
+import apiClient from "@/services/Api";
 import {
   handleFetchallPost,
   handleFetchpostByusername,
@@ -182,44 +182,33 @@ const Home = () => {
 
   return (
     <>
-      <div className="maincontainer">
-        <Aside className="Homepage-Aside" />
-        <div className="middle-div">
-          <Createpost
-            className="Homepage-createpost"
-            onUpdate={onCreateSuceess}
+      <div className="flex gap-6 p-6 min-h-screen">
+        {/* Left Aside */}
+        <Aside className="w-60" />
+
+        {/* Middle column */}
+        <div className="flex flex-col flex-1 gap-6 max-w-3xl">
+          {/* Both will have equal width because they take full width of parent */}
+          <Createpost className="w-[94%] mx-auto" onUpdate={onCreateSuceess} />
+          <Userpost
+            className="w-full"
+            posts={posts}
+            onUpdate={fetchAllPosts}
+            onDeleteSuccess={onDeleteSuccess}
           />
-          {loading ? (
-            <Loader className="homeloader" />
-          ) : (
-            <>
-              <InfiniteScroll
-                dataLength={posts?.length}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                loader={<Loader className="infinite-loader" />}
-                scrollThreshold={0.9}
-              >
-                <Userpost
-                  className="Getallpost"
-                  posts={posts}
-                  onUpdate={fetchAllPosts}
-                  onDeleteSuccess={onDeleteSuccess}
-                />
-              </InfiniteScroll>
-            </>
-          )}
         </div>
-        <div className="right-div">
-          <Profile className="homepage-Profile" />
-          <div className="birthday">
-            <p>Birthday</p>
-            <div className="birthdate">
+
+        {/* Right column */}
+        <div className="w-72 flex flex-col gap-6">
+          <Profile className="w-full" />
+          <div className="bg-gray-100 p-4 rounded-md">
+            <p className="font-semibold mb-2">Birthday</p>
+            <div className="flex items-center gap-2 font-medium text-gray-700">
               <FaGifts size={22} />
               <span>{formattedDOB}</span>
             </div>
           </div>
-          <Suggestions className="Homepage-Suggestions" />
+          <Suggestions className="w-full" />
         </div>
       </div>
     </>
