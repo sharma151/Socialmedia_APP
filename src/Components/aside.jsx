@@ -1,4 +1,4 @@
-import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { UpdatedataContext } from "@/Context/UpdateProfileContext";
 import { GoProjectSymlink } from "react-icons/go";
 import { BsBookmarksFill } from "react-icons/bs";
 import { SiYoutubemusic } from "react-icons/si";
