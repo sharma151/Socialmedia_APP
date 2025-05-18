@@ -1,16 +1,24 @@
 // components/CoverImage.jsx
-import React from "react";
-import UpdateCoverPage from "../Components/Updatecoverpicture";
+import { useContext } from "react";
+import UpdateCoverPage from "@/Components/Updatecoverpicture";
+import { UpdatedataContext } from "@/Context/UpdateProfileContext";
 
-const CoverImage = ({ coverImageUrl, onUpdate }) => {
+const CoverImage = ({ coverImageUrl, onUpdate, userData }) => {
+  const { UserprofileData } = useContext(UpdatedataContext);
+  console.log("userprofiledata", UserprofileData);
+  console.log("userdata", userData);
   return (
-    <div
-      className="w-full h-60 sm:h-72 md:h-80 bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${coverImageUrl})` }}
-    >
-      <div className="absolute bottom-4 right-4">
+    <div className="relative w-full h-48 sm:h-64 lg:h-80">
+      <img
+        src={coverImageUrl}
+        alt="Cover"
+        className="w-full h-full object-cover"
+      />
+      {/* {UserprofileData?._id === userData?._id && ( */}
+      <>
         <UpdateCoverPage onUpdate={onUpdate} />
-      </div>
+      </>
+      {/* )} */}
     </div>
   );
 };
