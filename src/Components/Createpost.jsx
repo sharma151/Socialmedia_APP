@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { createPost } from "../Redux/Postslice";
+import { createPost } from "@/Redux/Postslice";
 import { useState } from "react";
 import { IoImages } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -49,7 +49,7 @@ const Createpost = ({ className, onUpdate }) => {
 
   return (
     <div
-      className={`Create-posts ${className} bg-[#242526] text-white rounded-lg p-4 shadow-md `}
+      className={`Create-posts ${className} bg-[#242526] text-white rounded-lg p-4  shadow-md `}
     >
       <h2 className="text-lg font-semibold mb-3">Create a Post</h2>
       <form onSubmit={handlePostSubmit} className="space-y-4">
