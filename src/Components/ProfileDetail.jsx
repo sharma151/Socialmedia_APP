@@ -1,13 +1,9 @@
-import { useContext } from "react";
-import { UpdatedataContext } from "../Context/UpdateProfileContext";
 import { FaBirthdayCake, FaUserAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
 import { IoCall } from "react-icons/io5";
 
-const ProfileDetail = ({ setIsModalOpen }) => {
-  const { UserprofileData } = useContext(UpdatedataContext);
-
+const ProfileDetail = ({ setIsModalOpen, UserprofileData }) => {
   return (
     <div className="w-full max-w-2xl p-4 bg-white dark:bg-gray-900 rounded-2xl shadow-md mt-6">
       <h2 className="text-xl font-semibold mb-4 border-b pb-2 text-gray-800 dark:text-white">
