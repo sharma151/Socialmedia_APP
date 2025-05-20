@@ -5,7 +5,7 @@ import {
   HandleDeletePost,
   handleLikePost,
   // handleFetchallPost,
-} from "../services/Handleapi";
+} from "@/services/Handleapi";
 
 const usePostActions = (
   posts,
