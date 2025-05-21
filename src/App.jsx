@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UpdateProfileContextProvider } from "./Context/UpdateProfileContext";
-import { AuthProvider } from "./Context/Authcontext";
-import ProfileByUsername from "./Components/ProfilebyUsername";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import ProfilePage from "./Pages/ProfilePage";
-import Bookmarks from "./Pages/Bookmarks";
-import Register from "./Pages/Register";
-import Userpost from "./Components/Userpost";
-import Layout from "./Layouts/Layout";
-import Login from "./Pages/Login";
-import Home from "./Pages/Home";
-import Pagenotfound from "./Pages/Pagenotfound";
-import Usernotfound from "./Pages/Usernotfound";
-import { ThemeProvider } from "./Context/ThemeContext";
+import { UpdateProfileContextProvider } from "@/Context/UpdateProfileContext";
+import { AuthProvider } from "@/Context/Authcontext";
+import ProfileByUsername from "@/Components/ProfilebyUsername";
+import ProtectedRoute from "@/Components/ProtectedRoute";
+import ProfilePage from "@/Pages/ProfilePage";
+import Bookmarks from "@/Pages/Bookmarks";
+import Register from "@/Pages/Register";
+import Userpost from "@/Components/Userpost";
+import Layout from "@/Layouts/Layout";
+import Login from "@/Pages/Login";
+import Home from "@/Pages/Home";
+import Pagenotfound from "@/Pages/Pagenotfound";
+import Usernotfound from "@/Pages/Usernotfound";
+import { ThemeProvider } from "@/Context/ThemeContext";
 
 function App() {
   return (
