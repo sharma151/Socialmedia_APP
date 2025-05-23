@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../Pages/Navbar";
-import { Setusername } from "../Context/Setusername";
+import Navbar from "@/Pages/Navbar";
+import { Setusername } from "@/Context/Setusername";
 
 function Layout() {
   return (
     <div>
       <Setusername>
-        <Navbar />        
+        <Navbar />
         <div className="content">
           <Outlet />
         </div>
