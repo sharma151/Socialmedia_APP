@@ -199,7 +199,7 @@ const Home = () => {
         </div>
 
         {/* Right column */}
-        <div className="w-72 flex flex-col gap-6">
+        <div className="w-72 mt-6 flex flex-col gap-6">
           <Profile className="w-full" />
           <div className="bg-gray-100 p-4 rounded-md">
             <p className="font-semibold mb-2">Birthday</p>

@@ -1,7 +1,7 @@
-import { handleFetchBookmarks } from "../services/Handleapi";
+import { handleFetchBookmarks } from "@/services/Handleapi";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import Userpost from "../Components/Userpost";
+import Userpost from "@/Components/Userpost";
 const Bookmarks = () => {
   const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const Bookmarks = () => {
         const response = await handleFetchBookmarks();
         setBookmarkedPosts(response || []);
       } catch (error) {
-        console.error("Error fetching bookmarks:", error);
+        // console.error("Error fetching bookmarks:", error);
         toast.error("Failed to fetch bookmarks.");
       } finally {
         setLoading(false);
