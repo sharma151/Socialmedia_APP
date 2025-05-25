@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import { handleFetchMyprofile } from "../services/Handleapi";
 
-export const UpdatedataContext = createContext();
+export const LoggedinUserProfileData = createContext();
 
 export const UpdateProfileContextProvider = ({ children }) => {
-  const [UserprofileData, setUserProfileData] = useState({
+  const [loggedinUserprofileData, setLoggedinUserProfileData] = useState({
     bio: "",
     countryCode: "",
     dob: "",
@@ -20,7 +20,7 @@ export const UpdateProfileContextProvider = ({ children }) => {
     const fetchProfile = async () => {
       try {
         const response = await handleFetchMyprofile();
-        setUserProfileData(response);
+        setLoggedinUserProfileData(response);
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
@@ -29,8 +29,10 @@ export const UpdateProfileContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UpdatedataContext.Provider value={{ UserprofileData, setUserProfileData }}>
+    <LoggedinUserProfileData.Provider
+      value={{ loggedinUserprofileData, setLoggedinUserProfileData }}
+    >
       {children}
-    </UpdatedataContext.Provider>
+    </LoggedinUserProfileData.Provider>
   );
 };
