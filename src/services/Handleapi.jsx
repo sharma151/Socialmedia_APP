@@ -53,7 +53,8 @@ export const handleFetchpostByusername = async (userName) => {
     );
     return response?.data?.data?.posts;
   } catch (error) {
-    console.log(error);
+    console.error("Fetch by username failed:", error);
+    throw error; // ✅ this is crucial for TanStack Query
   }
 };
 
@@ -72,7 +73,7 @@ export const handleFetchMyprofile = async () => {
 
     return response?.data?.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // toast.error(error?.response?.data?.statusCode);
   }
 };
@@ -134,7 +135,7 @@ export const handleSetBookmarks = async (_id) => {
     const response = await apiClient.post(`/social-media/bookmarks/${_id}`);
     return response?.data?.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -143,7 +144,7 @@ export const handleFetchBookmarks = async () => {
     const response = await apiClient.get(
       "/social-media/bookmarks?page=1&limit=100"
     );
-    console.log(response);
+    // console.log(response);
     return response?.data?.data?.bookmarkedPosts;
   } catch (error) {
     console.log(error);

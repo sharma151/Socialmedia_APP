@@ -1,21 +1,21 @@
 import { useState, useCallback, useContext, useRef, useEffect } from "react";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { UpdatedataContext } from "@/Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
-import { UsernameContext } from "../Context/Setusername";
+import { UsernameContext } from "@/Context/Setusername";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { AiOutlineClose } from "react-icons/ai";
-import { Handlelogout } from "../services/AuthService";
+import { Handlelogout } from "@/services/AuthService";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/Authcontext";
+import { AuthContext } from "@/Context/Authcontext";
 import { TbLogout } from "react-icons/tb";
 import { LuMenu } from "react-icons/lu";
 import { IoHome } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { ThemeContext } from "../Context/ThemeContext";
+import { ThemeContext } from "@/Context/ThemeContext";
 import { Link } from "react-router-dom";
 import debounce from "lodash/debounce";
-import axios from "../services/Api";
+import axios from "@/services/Api";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");

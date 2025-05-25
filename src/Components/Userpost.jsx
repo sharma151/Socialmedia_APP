@@ -1,12 +1,12 @@
 import { PiBookmarkSimpleBold, PiBookmarkSimpleFill } from "react-icons/pi";
 import { useState, useContext, useEffect } from "react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
-import { UpdatedataContext } from "../Context/UpdateProfileContext";
+import { UpdatedataContext } from "@/Context/UpdateProfileContext";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-import Modal from "../Modals/Modal";
-import usePostActions from "../Hooks/usePostActions";
-import "../Styles/Sass/Components/Post.scss";
+import Modal from "@/Modals/Modal";
+import usePostActions from "@/Hooks/usePostActions";
+import PostModalContent from "@/Components/PostModalContent";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -46,165 +46,153 @@ const Posts = ({ className, posts, onDeleteSuccess }) => {
   }, [posts]);
 
   return (
-    <div className={`posts ${className}`} id="scrollableDiv">
-      <div className="posts-list">
+    <div className={`w-full max-w-2xl mx-auto ${className}`} id="scrollableDiv">
+      <div className="space-y-6">
         {userposts.map((post) => (
-          <div key={post?._id} className="post-item">
-            {post?.author?.account?.avatar?.url && (
-              <img
-                src={post?.author?.account?.avatar?.url}
-                alt={post?.avatar}
-                onClick={() =>
-                  navigate(`/profile/${post?.author?.account?.username}`)
-                }
-                style={{ cursor: "pointer" }}
-                className="avatar"
-              />
-            )}
-
-            <p
-              className="Username"
-              onClick={() =>
-                navigate(`/profile/${post?.author?.account?.username}`)
-              }
-              style={{ cursor: "pointer" }}
-            >
-              {post?.author?.account?.username}
-            </p>
-
-            <div
-              className="Name"
-              onClick={() =>
-                navigate(`/profile/${post?.author?.account?.username}`)
-              }
-              style={{ cursor: "pointer" }}
-            >
-              <p className="FullName">
-                {post?.author?.firstName} {post?.author?.lastName}
-              </p>
-              <hr />
-              <p className="createdAt">{formatDate(post?.createdAt)}</p>
+          <div
+            key={post?._id}
+            className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-md rounded-lg overflow-hidden"
+          >
+            <div className="flex items-center gap-4 p-4">
+              {post?.author?.account?.avatar?.url && (
+                <img
+                  src={post?.author?.account?.avatar?.url}
+                  alt="avatar"
+                  onClick={() =>
+                    navigate(`/profile/${post?.author?.account?.username}`)
+                  }
+                  className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                />
+              )}
+              <div>
+                <p
+                  onClick={() =>
+                    navigate(`/profile/${post?.author?.account?.username}`)
+                  }
+                  className="font-bold text-lg capitalize cursor-pointer"
+                >
+                  {post?.author?.account?.username}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {post?.author?.firstName} {post?.author?.lastName}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {formatDate(post?.createdAt)}
+                </p>
+              </div>
+              {UserprofileData?._id === post?.author?._id && (
+                <button
+                  className="ml-auto text-red-600 hover:text-red-800"
+                  onClick={() => handleDeletePostSubmit(post?._id)}
+                >
+                  <MdDelete size={24} />
+                </button>
+              )}
             </div>
-            <hr className="underline" />
-
-            {UserprofileData?._id === post?.author?._id && (
-              <button
-                className="delete-btn"
-                onClick={() => handleDeletePostSubmit(post?._id)}
-              >
-                <MdDelete />
-              </button>
-            )}
-
-            <p className="content">{post?.content}</p>
-            <div className="images">
+            <div className="px-4 pb-4">
+              <p className="text-base mb-2 capitalize">{post?.content}</p>
               {post?.images?.[0]?.url && (
                 <img
                   src={post?.images?.[0]?.url}
-                  alt={post.title}
-                  className="post-image"
+                  alt="post"
+                  className="w-full max-h-[400px] object-cover rounded-md cursor-pointer"
                   onClick={() => handlePostClick(post)}
-                  style={{ cursor: "pointer" }}
                 />
               )}
-            </div>
-
-            <div className="Post-buttons">
-              <button
-                onClick={() => handleLikePostSubmit(post?._id)}
-                className="Like-dislike"
-                style={{ cursor: "pointer" }}
-              >
-                {post?.isLiked ? <BiSolidLike /> : <BiLike />}
-                <span className="like-count">{post?.likes}</span>
-              </button>
-              <button
-                className="bookmark"
-                onClick={() => handleBookmarkClick(post?._id)}
-              >
-                {post?.isBookmarked ? (
-                  <PiBookmarkSimpleFill />
-                ) : (
-                  <PiBookmarkSimpleBold />
-                )}
-              </button>
+              <div className="flex justify-between items-center mt-4">
+                <button
+                  onClick={() => handleLikePostSubmit(post?._id)}
+                  className="flex items-center gap-1 text-blue-600 dark:text-blue-400"
+                >
+                  {post?.isLiked ? (
+                    <BiSolidLike size={24} />
+                  ) : (
+                    <BiLike size={24} />
+                  )}
+                  <span>{post?.likes}</span>
+                </button>
+                <button
+                  onClick={() => handleBookmarkClick(post?._id)}
+                  className="text-yellow-500 dark:text-yellow-400"
+                >
+                  {post?.isBookmarked ? (
+                    <PiBookmarkSimpleFill size={24} />
+                  ) : (
+                    <PiBookmarkSimpleBold size={24} />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+      {/* <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {selectedPost && (
-          <div className="main-modal">
-            <div className="modal-post-image">
+          <div className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+            <div className="flex-shrink-0 w-full md:w-1/2">
               <img
                 src={selectedPost?.images?.[0]?.url}
-                alt={selectedPost?.images?.[0]?.url}
+                alt="modal-img"
+                className="object-cover w-full h-full max-h-[400px]"
               />
             </div>
-            <div className="modal-postdetails">
-              <div className="modal-head">
-                <div className="modal-post-admin-avatar">
-                  {selectedPost?.author?.account?.avatar?.url && (
-                    <img
-                      src={selectedPost?.author?.account?.avatar?.url}
-                      alt={selectedPost?.avatar}
-                      onClick={() =>
-                        navigate(
-                          `/profile/${selectedPost?.author?.account?.username}`
-                        )
-                      }
-                      style={{ cursor: "pointer" }}
-                      className="modal-avatar"
-                    />
-                  )}
-                </div>
-                <div
-                  className="Name"
-                  onClick={() =>
-                    navigate(
-                      `/profile/${selectedPost?.author?.account?.username}`
-                    )
-                  }
-                  style={{ cursor: "pointer" }}
-                >
-                  <p className="FullName">
-                    {selectedPost?.author?.firstName}{" "}
-                    {selectedPost?.author?.lastName}
+            <div className="p-4 w-full md:w-1/2 text-gray-900 dark:text-white">
+              <div className="flex items-center gap-3 mb-4">
+                {selectedPost?.author?.account?.avatar?.url && (
+                  <img
+                    src={selectedPost?.author?.account?.avatar?.url}
+                    alt="avatar"
+                    className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                    onClick={() =>
+                      navigate(`/profile/${selectedPost?.author?.account?.username}`)
+                    }
+                  />
+                )}
+                <div>
+                  <p className="font-bold text-lg capitalize cursor-pointer">
+                    {selectedPost?.author?.firstName} {selectedPost?.author?.lastName}
                   </p>
-                  <p className="modal-post-createdAt">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     {formatDate(selectedPost?.createdAt)}
                   </p>
                 </div>
               </div>
-              <p className="modal-comment">{selectedPost?.content}</p>
-              <div className="modal-post-buttons">
+              <p className="text-base mb-4 capitalize">{selectedPost?.content}</p>
+              <div className="flex justify-between items-center mt-4">
                 <button
                   onClick={() => handleLikePostSubmit(selectedPost?._id)}
-                  className="modal-Like-dislike"
-                  style={{ cursor: "pointer" }}
+                  className="flex items-center gap-1 text-blue-600 dark:text-blue-400"
                 >
                   {selectedPost?.isLiked ? (
-                    <BiSolidLike size={27} />
+                    <BiSolidLike size={24} />
                   ) : (
-                    <BiLike size={27} />
+                    <BiLike size={24} />
                   )}
-                  <span className="modal-like-count">{selectedPost.likes}</span>
+                  <span>{selectedPost?.likes}</span>
                 </button>
                 <button
-                  className="bookmark"
                   onClick={() => handleBookmarkClick(selectedPost?._id)}
+                  className="text-yellow-500 dark:text-yellow-400"
                 >
                   {selectedPost?.isBookmarked ? (
-                    <PiBookmarkSimpleFill size={27} />
+                    <PiBookmarkSimpleFill size={24} />
                   ) : (
-                    <PiBookmarkSimpleBold size={27} />
+                    <PiBookmarkSimpleBold size={24} />
                   )}
                 </button>
               </div>
             </div>
           </div>
         )}
+      </Modal> */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <PostModalContent
+          post={selectedPost}
+          onLike={handleLikePostSubmit}
+          onBookmark={handleBookmarkClick}
+          navigate={navigate}
+        />
       </Modal>
     </div>
   );
