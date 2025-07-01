@@ -1,19 +1,32 @@
-import { useState } from "react";
-import { IoImages } from "react-icons/io5";
+import { useState, useRef, useContext } from "react";
+import { IoImages, IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useCreatePost } from "@/core/Hooks/Api/userData"; // path may vary
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 
 const Createpost = ({ className, onUpdate }) => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-
+  const fileInputRef = useRef(null);
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
+  const { username } = loggedinUserprofileData?.account || {};
   const createPost = useCreatePost();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImage(file);
-    setPreviewImage(file ? URL.createObjectURL(file) : null);
+    if (file) {
+      setImage(file);
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImage(null);
+    setPreviewImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handlePostSubmit = async (e) => {
@@ -31,8 +44,7 @@ const Createpost = ({ className, onUpdate }) => {
     try {
       await createPost.mutateAsync(formData);
       setContent("");
-      setImage(null);
-      setPreviewImage(null);
+      handleRemoveImage();
       if (onUpdate) onUpdate();
     } catch (err) {
       // handled in useMutation onError
@@ -48,17 +60,19 @@ const Createpost = ({ className, onUpdate }) => {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="What's on your mind?"
+          placeholder={`What's on your mind ? ${username}`}
           rows="3"
           required
           className="w-full bg-[#3A3B3C] text-white p-3 rounded-md resize-none outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
         />
+
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-2">
             <input
               type="file"
               id="input"
               accept="image/*"
+              ref={fileInputRef}
               onChange={handleImageChange}
               style={{ display: "none" }}
             />
@@ -72,18 +86,26 @@ const Createpost = ({ className, onUpdate }) => {
           </div>
 
           {previewImage && (
-            <div className="w-full rounded-md overflow-hidden border border-gray-600 mt-2">
+            <div className="relative w-full mt-2 max-w-[120px]">
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full p-1 hover:bg-opacity-80 text-xs cursor-pointer"
+                aria-label="Remove Preview"
+              >
+                <IoClose size={16} />
+              </button>
               <img
                 src={previewImage}
                 alt="Preview"
-                className="w-full h-60 object-cover"
+                className="w-[120px] h-[120px] rounded-md object-cover border border-gray-300"
               />
             </div>
           )}
 
           <button
             type="submit"
-            className="ml-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="ml-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             disabled={createPost.isPending}
           >
             {createPost.isPending ? "Posting..." : "Post"}
