@@ -6,6 +6,7 @@ import ProtectedRoute from "@/Components/ProtectedRoute";
 import ProfilePage from "@/Pages/ProfilePage";
 import Bookmarks from "@/Pages/Bookmarks";
 import Register from "@/Pages/Register";
+import ForgotPassword from "@/Pages/ForgotPassword";
 import Userpost from "@/Components/Userpost";
 import Layout from "@/Layouts/Layout";
 import Login from "@/Pages/Login";
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route element={<ProtectedRoute />}>
               <Route
                 element={
@@ -39,13 +41,13 @@ function App() {
                   path="/profile/:username"
                   element={<ProfileByUsername />}
                 />
-                <Route path="/Error" element={<Pagenotfound />} />
+                {/* <Route path="/Error" element={<Pagenotfound />} /> */}
                 <Route path="/posts" element={<Userpost />} />
                 <Route path="/usernotfound" element={<Usernotfound />} />
                 <Route path="/profile-page" element={<ProfilePage />} />
-                <Route path="*" element={<Pagenotfound />} />
               </Route>
             </Route>
+            <Route path="*" element={<Pagenotfound />} />
           </Routes>
         </div>
       </Router>

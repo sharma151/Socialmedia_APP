@@ -1,12 +1,10 @@
 // components/CoverImage.jsx
 import { useContext } from "react";
 import UpdateCoverPage from "@/Components/Updatecoverpicture";
-import { UpdatedataContext } from "@/Context/UpdateProfileContext";
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 
 const CoverImage = ({ coverImageUrl, onUpdate, userData }) => {
-  const { UserprofileData } = useContext(UpdatedataContext);
-  console.log("userprofiledata", UserprofileData);
-  console.log("userdata", userData);
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
   return (
     <div className="relative w-full h-48 sm:h-64 lg:h-80">
       <img
@@ -14,11 +12,9 @@ const CoverImage = ({ coverImageUrl, onUpdate, userData }) => {
         alt="Cover"
         className="w-full h-full object-cover"
       />
-      {/* {UserprofileData?._id === userData?._id && ( */}
-      <>
+      {(!userData || userData._id === loggedinUserprofileData?._id) && (
         <UpdateCoverPage onUpdate={onUpdate} />
-      </>
-      {/* )} */}
+      )}
     </div>
   );
 };

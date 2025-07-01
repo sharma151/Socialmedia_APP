@@ -1,4 +1,4 @@
-import { UpdatedataContext } from "@/Context/UpdateProfileContext";
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 import { GoProjectSymlink } from "react-icons/go";
 import { BsBookmarksFill } from "react-icons/bs";
 import { SiYoutubemusic } from "react-icons/si";
@@ -8,7 +8,7 @@ import { FaGlobeAsia } from "react-icons/fa";
 import { useContext } from "react";
 
 const Aside = ({ className }) => {
-  const { UserprofileData } = useContext(UpdatedataContext);
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -23,17 +23,17 @@ const Aside = ({ className }) => {
       {/* Profile Section */}
       <div className={`${baseItemClass}`} onClick={handleProfileClick}>
         <div className="w-10 h-10 rounded-full overflow-hidden">
-          {UserprofileData?.account?.avatar?.url && (
+          {loggedinUserprofileData?.account?.avatar?.url && (
             <img
-              src={UserprofileData.account.avatar.url}
+              src={loggedinUserprofileData?.account.avatar.url}
               alt="Profile Avatar"
               className="w-full h-full object-cover"
             />
           )}
         </div>
         <div className="flex gap-2 text-sm font-normal font-sans">
-          <p>{UserprofileData?.firstName}</p>
-          <p>{UserprofileData?.lastName}</p>
+          <p>{loggedinUserprofileData?.firstName}</p>
+          <p>{loggedinUserprofileData?.lastName}</p>
         </div>
       </div>
 
