@@ -1,25 +1,17 @@
-import { handleUpdateAvatar } from "@/services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
-import { toast } from "react-toastify";
+import { useUpdateAvatar } from "@/core/Hooks/Api/userData";
 
 const Updateavatar = ({ onUpdate }) => {
-  const handleUpdateAvatarFileChange = async (e) => {
-    const formData = new FormData();
-    formData.append("avatar", e.target.files[0]);
+  const { mutate: updateAvatar, isPending } = useUpdateAvatar();
 
-    try {
-      const response = await handleUpdateAvatar(formData);
-      if (response) {
-        toast.success("Avatar updated successfully");
-        if (onUpdate) {
-          onUpdate();
-        }
-      } else {
-        toast.error("Failed to update avatar. Try again.");
-      }
-    } catch (error) {
-      toast.error("Error updating avatar");
-    }
+  const handleUpdateAvatarFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    updateAvatar(formData);
   };
 
   return (
@@ -30,10 +22,13 @@ const Updateavatar = ({ onUpdate }) => {
         accept="image/*"
         onChange={handleUpdateAvatarFileChange}
         className="hidden"
+        disabled={isPending}
       />
       <label
         htmlFor="updateavatar"
-        className="flex items-center justify-center w-8 h-8 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer"
+        className={`flex items-center justify-center w-8 h-8 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer ${
+          isPending ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         <IoIosCamera className="text-gray-700 dark:text-gray-200 text-lg" />
       </label>

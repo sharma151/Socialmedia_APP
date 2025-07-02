@@ -1,7 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
 import Updateavatar from "@/Components/Updateavatar";
+import React, { useContext } from "react";
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 
-const ProfileAvatar = ({ avatarUrl, name, username, onUpdate }) => {
+const ProfileAvatar = ({ avatarUrl, name, username, userData }) => {
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
   return (
     <div className="relative flex flex-col sm:flex-row items-center sm:items-end sm:space-x-4 px-4 sm:px-8 -mt-16 sm:-mt-20">
       {/* Outer wrapper without overflow-hidden */}
@@ -16,9 +19,11 @@ const ProfileAvatar = ({ avatarUrl, name, username, onUpdate }) => {
         </div>
 
         {/* Camera icon positioned slightly outside top-right */}
-        <div className="absolute bottom-2 right-2">
-          <Updateavatar onUpdate={onUpdate} />
-        </div>
+        {(!userData || userData._id === loggedinUserprofileData?._id) && (
+          <div className="absolute bottom-2 right-2">
+            <Updateavatar />
+          </div>
+        )}
       </div>
 
       {/* Name and username */}
