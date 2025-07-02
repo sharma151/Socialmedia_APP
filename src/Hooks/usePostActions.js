@@ -1,99 +1,107 @@
-// hooks/usePostActions.js
 import { toast } from "react-toastify";
 import {
   handleSetBookmarks,
   HandleDeletePost,
   handleLikePost,
-  // handleFetchallPost,
 } from "@/services/Handleapi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const usePostActions = (
-  posts,
-  setUserposts,
-  selectedPost,
-  setSelectedPost,
-  onDeleteSuccess
-) => {
-  const handleLikePostSubmit = async (_id) => {
-    try {
-      const response = await handleLikePost(_id);
+const usePostActions = () => {
+  const queryClient = useQueryClient();
 
-      setUserposts((prevPosts) =>
-        prevPosts.map((post) => {
-          if (post._id === _id) {
-            return {
-              ...post,
-              isLiked: response.isLiked,
-              likes: response.isLiked ? post.likes + 1 : post.likes - 1,
-            };
-          }
-          return post;
-        })
+  const likeMutation = useMutation({
+    mutationFn: handleLikePost,
+    onMutate: async (_id) => {
+      await queryClient.cancelQueries({ queryKey: ["posts"] });
+
+      const previousPosts = queryClient.getQueryData(["posts"]);
+      const previousPost = queryClient.getQueryData(["post", _id]);
+
+      // Optimistically update
+      queryClient.setQueriesData(["posts"], (old) =>
+        old?.map((post) =>
+          post._id === _id
+            ? {
+                ...post,
+                isLiked: !post.isLiked,
+                likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+              }
+            : post
+        )
       );
 
-      if (selectedPost && selectedPost._id === _id) {
-        setSelectedPost((prev) => ({
-          ...prev,
-          isLiked: response.isLiked,
-          likes: response.isLiked ? prev.likes + 1 : prev.likes - 1,
-        }));
-      }
-    } catch (error) {
-      console.error("Error liking post:", error);
-    }
-  };
+      queryClient.setQueryData(["post", _id], (oldPost) =>
+        oldPost
+          ? {
+              ...oldPost,
+              isLiked: !oldPost.isLiked,
+              likes: oldPost.isLiked ? oldPost.likes - 1 : oldPost.likes + 1,
+            }
+          : oldPost
+      );
 
-  const handleBookmarkClick = async (_id) => {
-    try {
-      const response = await handleSetBookmarks(_id);
-      const updatedPosts = posts.map((post) => {
-        if (post?._id === _id) {
-          return {
-            ...post,
-            isBookmarked: response?.isBookmarked,
-          };
-        }
-        return post;
-      });
+      return { previousPosts, previousPost };
+    },
+    onError: (err, _id, context) => {
+      queryClient.setQueryData(["posts"], context?.previousPosts);
+      queryClient.setQueryData(["post", _id], context?.previousPost);
+      toast.error("Failed to like post");
+    },
+    onSuccess: (response) => {
+      // Optionally validate or log if needed
+    },
+  });
 
-      setUserposts(updatedPosts);
+  const bookmarkMutation = useMutation({
+    mutationFn: handleSetBookmarks,
+    onMutate: async (_id) => {
+      await queryClient.cancelQueries({ queryKey: ["posts"] });
 
-      if (selectedPost && selectedPost._id === _id) {
-        setSelectedPost((prev) => ({
-          ...prev,
-          isBookmarked: response?.isBookmarked,
-        }));
-      }
+      const previousPosts = queryClient.getQueryData(["posts"]);
+      const previousPost = queryClient.getQueryData(["post", _id]);
 
+      queryClient.setQueriesData(["posts"], (old) =>
+        old?.map((post) =>
+          post._id === _id
+            ? { ...post, isBookmarked: !post.isBookmarked }
+            : post
+        )
+      );
+
+      queryClient.setQueryData(["post", _id], (oldPost) =>
+        oldPost ? { ...oldPost, isBookmarked: !oldPost.isBookmarked } : oldPost
+      );
+
+      return { previousPosts, previousPost };
+    },
+    onError: (err, _id, context) => {
+      queryClient.setQueryData(["posts"], context?.previousPosts);
+      queryClient.setQueryData(["post", _id], context?.previousPost);
+      toast.error("Failed to update bookmark");
+    },
+    onSuccess: (response) => {
       toast.success(
-        response?.isBookmarked ? "Bookmarked Successfully" : "Bookmark Removed"
+        response?.isBookmarked ? "Bookmarked!" : "Bookmark removed"
       );
-    } catch (error) {
-      console.error("Error handling bookmarks:", error);
-    }
-  };
+    },
+  });
 
-  const handleDeletePostSubmit = async (_id) => {
-    try {
-      const response = await HandleDeletePost(_id);
-      if (response === 200) {
-        toast.success("Post deleted successfully");
-        onDeleteSuccess();
-        // setUserposts((prevPosts) =>
-        //   prevPosts.filter((post) => post._id !== _id)
-        // );
-        // handleFetchallPost();
-      }
-    } catch (error) {
-      console.error("Error deleting post:", error);
-      toast.error("Failed to delete the post.");
-    }
-  };
+  const deleteMutation = useMutation({
+    mutationFn: HandleDeletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["profilePosts"] });
+      toast.success("Post deleted successfully");
+    },
+    onError: () => {
+      toast.error("Failed to delete post");
+    },
+  });
 
   return {
-    handleLikePostSubmit,
-    handleBookmarkClick,
-    handleDeletePostSubmit,
+    handleLikePostSubmit: (_id) => likeMutation.mutate(_id),
+    handleBookmarkClick: (_id) => bookmarkMutation.mutate(_id),
+    handleDeletePostSubmit: (_id) => deleteMutation.mutate(_id),
   };
 };
 
