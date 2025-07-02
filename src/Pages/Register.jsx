@@ -5,6 +5,7 @@ import { Handleregister } from "@/services/AuthService";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import registerVector from "@/assets/registration.png"; // Add a suitable vector image here
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -70,13 +71,21 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800">
-      <div className="bg-white dark:bg-gray-900 shadow-xl rounded-lg w-full max-w-md p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">
+    <div className="flex flex-col-reverse lg:flex-row items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-800 px-4">
+      {/* Form Card */}
+
+      <div className="hidden lg:block w-full max-w-md p-6 animate-fade-in">
+        <img
+          src={registerVector}
+          alt="Register Illustration"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+      <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-lg w-full max-w-md p-8 transition-all duration-300 ease-in-out">
+        <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6 animate-fade-in">
           Register
         </h2>
         <form onSubmit={Registerhandlesubmit} className="space-y-5">
-          {/* Username */}
           <div>
             <label className="block mb-1 text-gray-700 dark:text-gray-200">
               Username *
@@ -91,12 +100,11 @@ const Register = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full pl-10 pr-4 py-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
               />
             </div>
           </div>
 
-          {/* Email */}
           <div>
             <label className="block mb-1 text-gray-700 dark:text-gray-200">
               Email *
@@ -116,7 +124,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Role */}
           <div>
             <label className="block mb-1 text-gray-700 dark:text-gray-200">
               Role *
@@ -135,23 +142,12 @@ const Register = () => {
                 <option value="" disabled hidden>
                   Select a role
                 </option>
-                <option
-                  className="bg-white text-gray-800 dark:bg-gray-700 dark:text-white"
-                  value="ADMIN"
-                >
-                  ADMIN
-                </option>
-                <option
-                  className="bg-white text-gray-800 dark:bg-gray-700 dark:text-white"
-                  value="USER"
-                >
-                  USER
-                </option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
               </select>
             </div>
           </div>
 
-          {/* Password */}
           <div>
             <label className="block mb-1 text-gray-700 dark:text-gray-200">
               Password *
@@ -177,10 +173,9 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition duration-200"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition duration-300 transform hover:scale-105"
           >
             Register
           </button>
@@ -193,6 +188,8 @@ const Register = () => {
           </p>
         </form>
       </div>
+
+      {/* Vector Image */}
     </div>
   );
 };
