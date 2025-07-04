@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import Modal from "@/Modals/Modal";
 import usePostActions from "@/Hooks/usePostActions";
 import PostModalContent from "@/Components/PostModalContent";
-import { useQueryClient } from "@tanstack/react-query";
+// import { useQueryClient } from "@tanstack/react-query";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -19,7 +19,7 @@ const Posts = ({ className, posts, queryKey = ["posts"] }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const { handleLikePostSubmit, handleBookmarkClick, handleDeletePostSubmit } =
     usePostActions();
