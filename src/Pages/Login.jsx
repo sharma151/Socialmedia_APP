@@ -71,75 +71,78 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Sign In
-        </h2>
-        <form onSubmit={Loginhandlesubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm mb-1 text-gray-600">Username</label>
-            <div className="flex items-center border rounded-lg px-3 py-2">
-              <FaUser className="text-gray-400 mr-2" />
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-5xl">
+        {/* Left Side Branding */}
+        <div className="w-full lg:w-1/2 mb-10 lg:mb-0 text-center lg:text-left px-6">
+          <h1 className="text-5xl font-bold text-blue-600 mb-4">vibeflow</h1>
+          <p className="text-2xl text-gray-700 max-w-md">
+            Connect with friends and the world around you on VibeFlow.
+          </p>
+        </div>
+
+        {/* Right Side Login Form */}
+        <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+          <form onSubmit={Loginhandlesubmit} className="space-y-5">
+            <div>
               <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Enter username"
-                className="w-full outline-none bg-transparent"
+                placeholder="Email or phone number"
+                className="w-full px-4 py-3 border rounded-lg outline-none text-gray-700"
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm mb-1 text-gray-600">Password</label>
-            <div className="flex items-center border rounded-lg px-3 py-2">
-              <FaLock className="text-gray-400 mr-2" />
+            <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Enter password"
-                className="w-full outline-none bg-transparent"
+                placeholder="Password"
+                className="w-full px-4 py-3 border rounded-lg outline-none text-gray-700"
               />
               <span
                 onClick={togglePasswordVisibility}
-                className="cursor-pointer ml-2"
+                className="absolute right-3 top-3 text-gray-400 cursor-pointer"
               >
                 {showPassword ? <FaRegEyeSlash /> : <FaEye />}
               </span>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300"
-          >
-            Login
-          </button>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold text-lg"
+            >
+              Log In
+            </button>
 
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-            <span>or</span>
-          </div>
+            <div className="text-center">
+              <Link
+                to="/forgot-password"
+                className="text-blue-600 text-sm hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
 
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-lg hover:bg-gray-50"
-            onClick={() => toast.info("Google login not implemented.")}
-          >
-            <FcGoogle size={20} />
-            <span>Continue with Google</span>
-          </button>
+            <hr className="my-4" />
 
-          <p className="text-center text-sm text-gray-600">
-            Don't have an account?
-            <Link to="/Register" className="text-blue-600 hover:underline ml-1">
-              Register
+            <Link
+              to="/Register"
+              className="w-full inline-block text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold"
+            >
+              Create new account
             </Link>
-          </p>
-        </form>
+
+            {/* <p className="text-center text-sm text-gray-600 mt-4">
+              <span className="font-semibold">Create a Page</span> for a
+              celebrity, brand or business.
+            </p> */}
+          </form>
+        </div>
       </div>
     </div>
   );

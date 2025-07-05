@@ -1,24 +1,37 @@
 import { handleUpdateCoverImage } from "@/services/Handleapi";
 import { IoIosCamera } from "react-icons/io";
 import { toast } from "react-toastify";
+import { useUpdateCoverImage } from "@/core/Hooks/Api/userData";
 
-const UpdateCoverPage = ({ onUpdate, className = "" }) => {
-  const handleFileChange = async (e) => {
+const UpdateCoverPage = ({ className }) => {
+  const { mutate: updateCoverImage, isPending } = useUpdateCoverImage();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
     const formData = new FormData();
-    formData.append("coverImage", e.target.files[0]);
+    formData.append("coverImage", file);
 
-    try {
-      const response = await handleUpdateCoverImage(formData);
-      if (response) {
-        toast.success("Cover image updated successfully");
-        onUpdate?.();
-      } else {
-        toast.error("Failed to update cover image. Try again.");
-      }
-    } catch {
-      toast.error("Error updating cover image");
-    }
+    updateCoverImage(formData);
   };
+
+  // const handleFileChange = async (e) => {
+  //   const formData = new FormData();
+  //   formData.append("coverImage", e.target.files[0]);
+
+  //   try {
+  //     const response = await handleUpdateCoverImage(formData);
+  //     if (response) {
+  //       toast.success("Cover image updated successfully");
+  //       onUpdate?.();
+  //     } else {
+  //       toast.error("Failed to update cover image. Try again.");
+  //     }
+  //   } catch {
+  //     toast.error("Error updating cover image");
+  //   }
+  // };
 
   return (
     <div className={`absolute bottom-4 right-4 z-10 ${className}`}>

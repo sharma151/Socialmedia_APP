@@ -1,21 +1,7 @@
-import { useState, useEffect } from "react";
-import { handleRandomusers } from "@/services/Handleapi";
+import { useRandomUserProfile } from "@/core/Hooks/Api/userData";
 
 const Suggestions = ({ className }) => {
-  const [randomUsers, setrandomUsers] = useState([]);
-
-  const fetchRandomUsers = async () => {
-    try {
-      const response = await handleRandomusers();
-      setrandomUsers(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchRandomUsers();
-  }, []);
+  const { data: RandomUsers } = useRandomUserProfile();
 
   return (
     <div
@@ -25,7 +11,7 @@ const Suggestions = ({ className }) => {
         Suggestions
       </p>
       <div className="space-y-3">
-        {randomUsers?.map((user) => (
+        {RandomUsers?.map((user) => (
           <div
             key={user.id}
             className="flex items-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-800 transition"

@@ -1,6 +1,6 @@
 import { useState, useCallback, useContext, useRef, useEffect } from "react";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import { UpdatedataContext } from "@/Context/UpdateProfileContext";
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
 import { UsernameContext } from "@/Context/Setusername";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -21,7 +21,7 @@ const Navbar = () => {
   const [username, setUsername] = useState("");
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { SetUserName } = useContext(UsernameContext);
-  const { UserprofileData } = useContext(UpdatedataContext);
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -104,125 +104,6 @@ const Navbar = () => {
   }, []);
 
   return (
-    // <nav>
-    //   {isAuthenticated ? (
-    //     <div className="nav-content">
-    //       <Link to="/" className="Logo" onClick={handleScrollToTop}>
-    //         SS
-    //       </Link>
-
-    //       <button className="themebtn" onClick={toggleTheme}>
-    //         {theme === "light" ? "☀️" : "🌙"}
-    //       </button>
-
-    //       <div className="hamburger-icon" onClick={toggleMenu}>
-    //         <LuMenu color="white" size={28} />
-    //       </div>
-
-    //       {/* Search Form */}
-    //       <form onSubmit={handleSearchSubmit} className="search-form">
-    //         <div className="search-input-container">
-    //           <input
-    //             type="text"
-    //             value={username}
-    //             onChange={handleInputChange}
-    //             placeholder="Enter username..."
-    //             autoComplete="off"
-    //           />
-    //           {username && (
-    //             <button
-    //               type="button"
-    //               onClick={handleClearSearch}
-    //               className="clear-search-btn"
-    //               aria-label="Clear search"
-    //             >
-    //               <AiOutlineClose size={18} />
-    //             </button>
-    //           )}
-    //         </div>
-    //       </form>
-
-    //       {/* Regular Navigation Icons */}
-    //       <div className="icons-div">
-    //         <div className="icons">
-    //           <Link to="/" onClick={handleScrollToTop}>
-    //             <IoHome color="white" />
-    //           </Link>
-    //         </div>
-    //         <div className="icons">
-    //           <MdOutlineOndemandVideo color="white" />
-    //         </div>
-    //         <div className="icons">
-    //           <HiMiniUserGroup color="white" />
-    //         </div>
-    //         <div className="icons">
-    //           <IoGameController color="white" />
-    //         </div>
-    //       </div>
-
-    //       <Link to="/profile-page">
-    //         <div className="profileimg-navbar">
-    //           {UserprofileData?.account?.avatar?.url && (
-    //             <img
-    //               src={UserprofileData?.account?.avatar?.url}
-    //               alt={UserprofileData?.posts?.avatar}
-    //             />
-    //           )}
-    //         </div>
-    //       </Link>
-
-    //       <button onClick={handleLogoutClick} className="logout-btn">
-    //         <TbLogout size={20} />
-    //         <span className="logout-log">Logout </span>
-    //       </button>
-
-    //       {/* Dropdown Menu */}
-    //       {isMenuOpen && (
-    //         <div className="dropdown-menu" ref={dropdownRef}>
-    //           <Link className="dropdown-profile-name" to="/profile-page">
-    //             <div className="dropdown-profileimg-navbar">
-    //               {UserprofileData?.account?.avatar?.url && (
-    //                 <img
-    //                   src={UserprofileData?.account?.avatar?.url}
-    //                   alt={UserprofileData?.posts?.avatar}
-    //                 />
-    //               )}
-    //             </div>
-    //             <span className="dropdown-username">
-    //               {UserprofileData?.account?.username}
-    //             </span>
-    //           </Link>
-
-    //           <form
-    //             onSubmit={handleSearchSubmit}
-    //             className="dropdown-search-form"
-    //           >
-    //             <div className="dropdown-search-input-container">
-    //               <input
-    //                 type="text"
-    //                 value={username}
-    //                 onChange={handleInputChange}
-    //                 placeholder="Search user..."
-    //                 autoComplete="off"
-    //               />
-    //             </div>
-    //           </form>
-
-    //           <button
-    //             onClick={handleLogoutClick}
-    //             className="dropdown-logout-btn"
-    //           >
-    //             <TbLogout size={20} />
-    //             <span className="dropdown-logout-log">Logout </span>
-    //           </button>
-    //           <button className="dropdown-themebtn" onClick={toggleTheme}>
-    //             {theme === "light" ? "🌙" : "☀️"}
-    //           </button>
-    //         </div>
-    //       )}
-    //     </div>
-    //   ) : null}
-    // </nav>
     <nav className="bg-[#242526] text-white shadow-sm sticky top-0 z-50 w-full">
       {isAuthenticated && (
         <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-14">
@@ -287,9 +168,9 @@ const Navbar = () => {
 
             <Link to="/profile-page">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-400">
-                {UserprofileData?.account?.avatar?.url && (
+                {loggedinUserprofileData?.account?.avatar?.url && (
                   <img
-                    src={UserprofileData.account.avatar.url}
+                    src={loggedinUserprofileData?.account.avatar.url}
                     alt="profile"
                     className="w-full h-full object-cover"
                   />
@@ -320,15 +201,15 @@ const Navbar = () => {
             >
               <Link to="/profile-page" className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
-                  {UserprofileData?.account?.avatar?.url && (
+                  {loggedinUserprofileData?.account?.avatar?.url && (
                     <img
-                      src={UserprofileData.account.avatar.url}
+                      src={loggedinUserprofileData.account.avatar.url}
                       alt="profile"
                       className="w-full h-full object-cover"
                     />
                   )}
                 </div>
-                <span>{UserprofileData?.account?.username}</span>
+                <span>{loggedinUserprofileData?.account?.username}</span>
               </Link>
 
               <form onSubmit={handleSearchSubmit}>
