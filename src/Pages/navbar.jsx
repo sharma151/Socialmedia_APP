@@ -1,6 +1,6 @@
 import { useState, useCallback, useContext, useRef, useEffect } from "react";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import { UpdatedataContext } from "@/Context/UpdateProfileContext";
+import { LoggedinUserProfileData } from "@/Context/UpdateProfileContext";
 import { IoGameController } from "react-icons/io5";
 import { UsernameContext } from "@/Context/Setusername";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -21,7 +21,7 @@ const Navbar = () => {
   const [username, setUsername] = useState("");
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { SetUserName } = useContext(UsernameContext);
-  const { UserprofileData } = useContext(UpdatedataContext);
+  const { loggedinUserprofileData } = useContext(LoggedinUserProfileData);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -287,9 +287,9 @@ const Navbar = () => {
 
             <Link to="/profile-page">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-400">
-                {UserprofileData?.account?.avatar?.url && (
+                {loggedinUserprofileData?.account?.avatar?.url && (
                   <img
-                    src={UserprofileData.account.avatar.url}
+                    src={loggedinUserprofileData?.account.avatar.url}
                     alt="profile"
                     className="w-full h-full object-cover"
                   />
@@ -320,15 +320,15 @@ const Navbar = () => {
             >
               <Link to="/profile-page" className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
-                  {UserprofileData?.account?.avatar?.url && (
+                  {loggedinUserprofileData?.account?.avatar?.url && (
                     <img
-                      src={UserprofileData.account.avatar.url}
+                      src={loggedinUserprofileData.account.avatar.url}
                       alt="profile"
                       className="w-full h-full object-cover"
                     />
                   )}
                 </div>
-                <span>{UserprofileData?.account?.username}</span>
+                <span>{loggedinUserprofileData?.account?.username}</span>
               </Link>
 
               <form onSubmit={handleSearchSubmit}>
