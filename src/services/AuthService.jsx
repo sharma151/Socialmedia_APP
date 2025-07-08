@@ -34,3 +34,15 @@ export const Handlelogout = async () => {
     toast.error("Failed to logout User. Please try again later.", error);
   }
 };
+
+export const HandleForgotPassword = async (email) => {
+  try {
+    const response = await apiClient.post("/users/forgot-password", { email });
+    return response;
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message ||
+        "Failed to send reset link. Please try again."
+    );
+  }
+};
