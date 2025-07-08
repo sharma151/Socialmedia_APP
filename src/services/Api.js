@@ -22,19 +22,45 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Intercept responses to handle 401 errors
+// Intercept responses to handle token expiration and invalid tokens
 apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
+    const originalRequest = error.config;
+
+    // Handle token expired or invalid (401)
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      // Prevent infinite retry loops
+      originalRequest._retry = true;
+
+      // Clear the invalid token
       localStorage.removeItem("AccessToken");
 
-      toast.error("Session expired. Please log in again.");
-      window.location.href = "/login";
+      // Show error message
+      toast.error("Your session has expired. Please log in again.");
+
+      // Redirect to login page
+      // Use window.location.replace() to prevent back navigation to protected pages
+      setTimeout(() => {
+        window.location.replace("/login");
+      }, 1000); // Small delay to allow toast to be seen
+
+      return Promise.reject(error);
+    }
+
+    // Handle other errors
+    if (error.response) {
+      const errorMessage =
+        error.response.data?.message ||
+        error.response.statusText ||
+        "An unexpected error occurred";
+      toast.error(errorMessage);
+    } else if (error.request) {
+      toast.error("No response received from server. Please try again.");
     } else {
-      toast.error(error.response?.data?.message || "An error occurred");
+      toast.error("An error occurred. Please try again.");
     }
 
     return Promise.reject(error);
