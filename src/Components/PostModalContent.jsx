@@ -31,19 +31,19 @@ const PostModalContent = ({ post, onLike, onBookmark, navigate }) => {
         <div className="flex items-center gap-3 mb-4">
           {post?.author?.account?.avatar?.url && (
             <img
-              src={post.author.account.avatar.url}
+              src={post?.author?.account?.avatar?.url}
               alt="avatar"
               className="w-10 h-10 rounded-full object-cover cursor-pointer"
               onClick={() =>
-                navigate(`/profile/${post.author.account.username}`)
+                navigate(`/profile/${post?.author?.account?.username}`)
               }
             />
           )}
-          <div>
+          <div>?
             <p
               className="font-bold cursor-pointer hover:underline"
               onClick={() =>
-                navigate(`/profile/${post.author.account.username}`)
+                navigate(`/profile/${post?.author?.account?.username}`)
               }
             >
               {post?.author?.firstName} {post?.author?.lastName}
@@ -64,7 +64,7 @@ const PostModalContent = ({ post, onLike, onBookmark, navigate }) => {
         {/* Like & Bookmark */}
         <div className="flex justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-4">
           <button
-            onClick={() => onLike(post._id)}
+            onClick={() => onLike(post?._id)}
             className="flex items-center gap-1 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
           >
             {post?.isLiked ? (
@@ -75,7 +75,7 @@ const PostModalContent = ({ post, onLike, onBookmark, navigate }) => {
             <span>{post?.likes}</span>
           </button>
           <button
-            onClick={() => onBookmark(post._id)}
+            onClick={() => onBookmark(post?._id)}
             className="hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors"
           >
             {post?.isBookmarked ? (
