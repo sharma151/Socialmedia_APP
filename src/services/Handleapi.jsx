@@ -23,15 +23,11 @@ export const HandleDeletePost = async (_id) => {
   }
 };
 
-export const handleFetchmyPost = async () => {
-  try {
-    const response = await apiClient.get(
-      `/social-media/posts/get/my?page=1&limit=100`
-    );
-    return response?.data?.data?.posts;
-  } catch (error) {
-    console.log(error);
-  }
+export const handleFetchMyPost = async ({ page = 1, limit = 100 } = {}) => {
+  const response = await apiClient.get(`/social-media/posts/get/my`, {
+    params: { page, limit },
+  });
+  return response?.data?.data?.posts;
 };
 
 export const handleFetchallPost = async (page = 1, limit = 10) => {
